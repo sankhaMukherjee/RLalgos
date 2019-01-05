@@ -1,0 +1,16 @@
+{
+    "inputs"  : {},
+    "outputs" : {},
+    "params"  : {
+    	"TODO" : {
+    		"openAI": true
+    	},
+    	"openAI_params" : {
+    		"checkValidity"  : true,
+    		"renderAll"      : false,
+    		"renderTime"     : 1,
+    		"renderOne"      : "MountainCar-v0",
+    		"playOne"      : "MountainCar-v0"
+    	}
+    }
+}

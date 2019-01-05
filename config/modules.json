@@ -2,8 +2,14 @@
     {
         "moduleName" : "module1",
         "path"       : "modules/module1/module1.py",
-        "execute"    : true ,
+        "execute"    : false,
         "description": "",
         "owner"      : ""
+    },{
+        "moduleName" : "tests",
+        "path"       : "modules/tests/tests.py",
+        "execute"    : true,
+        "description": "This will run some initial tests to make sure that the modules are working",
+        "owner"      : "Sankha"
     }
 ]
