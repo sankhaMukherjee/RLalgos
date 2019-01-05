@@ -73,6 +73,7 @@ def allTests(logger):
 		cfg  = json.load(open('../config/modules/tests.json'))['params']
 		if not cfg['TODO']['openAI']:
 			print('OpenAI GYM environment is noto being tested')
+			return
 
 		cfg = cfg['openAI_params']
 

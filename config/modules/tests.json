@@ -3,14 +3,19 @@
     "outputs" : {},
     "params"  : {
     	"TODO" : {
-    		"openAI": true
+    		"openAI": false,
+    		"Unity" : true
     	},
     	"openAI_params" : {
-    		"checkValidity"  : true,
-    		"renderAll"      : false,
-    		"renderTime"     : 1,
-    		"renderOne"      : "MountainCar-v0",
-    		"playOne"      : "MountainCar-v0"
+    		"checkValidity" : false,
+    		"renderAll"     : false,
+    		"renderTime"    : 1,
+    		"renderOne"     : "MountainCar-v0",
+    		"playOne"       : "MountainCar-v0"
+    	},
+    	"UnityParams" : {
+    		"binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+    		"randomAction" : "np.random.randint(0, 4)"
     	}
     }
 }

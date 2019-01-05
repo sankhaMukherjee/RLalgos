@@ -2,6 +2,7 @@ from logs import logDecorator as lD
 import json, pprint
 
 from modules.tests import testOpenAI as tOAI
+from modules.tests import testUnity  as tUnity
 
 config = json.load(open('../config/config.json'))
 logBase = config['logging']['logBase'] + '.modules.tests.tests'
@@ -26,6 +27,7 @@ def main(logger, resultsDict):
     '''
 
     tOAI.allTests()
+    tUnity.allTests()
 
 
     return
