@@ -1,0 +1,13 @@
+Pillow
+docopt
+grpcio==1.11.0
+ipykernel
+jupyter
+matplotlib
+numpy
+pandas
+protobuf==3.5.2
+pytest
+pyyaml
+scipy
+tensorflow==1.7.1
