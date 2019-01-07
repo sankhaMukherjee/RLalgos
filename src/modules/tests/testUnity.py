@@ -5,6 +5,8 @@ import numpy as np
 
 from unityagents import UnityEnvironment
 
+from lib.envs import envUnity
+
 import gym
 from gym import envs
 
@@ -16,31 +18,20 @@ def allTests(logger):
 
 	try:
 		cfg  = json.load(open('../config/modules/tests.json'))['params']
-		if not cfg['TODO']['Unity']:
-			print('The Unity environment is noto being tested')
-			return
 
-		print('Doing Unity Tests')
-		cfg = cfg['UnityParams']
+		policy = lambda m: eval( cfg['UnityParams']['randomAction'] )
 
-		env = UnityEnvironment(file_name = cfg['binaryFile'])
-		brain_name = env.brain_names[0]
-		env_info = env.reset(train_mode=False)[brain_name]
+		with envUnity.Env(cfg['UnityParams']['binaryFile'], showEnv=True) as env:
 
-		num_agents = len(env_info.agents)
-		print('Number of agents:', num_agents)
-
-		for i in range(100):
-			env_info  = env.step( eval(cfg['randomAction']) )[brain_name]
-			o, r, done = env_info.vector_observations[0], env_info.rewards[0], env_info.local_done[0]
-
-			print(o, r, done)
-			if done:
-				break
-
+			results = env.episode(policy, maxSteps = 1000)
+			for i in  range(env.num_agents):
+				print(f'For agent {i}:')
+				s, a, r, ns, d = zip(*results[i])
+				print(f'Rewards: {r}')
+				print(f'Donnes: {d}')
 
 	except Exception as e:
-		logger.error('Unable to finish Unity tests')
+		logger.error('Unable to finish Unity tests: {}')
 
 
 	return
