@@ -1,14 +1,10 @@
 from logs import logDecorator as lD 
 import json, pprint
-from time import sleep
 import numpy as np
 
 from unityagents import UnityEnvironment
+from lib.envs    import envUnity
 
-from lib.envs import envUnity
-
-import gym
-from gym import envs
 
 config = json.load(open('../config/config.json'))
 logBase = config['logging']['logBase'] + '.modules.tests.testUnity'
@@ -31,7 +27,7 @@ def allTests(logger):
 				print(f'Donnes: {d}')
 
 	except Exception as e:
-		logger.error('Unable to finish Unity tests: {}')
+		logger.error(f'Unable to finish Unity tests: {e}')
 
 
 	return
