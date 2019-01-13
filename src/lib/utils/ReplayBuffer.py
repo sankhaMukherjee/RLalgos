@@ -39,10 +39,29 @@ class SimpleReplayBuffer:
 
     @property
     def len(self):
+        '''returns the length of the emory buffer
+        
+        Remember that this is a property and there is no need
+        to call it as a function.
+
+        Returns:
+            int -- the length of the currrent memory buffer
+        '''
         return len(self.memory)
 
     @property
     def shape(self):
+        '''the shape of the buffer
+        
+        This is the shape of the memory buffers. This returns
+        a tuple that contains the length of the buffer for the
+        first element of the tuple, and the length of each element 
+        as the second element of the tuple. If there is nothing 
+        within the memory, this is going to return a None
+        
+        Returns:
+            tuple -- the shape of the data within the memory buffer
+        '''
         N = len(self.memory)
         if N > 0:
             N1 = len( self.memory[0] )
