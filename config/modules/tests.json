@@ -5,7 +5,8 @@
     	"TODO" : {
             "openAI"       : false,
             "Unity"        : false,
-    		"MemoryBuffer" : true
+            "MemoryBuffer" : false,
+    		"policy"       : true
     	},
     	"openAI_params" : {
     		"checkValidity" : false,
@@ -19,6 +20,10 @@
     		"randomAction" : "[np.random.randint(0, 4)]"
     	},
         "MemoryBufferParams" : {
+            "binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+            "randomAction" : "[np.random.randint(0, 4)]"
+        },
+        "policyParams" : {
             "binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
             "randomAction" : "[np.random.randint(0, 4)]"
         }

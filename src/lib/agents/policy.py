@@ -1,4 +1,4 @@
-
+import numpy as np
 
 class epsGreedyPolicy:
 
@@ -29,5 +29,12 @@ class epsGreedyPolicy:
 		Returns:
 			[type] -- [description]
 		'''
+
+		actions = []
+		for state in states:
+			if np.random.rand() <= eps:
+				actions.append( self.randomAgent( state ) )
+			else:
+				actions.append( self.agent( state ) )
 
 		return actions
