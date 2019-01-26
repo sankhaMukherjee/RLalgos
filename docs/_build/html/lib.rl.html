@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>lib.testLib package &mdash; src  documentation</title>
+  <title>lib.rl package &mdash; src  documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="lib.utils package" href="lib.utils.html" />
-    <link rel="prev" title="lib.rl package" href="lib.rl.html" /> 
+    <link rel="next" title="lib.testLib package" href="lib.testLib.html" />
+    <link rel="prev" title="lib.resultGraph package" href="lib.resultGraph.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,13 +88,13 @@
 <li class="toctree-l3"><a class="reference internal" href="lib.databaseIO.html">lib.databaseIO package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lib.envs.html">lib.envs package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lib.resultGraph.html">lib.resultGraph package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lib.rl.html">lib.rl package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">lib.testLib package</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">lib.rl package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-lib.testLib.simpleLib">lib.testLib.simpleLib module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-lib.testLib">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.rl.DQN">lib.rl.DQN module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.rl">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="lib.testLib.html">lib.testLib package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lib.utils.html">lib.utils package</a></li>
 </ul>
 </li>
@@ -150,13 +150,13 @@
         
           <li><a href="lib.html">lib package</a> &raquo;</li>
         
-      <li>lib.testLib package</li>
+      <li>lib.rl package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/lib.testLib.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/lib.rl.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,51 +169,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="lib-testlib-package">
-<h1>lib.testLib package<a class="headerlink" href="#lib-testlib-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="lib-rl-package">
+<h1>lib.rl package<a class="headerlink" href="#lib-rl-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-lib.testLib.simpleLib">
-<span id="lib-testlib-simplelib-module"></span><h2>lib.testLib.simpleLib module<a class="headerlink" href="#module-lib.testLib.simpleLib" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="lib.testLib.simpleLib.simpleTestFunction">
-<code class="descclassname">lib.testLib.simpleLib.</code><code class="descname">simpleTestFunction</code><span class="sig-paren">(</span><em>logger</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/testLib/simpleLib.html#simpleTestFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.testLib.simpleLib.simpleTestFunction" title="Permalink to this definition">¶</a></dt>
-<dd><p>simple test function for testing</p>
-<p>this takes two inputs and returns the
-sum of the two inputs. This might result
-in an error. If such a thing happens,
-this function will catch this error and
-log it. It will raise the error again
-to be caught at a higher level function.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> (<em>{any type}</em>) – the first input</li>
-<li><strong>b</strong> ({similar type as <cite>a</cite>}) – the second input</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the sum of <cite>a</cite> and <cite>b</cite></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">similar type as <cite>a</cite> and <cite>b</cite></p>
-</td>
-</tr>
-</tbody>
-</table>
+<div class="section" id="module-lib.rl.DQN">
+<span id="lib-rl-dqn-module"></span><h2>lib.rl.DQN module<a class="headerlink" href="#module-lib.rl.DQN" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.rl.DQN.DQN">
+<em class="property">class </em><code class="descclassname">lib.rl.DQN.</code><code class="descname">DQN</code><span class="sig-paren">(</span><em>env</em>, <em>replayBuffer</em>, <em>agent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/rl/DQN.html#DQN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.rl.DQN.DQN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-lib.testLib">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lib.testLib" title="Permalink to this headline">¶</a></h2>
-<p>test library</p>
-<p>Dont use this folder. This has been placed here solely for demonstration.
-You are welcome to use this folder as a template for other libraries. This
-folder has a single file, and within that a single folder, for demo
-purposes. It is possible that other libraries will be added as necessary.</p>
+<div class="section" id="module-lib.rl">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lib.rl" title="Permalink to this headline">¶</a></h2>
+<p>[summary]</p>
+<p>[description]</p>
 </div>
 </div>
 
@@ -225,10 +198,10 @@ purposes. It is possible that other libraries will be added as necessary.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="lib.utils.html" class="btn btn-neutral float-right" title="lib.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lib.testLib.html" class="btn btn-neutral float-right" title="lib.testLib package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="lib.rl.html" class="btn btn-neutral" title="lib.rl package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lib.resultGraph.html" class="btn btn-neutral" title="lib.resultGraph package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

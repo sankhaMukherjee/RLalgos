@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="RLalgos.html">RLalgos module</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="lib.html">lib package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="lib.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lib.agents.html">lib.agents package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lib.argParsers.html">lib.argParsers package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lib.databaseIO.html">lib.databaseIO package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">lib.envs package</a><ul>
@@ -92,7 +93,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lib.resultGraph.html">lib.resultGraph package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.rl.html">lib.rl package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lib.testLib.html">lib.testLib package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.utils.html">lib.utils package</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="lib.html#module-lib">Module contents</a></li>
@@ -185,19 +188,114 @@ and hence it will be difficult to create a uniform algorithm that
 is able to solve everything at the sametime. This environment
 tries to solve that problem.</p>
 <dl class="method">
+<dt id="lib.envs.envUnity.Env.__enter__">
+<code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envUnity.html#Env.__enter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envUnity.Env.__enter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a context manager</p>
+<p>This will actually generate the context manager and allow you use this
+within a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. This is the function that actually
+initialized the environment and maintains it, until it is needed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">this</span></code> – Returns an instance of the same class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envUnity.Env.__exit__">
+<code class="descname">__exit__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envUnity.html#Env.__exit__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envUnity.Env.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit the context manager</p>
+<p>The exit funciton that will result in exiting the
+context manager. Typically one is supposed to check
+the error if any at this point. This will be handled
+at a higher level</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{</strong><strong>[</strong><strong>type</strong><strong>]</strong><strong>} --</strong><strong> [</strong><strong>description</strong><strong>]</strong> (<em>*args</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="lib.envs.envUnity.Env.episode">
 <code class="descname">episode</code><span class="sig-paren">(</span><em>policy</em>, <em>maxSteps=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envUnity.html#Env.episode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envUnity.Env.episode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>generate data for an entire episode</p>
+<p>This function generates an entire episde. It plays the environment
+by first resetting it too the beginning, and then playing the game for
+a given number of steps (or unless the game is terminated). It generates
+a set of list of tuplees, again one for each agent. Rememebr that even
+when the number of agents is 1, it will still return a list oof states.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{function} -- The function that takes the current state and</strong> (<em>policy</em>) – returns the action vector.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>{int</strong><strong> or </strong><strong>None} -- The maximum number of steps that the agent is</strong> (<em>maxSteps</em>) – going to play the episode before the episode is terminated. (default:
+{None} in which case the episode will continue until it actually
+finishes)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>list – This returns the list of tuples for the entire episode. Again, this</dt>
+<dd>is a lsit of lists, one for each agent.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lib.envs.envUnity.Env.reset">
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envUnity.html#Env.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envUnity.Env.reset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>reset the environment before starting an episode</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">status – The current status after the reset</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lib.envs.envUnity.Env.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>policy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envUnity.html#Env.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envUnity.Env.step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>advance one step by taking an action</p>
+<p>This function takes a policy function and generates an action
+according to that particular policy. This results in the
+advancement of the episode into a one step with the return
+of the reward, and the next state along with any done
+information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{function} -- This function takes a state vector and</strong> (<em>policy</em>) – returns an action vector. It is assumed that the policy
+is the correct type of policy, and is capable if taking
+the right returning the right type of vector corresponding
+the the policy for the current environment. It does not
+check for the validity of the policy function</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>list – This returns a list of tuples containing the tuple</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">(s_t,</span> <span class="pre">a_t,</span> <span class="pre">r_{t+1},</span> <span class="pre">s_{t+1},</span> <span class="pre">d)</span></code>. One tuple for each
+agent. Even for the case of a single agent, this is going
+to return a list of states</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

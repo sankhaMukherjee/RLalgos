@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lib.utils package &mdash; src  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="logs package" href="logs.html" />
+    <link rel="prev" title="lib.testLib package" href="lib.testLib.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> src
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="RLalgos.html">RLalgos module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="lib.html">lib package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lib.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="lib.agents.html">lib.agents package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.argParsers.html">lib.argParsers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.databaseIO.html">lib.databaseIO package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.envs.html">lib.envs package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.resultGraph.html">lib.resultGraph package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.rl.html">lib.rl package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lib.testLib.html">lib.testLib package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">lib.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.utils.ReplayBuffer">lib.utils.ReplayBuffer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lib.html#module-lib">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">logs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">modules package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">src</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="lib.html">lib package</a> &raquo;</li>
+        
+      <li>lib.utils package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/lib.utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lib-utils-package">
+<h1>lib.utils package<a class="headerlink" href="#lib-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-lib.utils.ReplayBuffer">
+<span id="lib-utils-replaybuffer-module"></span><h2>lib.utils.ReplayBuffer module<a class="headerlink" href="#module-lib.utils.ReplayBuffer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer">
+<em class="property">class </em><code class="descclassname">lib.utils.ReplayBuffer.</code><code class="descname">SimpleReplayBuffer</code><span class="sig-paren">(</span><em>maxDataTuples</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/utils/ReplayBuffer.html#SimpleReplayBuffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/utils/ReplayBuffer.html#SimpleReplayBuffer.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>append a single tuple to the current replay buffer</p>
+<p>This function allows someone to add a single tuple to
+the replay buffer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>result</strong> (<em>{tuple}</em>) – The tuple that should be added into the memory buffer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.appendAllAgentResults">
+<code class="descname">appendAllAgentResults</code><span class="sig-paren">(</span><em>allResults</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/utils/ReplayBuffer.html#SimpleReplayBuffer.appendAllAgentResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.appendAllAgentResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>append all data from all agents into the same buffer</p>
+<p>This is useful when there is only one agent or when all the agents represent
+the same exact larning characteristics. In this case, multiple agents can be
+simulated by the same function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{list} -- List of list tuples to be entered into the buffer.</strong> (<em>allResults</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.appendMany">
+<code class="descname">appendMany</code><span class="sig-paren">(</span><em>results</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/utils/ReplayBuffer.html#SimpleReplayBuffer.appendMany"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.appendMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>append multiple tuples to the memory buffer</p>
+<p>Most often we will not be insterested in inserting a single data point
+into the replay buffer, but rather a whole list of these. This function
+just iterates over this list and inserts each tuple one by one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>results</strong> (<em>{list}</em>) – List of tuples that are to be inserted into the replay buffer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.len">
+<code class="descname">len</code><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.len" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the length of the emory buffer</p>
+<p>Remember that this is a property and there is no need
+to call it as a function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">int – the length of the currrent memory buffer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>folder</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/utils/ReplayBuffer.html#SimpleReplayBuffer.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load the data from a particular file</p>
+<p>Data saved with the previous command can be reloaded into this new buffer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>folder</strong> (<em>{str}</em>) – Path to the folder where the data is saved</li>
+<li><strong>name</strong> (<em>{str}</em>) – Name of the agent associated whose data is to be extracted.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>nSamples</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/utils/ReplayBuffer.html#SimpleReplayBuffer.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample from the replay beffer</p>
+<p>This function samples form the memory buffer, and returns the number of
+samples required. This does sampling in an intelligent manner. Since we are
+saving the cumulative rewards, we selectively select values that provide
+us greater</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nSamples</strong> (<em>{int}</em>) – The number of memory elements to return</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of samples that can be used for sampling the data.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>folder</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/utils/ReplayBuffer.html#SimpleReplayBuffer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save the replay buffer</p>
+<p>This function is going to save the data within the replay buffer
+into a pickle file. This will allow us to reload the buffer to
+a state where it has already been saved.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>folder</strong> (<em>{str}</em>) – path to the folder where the data is to be saved</li>
+<li><strong>name</strong> (<em>{str}</em>) – Name associated with the buffer. Since this program has two agents
+acting in tandum, we need to provide a name that will identify which
+agent’s buffer we are saving.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lib.utils.ReplayBuffer.SimpleReplayBuffer.shape">
+<code class="descname">shape</code><a class="headerlink" href="#lib.utils.ReplayBuffer.SimpleReplayBuffer.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>the shape of the buffer</p>
+<p>This is the shape of the memory buffers. This returns
+a tuple that contains the length of the buffer for the
+first element of the tuple, and the length of each element
+as the second element of the tuple. If there is nothing
+within the memory, this is going to return a None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple – the shape of the data within the memory buffer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lib.utils" title="Permalink to this headline">¶</a></h2>
+<p>[summary]</p>
+<p>[description]</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="logs.html" class="btn btn-neutral float-right" title="logs package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lib.testLib.html" class="btn btn-neutral" title="lib.testLib package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Author
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

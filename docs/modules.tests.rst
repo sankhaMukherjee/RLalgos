@@ -4,10 +4,26 @@ modules.tests package
 Submodules
 ----------
 
+modules.tests.testMemoryBuffers module
+--------------------------------------
+
+.. automodule:: modules.tests.testMemoryBuffers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 modules.tests.testOpenAI module
 -------------------------------
 
 .. automodule:: modules.tests.testOpenAI
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+modules.tests.testPolicy module
+-------------------------------
+
+.. automodule:: modules.tests.testPolicy
     :members:
     :undoc-members:
     :show-inheritance:
