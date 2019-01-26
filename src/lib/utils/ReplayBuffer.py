@@ -85,6 +85,21 @@ class SimpleReplayBuffer:
             self.memory.append(r)
         return
 
+    def appendAllAgentResults(self, allResults):
+        '''append all data from all agents into the same buffer
+        
+        This is useful when there is only one agent or when all the agents represent
+        the same exact larning characteristics. In this case, multiple agents can be
+        simulated by the same function.
+        
+        Arguments:
+            allResults {list} -- List of list tuples to be entered into the buffer. 
+        '''
+
+        for results in allResults:
+            self.appendMany( results )
+
+        return
 
     def sample(self, nSamples):
         '''sample from the replay beffer

@@ -25,10 +25,9 @@ def allTests(logger):
 
 			for _ in range(10):
 				print('[Generating Memories] ', end='', flush=True)
-				results = env.episode(policy, maxSteps = 1000)
-				for i in  range(env.num_agents):
-					memoryBuffer.appendMany(results[i])
-
+				allResults = env.episode(policy, maxSteps = 1000)
+				memoryBuffer.appendAllAgentResults( allResults )
+				
 				print( 'Memory Buffer lengths: {}'.format( memoryBuffer.shape ) )
 				
 
