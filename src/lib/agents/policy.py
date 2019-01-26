@@ -33,8 +33,8 @@ class epsGreedyPolicy:
 		actions = []
 		for state in states:
 			if np.random.rand() <= eps:
-				actions.append( self.randomAgent( state ) )
+				actions.append( self.randomAgent.act( state ) )
 			else:
-				actions.append( self.agent( state ) )
+				actions.append( self.agent.act( state ) )
 
 		return actions
