@@ -17,8 +17,8 @@ def allTests(logger):
 	try:
 		cfg  = json.load(open('../config/modules/tests.json'))['params']
 
-		agent  = rA.randomDiscreteAgent((37,), 4)
-		rAgent = rA.randomDiscreteAgent((37,), 4)
+		agent  = rA.randomDiscreteActor((37,), 4)
+		rAgent = rA.randomDiscreteActor((37,), 4)
 		egPolicy = policy.epsGreedyPolicy( agent, rAgent )
 
 		# At any point this policy can be changed ...

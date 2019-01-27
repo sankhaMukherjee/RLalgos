@@ -1,10 +1,10 @@
 
 import numpy as np
 
-class randomDiscreteActor():
+class fullyConnectedDiscreteActor():
 
 	def __init__(self, stateShape, numActions):
-		'''a random discrete actor
+		'''a fully-connected discrete actor
 		
 		A discrete action space is one where the actor will return
 		an integer which will represent one of n actions. This actor
