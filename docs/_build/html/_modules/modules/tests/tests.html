@@ -152,6 +152,7 @@
 <span class="kn">from</span> <span class="nn">modules.tests</span> <span class="k">import</span> <span class="n">testUnity</span>          <span class="k">as</span> <span class="n">tUnity</span>
 <span class="kn">from</span> <span class="nn">modules.tests</span> <span class="k">import</span> <span class="n">testMemoryBuffers</span>  <span class="k">as</span> <span class="n">tMB</span>
 <span class="kn">from</span> <span class="nn">modules.tests</span> <span class="k">import</span> <span class="n">testPolicy</span>         <span class="k">as</span> <span class="n">tP</span>
+<span class="kn">from</span> <span class="nn">modules.tests</span> <span class="k">import</span> <span class="n">testActors</span>         <span class="k">as</span> <span class="n">tA</span>
 
 <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/config.json&#39;</span><span class="p">))</span>
 <span class="n">logBase</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;logging&#39;</span><span class="p">][</span><span class="s1">&#39;logBase&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.modules.tests.tests&#39;</span>
@@ -191,6 +192,9 @@
 
         <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;TODO&#39;</span><span class="p">][</span><span class="s1">&#39;policy&#39;</span><span class="p">]:</span>
             <span class="n">tP</span><span class="o">.</span><span class="n">allTests</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;TODO&#39;</span><span class="p">][</span><span class="s1">&#39;actors&#39;</span><span class="p">]:</span>
+            <span class="n">tA</span><span class="o">.</span><span class="n">allTests</span><span class="p">()</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to complete all the tests: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>

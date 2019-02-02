@@ -4,6 +4,14 @@ modules.tests package
 Submodules
 ----------
 
+modules.tests.testActors module
+-------------------------------
+
+.. automodule:: modules.tests.testActors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 modules.tests.testMemoryBuffers module
 --------------------------------------
 

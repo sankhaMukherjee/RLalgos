@@ -4,6 +4,14 @@ lib.agents package
 Submodules
 ----------
 
+lib.agents.NNAgent module
+-------------------------
+
+.. automodule:: lib.agents.NNAgent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 lib.agents.policy module
 ------------------------
 
@@ -12,10 +20,18 @@ lib.agents.policy module
     :undoc-members:
     :show-inheritance:
 
-lib.agents.randomAgent module
+lib.agents.randomActor module
 -----------------------------
 
-.. automodule:: lib.agents.randomAgent
+.. automodule:: lib.agents.randomActor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+lib.agents.sequentialActor module
+---------------------------------
+
+.. automodule:: lib.agents.sequentialActor
     :members:
     :undoc-members:
     :show-inheritance:

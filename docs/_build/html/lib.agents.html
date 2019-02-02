@@ -85,8 +85,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="lib.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">lib.agents package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.NNAgent">lib.agents.NNAgent module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.policy">lib.agents.policy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.randomAgent">lib.agents.randomAgent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.randomActor">lib.agents.randomActor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.sequentialActor">lib.agents.sequentialActor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents">Module contents</a></li>
 </ul>
 </li>
@@ -175,6 +177,36 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-lib.agents.NNAgent">
+<span id="lib-agents-nnagent-module"></span><h2>lib.agents.NNAgent module<a class="headerlink" href="#module-lib.agents.NNAgent" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.agents.NNAgent.fullyConnectedDiscreteActor">
+<em class="property">class </em><code class="descclassname">lib.agents.NNAgent.</code><code class="descname">fullyConnectedDiscreteActor</code><span class="sig-paren">(</span><em>stateShape, numActions, hiddenSizes=[24, 48]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/NNAgent.html#fullyConnectedDiscreteActor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.NNAgent.fullyConnectedDiscreteActor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="method">
+<dt id="lib.agents.NNAgent.fullyConnectedDiscreteActor.act">
+<code class="descname">act</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/NNAgent.html#fullyConnectedDiscreteActor.act"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.NNAgent.fullyConnectedDiscreteActor.act" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an action based on the state</p>
+<p>[description]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{nd-array} -- nd-array as described by the state</strong> (<em>state</em>) – shape described in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>integer – integer between 0 and the number of actions</dt>
+<dd>available.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-lib.agents.policy">
 <span id="lib-agents-policy-module"></span><h2>lib.agents.policy module<a class="headerlink" href="#module-lib.agents.policy" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -206,15 +238,15 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-lib.agents.randomAgent">
-<span id="lib-agents-randomagent-module"></span><h2>lib.agents.randomAgent module<a class="headerlink" href="#module-lib.agents.randomAgent" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-lib.agents.randomActor">
+<span id="lib-agents-randomactor-module"></span><h2>lib.agents.randomActor module<a class="headerlink" href="#module-lib.agents.randomActor" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="lib.agents.randomAgent.randomDiscreteAgent">
-<em class="property">class </em><code class="descclassname">lib.agents.randomAgent.</code><code class="descname">randomDiscreteAgent</code><span class="sig-paren">(</span><em>stateShape</em>, <em>numActions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/randomAgent.html#randomDiscreteAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.randomAgent.randomDiscreteAgent" title="Permalink to this definition">¶</a></dt>
+<dt id="lib.agents.randomActor.randomDiscreteActor">
+<em class="property">class </em><code class="descclassname">lib.agents.randomActor.</code><code class="descname">randomDiscreteActor</code><span class="sig-paren">(</span><em>stateShape</em>, <em>numActions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/randomActor.html#randomDiscreteActor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.randomActor.randomDiscreteActor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="lib.agents.randomAgent.randomDiscreteAgent.act">
-<code class="descname">act</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/randomAgent.html#randomDiscreteAgent.act"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.randomAgent.randomDiscreteAgent.act" title="Permalink to this definition">¶</a></dt>
+<dt id="lib.agents.randomActor.randomDiscreteActor.act">
+<code class="descname">act</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/randomActor.html#randomDiscreteActor.act"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.randomActor.randomDiscreteActor.act" title="Permalink to this definition">¶</a></dt>
 <dd><p>return an action based on the state</p>
 <p>[description]</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -233,15 +265,28 @@
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="lib.agents.randomAgent.randomDiscreteAgent.restore">
-<code class="descname">restore</code><span class="sig-paren">(</span><em>location=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/randomAgent.html#randomDiscreteAgent.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.randomAgent.randomDiscreteAgent.restore" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
+</div>
+<div class="section" id="module-lib.agents.sequentialActor">
+<span id="lib-agents-sequentialactor-module"></span><h2>lib.agents.sequentialActor module<a class="headerlink" href="#module-lib.agents.sequentialActor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.agents.sequentialActor.SequentialDiscreteActor">
+<em class="property">class </em><code class="descclassname">lib.agents.sequentialActor.</code><code class="descname">SequentialDiscreteActor</code><span class="sig-paren">(</span><em>stateSize, numActions, layers=[10, 5], activations=[&lt;function tanh&gt;, &lt;function tanh&gt;], batchNormalization=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/sequentialActor.html#SequentialDiscreteActor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.sequentialActor.SequentialDiscreteActor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
 <dl class="method">
-<dt id="lib.agents.randomAgent.randomDiscreteAgent.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>location=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/randomAgent.html#randomDiscreteAgent.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.randomAgent.randomDiscreteAgent.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="lib.agents.sequentialActor.SequentialDiscreteActor.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/sequentialActor.html#SequentialDiscreteActor.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.sequentialActor.SequentialDiscreteActor.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
 
 </dd></dl>
 
