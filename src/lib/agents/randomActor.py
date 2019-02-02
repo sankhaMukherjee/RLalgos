@@ -42,11 +42,3 @@ class randomDiscreteActor():
 		result = np.random.randint(0, self.numActions)
 
 		return result
-
-	def save(self, location=None):
-
-		return
-
-	def restore(self, location=None):
-
-		return

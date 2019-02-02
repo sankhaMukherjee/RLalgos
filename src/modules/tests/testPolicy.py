@@ -5,7 +5,7 @@ import numpy as np
 from unityagents import UnityEnvironment
 from lib.envs    import envUnity
 from lib.utils   import ReplayBuffer as RB
-from lib.agents  import policy, randomAgent as rA
+from lib.agents  import policy, randomActor as rA
 
 config  = json.load(open('../config/config.json'))
 logBase = config['logging']['logBase'] + '.modules.tests.testPolicy'

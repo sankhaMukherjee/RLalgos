@@ -6,7 +6,8 @@
             "openAI"       : false,
             "Unity"        : false,
             "MemoryBuffer" : false,
-    		"policy"       : true
+            "policy"       : false,
+    		"actors"       : true
     	},
     	"openAI_params" : {
     		"checkValidity" : false,

@@ -5,6 +5,7 @@ from modules.tests import testOpenAI         as tOAI
 from modules.tests import testUnity          as tUnity
 from modules.tests import testMemoryBuffers  as tMB
 from modules.tests import testPolicy         as tP
+from modules.tests import testActors         as tA
 
 config = json.load(open('../config/config.json'))
 logBase = config['logging']['logBase'] + '.modules.tests.tests'
@@ -44,6 +45,9 @@ def main(logger, resultsDict):
 
         if cfg['TODO']['policy']:
             tP.allTests()
+        
+        if cfg['TODO']['actors']:
+            tA.allTests()
 
     except Exception as e:
         logger.error(f'Unable to complete all the tests: {e}')

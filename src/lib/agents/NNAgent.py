@@ -1,15 +1,16 @@
 
 import numpy as np
+import torch
+import torch.nn            as nn
+import torch.nn.functional as F
 
-class fullyConnectedDiscreteActor():
+class fullyConnectedDiscreteActor(nn.Module):
 
-	def __init__(self, stateShape, numActions):
+	def __init__(self, stateShape, numActions, hiddenSizes=[24, 48]):
 		'''a fully-connected discrete actor
 		
 		A discrete action space is one where the actor will return
-		an integer which will represent one of n actions. This actor
-		will return a random action independent of the state the 
-		environment is in. This will be roughly uniformly distributed.
+		an integer which will represent one of n actions. 
 		
 		Arguments:
 
@@ -20,8 +21,20 @@ class fullyConnectedDiscreteActor():
 		
 		'''
 
+		super(fullyConnectedDiscreteActor, self).__init__()
 		self.stateShape = stateShape 
 		self.numActions = numActions
+
+		self.fcns = []
+		self.bns  = []
+
+		allSizes = hiddenSizes + [numActions]
+		prevS    = stateShape[-1]
+
+		for s in allSizes:
+			self.fcns.append(nn.Linear( prevS, s ))
+			self.bns.append(nn.BatchNorm1d( num_features = s ))
+			prevS = s
 
 		return
 
@@ -43,10 +56,3 @@ class fullyConnectedDiscreteActor():
 
 		return result
 
-	def save(self, location=None):
-
-		return
-
-	def restore(self, location=None):
-
-		return
