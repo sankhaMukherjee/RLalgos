@@ -12,6 +12,14 @@ modules.tests.testActors module
     :undoc-members:
     :show-inheritance:
 
+modules.tests.testCritics module
+--------------------------------
+
+.. automodule:: modules.tests.testCritics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 modules.tests.testMemoryBuffers module
 --------------------------------------
 

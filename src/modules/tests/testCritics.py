@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
-from lib.agents  import sequentialActor as sA, randomActor as rA
+from lib.agents  import sequentialCritic as sC
 
 config  = json.load(open('../config/config.json'))
 logBase = config['logging']['logBase'] + '.modules.tests.testPolicy'
@@ -15,23 +15,22 @@ def allTests(logger):
 
 	try:
 
-		print('--------------------')
-
-		sequence = sA.SequentialDiscreteActor(
-			stateSize = 10, numActions = 3, 
-			layers                  = [10, 5], 
-			activations             = [F.tanh, F.tanh], 
+		sequence = sC.SequentialCritic(
+			stateSize = 10, actionSize = 1, 
+			layers                  = [20, 10, 3, 4], 
+			activations             = [F.tanh, F.tanh, F.tanh, F.tanh], 
+			mergeLayer              = 3, 
 			batchNormalization      = True)
 
 		inp = np.random.rand(30, 10).astype( np.float32 ) * 10
-		out = sequence( torch.as_tensor(inp) )
+		actions = np.random.rand(30, 1).astype( np.float32 ) * 10
+		out = sequence( torch.as_tensor(inp), torch.as_tensor(actions) )
 
 
 		print( out )
-		print( torch.argmax(out, dim=1) )
 
 	except Exception as e:
-		logger.error(f'Unable to finish Memory Buffer tests: {e}')
+		logger.error(f'Unable to finish Critic tests: {e}')
 
 	return
 

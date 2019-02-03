@@ -36,6 +36,14 @@ lib.agents.sequentialActor module
     :undoc-members:
     :show-inheritance:
 
+lib.agents.sequentialCritic module
+----------------------------------
+
+.. automodule:: lib.agents.sequentialCritic
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

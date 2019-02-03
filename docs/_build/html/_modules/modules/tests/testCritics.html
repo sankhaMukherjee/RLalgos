@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>modules.tests.testActors &mdash; src  documentation</title>
+  <title>modules.tests.testCritics &mdash; src  documentation</title>
   
 
   
@@ -129,7 +129,7 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-      <li>modules.tests.testActors</li>
+      <li>modules.tests.testCritics</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -144,7 +144,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for modules.tests.testActors</h1><div class="highlight"><pre>
+  <h1>Source code for modules.tests.testCritics</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">logs</span> <span class="k">import</span> <span class="n">logDecorator</span> <span class="k">as</span> <span class="n">lD</span> 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -152,33 +152,32 @@
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch.nn</span> <span class="k">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
 
-<span class="kn">from</span> <span class="nn">lib.agents</span>  <span class="k">import</span> <span class="n">sequentialActor</span> <span class="k">as</span> <span class="n">sA</span><span class="p">,</span> <span class="n">randomActor</span> <span class="k">as</span> <span class="n">rA</span>
+<span class="kn">from</span> <span class="nn">lib.agents</span>  <span class="k">import</span> <span class="n">sequentialCritic</span> <span class="k">as</span> <span class="n">sC</span>
 
 <span class="n">config</span>  <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/config.json&#39;</span><span class="p">))</span>
 <span class="n">logBase</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;logging&#39;</span><span class="p">][</span><span class="s1">&#39;logBase&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.modules.tests.testPolicy&#39;</span>
 
-<div class="viewcode-block" id="allTests"><a class="viewcode-back" href="../../../modules.tests.html#modules.tests.testActors.allTests">[docs]</a><span class="nd">@lD</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">logBase</span> <span class="o">+</span> <span class="s1">&#39;.allTests&#39;</span> <span class="p">)</span>
+<div class="viewcode-block" id="allTests"><a class="viewcode-back" href="../../../modules.tests.html#modules.tests.testCritics.allTests">[docs]</a><span class="nd">@lD</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">logBase</span> <span class="o">+</span> <span class="s1">&#39;.allTests&#39;</span> <span class="p">)</span>
 <span class="k">def</span> <span class="nf">allTests</span><span class="p">(</span><span class="n">logger</span><span class="p">):</span>
 
 	<span class="k">try</span><span class="p">:</span>
 
-		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------------&#39;</span><span class="p">)</span>
-
-		<span class="n">sequence</span> <span class="o">=</span> <span class="n">sA</span><span class="o">.</span><span class="n">SequentialDiscreteActor</span><span class="p">(</span>
-			<span class="n">stateSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">numActions</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
-			<span class="n">layers</span>                  <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> 
-			<span class="n">activations</span>             <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">],</span> 
+		<span class="n">sequence</span> <span class="o">=</span> <span class="n">sC</span><span class="o">.</span><span class="n">SequentialCritic</span><span class="p">(</span>
+			<span class="n">stateSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">actionSize</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> 
+			<span class="n">layers</span>                  <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> 
+			<span class="n">activations</span>             <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">],</span> 
+			<span class="n">mergeLayer</span>              <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
 			<span class="n">batchNormalization</span>      <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
 		<span class="n">inp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
-		<span class="n">out</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="p">)</span>
+		<span class="n">actions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+		<span class="n">out</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">inp</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span> <span class="p">)</span>
 
 
 		<span class="nb">print</span><span class="p">(</span> <span class="n">out</span> <span class="p">)</span>
-		<span class="nb">print</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
 
 	<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-		<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to finish Memory Buffer tests: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
+		<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to finish Critic tests: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 	<span class="k">return</span></div>
 

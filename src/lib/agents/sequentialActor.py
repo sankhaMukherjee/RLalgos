@@ -54,7 +54,6 @@ class SequentialDiscreteActor(nn.Module):
 		for bn, fc, a in zip(self.bns, self.fcLayers, self.activations):
 			x = a(bn(fc(x)))
 
-		x = F.softmax(x)
+		x = F.softmax(self.fcFinal(x))
 
 		return x
-		
