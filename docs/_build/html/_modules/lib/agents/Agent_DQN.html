@@ -146,38 +146,93 @@
             
   <h1>Source code for lib.agents.Agent_DQN</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
 
 <div class="viewcode-block" id="Agent_DQN"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN">[docs]</a><span class="k">class</span> <span class="nc">Agent_DQN</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">criticSlow</span><span class="p">,</span> <span class="n">criticFast</span><span class="p">,</span> <span class="n">numActions</span><span class="p">,</span> <span class="n">randomAction</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">qNetworkSlow</span><span class="p">,</span> <span class="n">qNetworkFast</span><span class="p">,</span> <span class="n">numActions</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span>          <span class="o">=</span> <span class="n">env</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span>       <span class="o">=</span> <span class="n">memory</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">criticSlow</span>   <span class="o">=</span> <span class="n">criticSlow</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">criticFast</span>   <span class="o">=</span> <span class="n">criticFast</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">numAction</span>    <span class="o">=</span> <span class="n">numAction</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">randomAction</span> <span class="o">=</span> <span class="n">randomAction</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">eye</span>          <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span> <span class="n">numAction</span> <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span>            <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span>         <span class="o">=</span> <span class="n">memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkSlow</span>   <span class="o">=</span> <span class="n">qNetworkSlow</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkFast</span>   <span class="o">=</span> <span class="n">qNetworkFast</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numActions</span>     <span class="o">=</span> <span class="n">numActions</span>
 
         <span class="k">return</span>
 
+<div class="viewcode-block" id="Agent_DQN.randomAction"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.randomAction">[docs]</a>    <span class="k">def</span> <span class="nf">randomAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;returns a set of random actions for the given states</span>
+<span class="sd">        </span>
+<span class="sd">        given the size of the number of actions, this function is going</span>
+<span class="sd">        to return a set of actions that has the same number of actions</span>
+<span class="sd">        as the number of inputs in the shape. For example, if </span>
+<span class="sd">        ``state.shape == (10, ?)`` then the result will be a vector of</span>
+<span class="sd">        size 10. This is in accordance with the redduction in the</span>
+<span class="sd">        dimensionality of the maxAction space. </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : {nd_array or tensor}</span>
+<span class="sd">            numpy array or tensor containing the state. The columns</span>
+<span class="sd">            represent the different parts of the state.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        uarray</span>
+<span class="sd">            The return value is set of random actions</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numActions</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
 <div class="viewcode-block" id="Agent_DQN.maxAction"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.maxAction">[docs]</a>    <span class="k">def</span> <span class="nf">maxAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;returns the action that maximizes the Q function</span>
+<span class="sd">        </span>
+<span class="sd">        Given an set of statees, this function is going to return a set</span>
+<span class="sd">        of actions which will maximize the value of the Q network for each</span>
+<span class="sd">        of the supplied states.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : {nd_array or tensor}</span>
+<span class="sd">            numpy array or tensor containing the state. The columns</span>
+<span class="sd">            represent the different parts of the state.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        uarray</span>
+<span class="sd">            The return values of actions that maximize the states</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">state</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">qVals</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkSlow</span><span class="p">(</span> <span class="n">state</span> <span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">qVals</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-        <span class="n">states</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span> <span class="p">)</span>
-        <span class="n">qVals</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criticSlow</span><span class="p">(</span> <span class="n">states</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eye</span> <span class="p">)</span>
-
-        <span class="n">qVals</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
-
-        <span class="k">return</span></div>
-
-<div class="viewcode-block" id="Agent_DQN.memoryUpdateEpisode"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.memoryUpdateEpisode">[docs]</a>    <span class="k">def</span> <span class="nf">memoryUpdateEpisode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
+<div class="viewcode-block" id="Agent_DQN.memoryUpdateEpisode"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.memoryUpdateEpisode">[docs]</a>    <span class="k">def</span> <span class="nf">memoryUpdateEpisode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">maxSteps</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;update the memory</span>
+<span class="sd">        </span>
+<span class="sd">        Given a particular policy, this memory is going to take</span>
+<span class="sd">        the policy and generate a series of memories and update</span>
+<span class="sd">        thememory buffer. Generating memories is easier to do </span>
+<span class="sd">        using this function than an external function ...</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        policy : {function}</span>
+<span class="sd">            This is a function that takes a state and returns an action. This</span>
+<span class="sd">            defines how the agent will explore the environment by changing the</span>
+<span class="sd">            exploration/exploitation scale.</span>
+<span class="sd">        maxSteps : {number}, optional</span>
+<span class="sd">            The maximum number of steps that one shoule have within an episode. </span>
+<span class="sd">            (the default is 1000)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">allResults</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">episode</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">maxSteps</span> <span class="o">=</span> <span class="n">maxSteps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">appendAllAgentResults</span><span class="p">(</span> <span class="n">allResults</span> <span class="p">)</span>
         <span class="k">return</span></div>
 
 <div class="viewcode-block" id="Agent_DQN.step"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

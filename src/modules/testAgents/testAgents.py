@@ -36,25 +36,28 @@ def testAllAgents(logger):
         QNslow       = qN.qNetworkDiscrete( 37, 4, [50, 30, 10], activations=[F.tanh, F.tanh, F.tanh] )
         QNfast       = qN.qNetworkDiscrete( 37, 4, [50, 30, 10], activations=[F.tanh, F.tanh, F.tanh] )
 
+
         with envUnity.Env(cfg['agentParams']['binaryFile'], showEnv=False) as env:
+
+            agent = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, 4)
 
             print('Starting to generate memories ...')
             print('----------------------------------------')
             for _ in range(10):
                 print('[Generating Memories] ', end='', flush=True)
-                allResults = env.episode(policy, maxSteps = 1000)
-                memoryBuffer.appendAllAgentResults( allResults )
-                
-                print( 'Memory Buffer lengths: {}'.format( memoryBuffer.shape ) )
+                agent.memoryUpdateEpisode(policy, maxSteps=1000)
+                print( 'Memory Buffer lengths: {}'.format( agent.memory.shape ) )
 
             print('Sampling from the memory:')
-            memories = memoryBuffer.sample(20)
+            memories = agent.memory.sample(20)
             s, a, r, ns, f = zip(*memories)
             s = np.array(s)
+            
             print('Sampled some states of size {}'.format(s.shape))
-            print('Passing them through the Q network ...')
+            print('Finding the maxAction ....')
             s = torch.as_tensor(s.astype(np.float32))
-            result = QNslow( s )
+            result = agent.randomAction(s)
+            # result = QNslow( s )
             print(result)
 
             del s
