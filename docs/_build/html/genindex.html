@@ -160,8 +160,10 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  
 </div>
@@ -180,15 +182,15 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="lib.agents.html#lib.agents.NNAgent.fullyConnectedDiscreteActor.act">act() (lib.agents.NNAgent.fullyConnectedDiscreteActor method)</a>
+      <li><a href="lib.agents.html#lib.agents.policy.epsGreedyPolicy.act">act() (lib.agents.policy.epsGreedyPolicy method)</a>
 
       <ul>
-        <li><a href="lib.agents.html#lib.agents.policy.epsGreedyPolicy.act">(lib.agents.policy.epsGreedyPolicy method)</a>
-</li>
         <li><a href="lib.agents.html#lib.agents.randomActor.randomDiscreteActor.act">(lib.agents.randomActor.randomDiscreteActor method)</a>
 </li>
       </ul></li>
       <li><a href="lib.argParsers.html#lib.argParsers.config.addParsers">addParsers() (in module lib.argParsers.config)</a>
+</li>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN">Agent_DQN (class in lib.agents.Agent_DQN)</a>
 </li>
       <li><a href="modules.tests.html#modules.tests.testActors.allTests">allTests() (in module modules.tests.testActors)</a>
 
@@ -262,16 +264,14 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="lib.agents.html#lib.agents.sequentialActor.SequentialDiscreteActor.forward">forward() (lib.agents.sequentialActor.SequentialDiscreteActor method)</a>
+      <li><a href="lib.agents.html#lib.agents.qNetwork.qNetworkDiscrete.forward">forward() (lib.agents.qNetwork.qNetworkDiscrete method)</a>
 
       <ul>
+        <li><a href="lib.agents.html#lib.agents.sequentialActor.SequentialDiscreteActor.forward">(lib.agents.sequentialActor.SequentialDiscreteActor method)</a>
+</li>
         <li><a href="lib.agents.html#lib.agents.sequentialCritic.SequentialCritic.forward">(lib.agents.sequentialCritic.SequentialCritic method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="lib.agents.html#lib.agents.NNAgent.fullyConnectedDiscreteActor">fullyConnectedDiscreteActor (class in lib.agents.NNAgent)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -312,9 +312,11 @@
 </li>
       <li><a href="lib.agents.html#module-lib.agents">lib.agents (module)</a>
 </li>
-      <li><a href="lib.agents.html#module-lib.agents.NNAgent">lib.agents.NNAgent (module)</a>
+      <li><a href="lib.agents.html#module-lib.agents.Agent_DQN">lib.agents.Agent_DQN (module)</a>
 </li>
       <li><a href="lib.agents.html#module-lib.agents.policy">lib.agents.policy (module)</a>
+</li>
+      <li><a href="lib.agents.html#module-lib.agents.qNetwork">lib.agents.qNetwork (module)</a>
 </li>
       <li><a href="lib.agents.html#module-lib.agents.randomActor">lib.agents.randomActor (module)</a>
 </li>
@@ -354,8 +356,12 @@
 </li>
       <li><a href="lib.utils.html#module-lib.utils.ReplayBuffer">lib.utils.ReplayBuffer (module)</a>
 </li>
-      <li><a href="lib.utils.html#lib.utils.ReplayBuffer.SimpleReplayBuffer.load">load() (lib.utils.ReplayBuffer.SimpleReplayBuffer method)</a>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.load">load() (lib.agents.Agent_DQN.Agent_DQN method)</a>
+
+      <ul>
+        <li><a href="lib.utils.html#lib.utils.ReplayBuffer.SimpleReplayBuffer.load">(lib.utils.ReplayBuffer.SimpleReplayBuffer method)</a>
 </li>
+      </ul></li>
       <li><a href="logs.html#logs.logDecorator.log">log (class in logs.logDecorator)</a>
 </li>
       <li><a href="logs.html#logs.logDecorator.logInit">logInit (class in logs.logDecorator)</a>
@@ -375,19 +381,29 @@
       <ul>
         <li><a href="RLalgos.html#RLalgos.main">(in module RLalgos)</a>
 </li>
+        <li><a href="modules.testAgents.html#modules.testAgents.testAgents.main">(in module modules.testAgents.testAgents)</a>
+</li>
         <li><a href="modules.tests.html#modules.tests.tests.main">(in module modules.tests.tests)</a>
 </li>
       </ul></li>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.maxAction">maxAction() (lib.agents.Agent_DQN.Agent_DQN method)</a>
+</li>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.memoryUpdateEpisode">memoryUpdateEpisode() (lib.agents.Agent_DQN.Agent_DQN method)</a>
+</li>
       <li><a href="modules.html#module-modules">modules (module)</a>
 </li>
       <li><a href="modules.module1.html#module-modules.module1">modules.module1 (module)</a>
 </li>
       <li><a href="modules.module1.html#module-modules.module1.module1">modules.module1.module1 (module)</a>
 </li>
-      <li><a href="modules.tests.html#module-modules.tests">modules.tests (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.testAgents.html#module-modules.testAgents">modules.testAgents (module)</a>
+</li>
+      <li><a href="modules.testAgents.html#module-modules.testAgents.testAgents">modules.testAgents.testAgents (module)</a>
+</li>
+      <li><a href="modules.tests.html#module-modules.tests">modules.tests (module)</a>
+</li>
       <li><a href="modules.tests.html#module-modules.tests.testActors">modules.tests.testActors (module)</a>
 </li>
       <li><a href="modules.tests.html#module-modules.tests.testCritics">modules.tests.testCritics (module)</a>
@@ -419,6 +435,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.agents.html#lib.agents.qNetwork.qNetworkDiscrete">qNetworkDiscrete (class in lib.agents.qNetwork)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -440,23 +464,41 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lib.utils.html#lib.utils.ReplayBuffer.SimpleReplayBuffer.sample">sample() (lib.utils.ReplayBuffer.SimpleReplayBuffer method)</a>
 </li>
-      <li><a href="lib.utils.html#lib.utils.ReplayBuffer.SimpleReplayBuffer.save">save() (lib.utils.ReplayBuffer.SimpleReplayBuffer method)</a>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.save">save() (lib.agents.Agent_DQN.Agent_DQN method)</a>
+
+      <ul>
+        <li><a href="lib.utils.html#lib.utils.ReplayBuffer.SimpleReplayBuffer.save">(lib.utils.ReplayBuffer.SimpleReplayBuffer method)</a>
 </li>
+      </ul></li>
       <li><a href="lib.agents.html#lib.agents.sequentialCritic.SequentialCritic">SequentialCritic (class in lib.agents.sequentialCritic)</a>
 </li>
       <li><a href="lib.agents.html#lib.agents.sequentialActor.SequentialDiscreteActor">SequentialDiscreteActor (class in lib.agents.sequentialActor)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lib.resultGraph.html#lib.resultGraph.graphLib.serializedToGraph">serializedToGraph() (in module lib.resultGraph.graphLib)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lib.utils.html#lib.utils.ReplayBuffer.SimpleReplayBuffer.shape">shape (lib.utils.ReplayBuffer.SimpleReplayBuffer attribute)</a>
 </li>
       <li><a href="lib.utils.html#lib.utils.ReplayBuffer.SimpleReplayBuffer">SimpleReplayBuffer (class in lib.utils.ReplayBuffer)</a>
 </li>
       <li><a href="lib.testLib.html#lib.testLib.simpleLib.simpleTestFunction">simpleTestFunction() (in module lib.testLib.simpleLib)</a>
 </li>
-      <li><a href="lib.envs.html#lib.envs.envUnity.Env.step">step() (lib.envs.envUnity.Env method)</a>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.softUpdate">softUpdate() (lib.agents.Agent_DQN.Agent_DQN method)</a>
+</li>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.step">step() (lib.agents.Agent_DQN.Agent_DQN method)</a>
+
+      <ul>
+        <li><a href="lib.envs.html#lib.envs.envUnity.Env.step">(lib.envs.envUnity.Env method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.testAgents.html#modules.testAgents.testAgents.testAllAgents">testAllAgents() (in module modules.testAgents.testAgents)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -468,6 +510,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.updateBuffer">updateBuffer() (lib.agents.Agent_DQN.Agent_DQN method)</a>
+</li>
       <li><a href="lib.resultGraph.html#lib.resultGraph.graphLib.uploadGraph">uploadGraph() (in module lib.resultGraph.graphLib)</a>
 </li>
   </ul></td>

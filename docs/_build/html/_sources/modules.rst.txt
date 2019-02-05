@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     modules.module1
+    modules.testAgents
     modules.tests
 
 Module contents

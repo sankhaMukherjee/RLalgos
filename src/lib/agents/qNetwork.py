@@ -4,12 +4,15 @@ import torch
 import torch.nn            as nn
 import torch.nn.functional as F
 
-class SequentialCritic(nn.Module):
+class qNetworkDiscrete(nn.Module):
 
-	def __init__(self, stateSize, actionSize, layers=[10, 5], activations=[F.tanh, F.tanh], mergeLayer = 0, batchNormalization = True ):
-		'''[summary]
+	def __init__(self, stateSize, actionSize, layers=[10, 5], activations=[F.tanh, F.tanh], batchNormalization = True ):
+		'''This is a Q network with discrete actions
 		
-		[description]
+		This takes a state and returns a Q function for each action. Hence, the
+		input is a state and the output is a set of Q values, one for each action
+		in the action space. The action is assumed to be discrete. i.e. a ``1``
+		when the particular action is to be desired.
 		
 		Parameters
 		----------
@@ -26,12 +29,11 @@ class SequentialCritic(nn.Module):
 		'''
 
 
-		super(SequentialCritic, self).__init__()
+		super(qNetworkDiscrete, self).__init__()
 		self.stateSize           = stateSize
 		self.actionSize          = actionSize
 		self.layers              = layers
 		self.activations         = activations
-		self.mergeLayer          = mergeLayer
 		self.batchNormalization  = batchNormalization
 
 		# Generate the fullly connected layer functions
@@ -40,9 +42,6 @@ class SequentialCritic(nn.Module):
 
 		oldN = stateSize
 		for i, layer in enumerate(layers):
-
-			if i == mergeLayer:
-				oldN += actionSize
 			self.fcLayers.append( nn.Linear(oldN, layer) )
 			self.bns.append( nn.BatchNorm1d( num_features = layer ) )
 			oldN = layer
@@ -53,15 +52,13 @@ class SequentialCritic(nn.Module):
 		# provided. Ideally, you would want to provide a 
 		# OHE action sequence for most purposes ...
 		# ------------------------------------------------------
-		self.fcFinal = nn.Linear( oldN, 1 )
+		self.fcFinal = nn.Linear( oldN, actionSize )
 
 		return
 
-	def forward(self, x, action):
+	def forward(self, x):
 
 		for i, (bn, fc, a) in enumerate(zip(self.bns, self.fcLayers, self.activations)):
-			if i == self.mergeLayer:
-				x = torch.cat((x, action), dim=1)
 			x = a(bn(fc(x)))
 
 		x = self.fcFinal( x )

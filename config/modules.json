@@ -8,8 +8,14 @@
     },{
         "moduleName" : "tests",
         "path"       : "modules/tests/tests.py",
-        "execute"    : true,
+        "execute"    : false,
         "description": "This will run some initial tests to make sure that the modules are working",
+        "owner"      : "Sankha"
+    },{
+        "moduleName" : "testAgents",
+        "path"       : "modules/testAgents/testAgents.py",
+        "execute"    : true,
+        "description": "This will do tests using simple agents",
         "owner"      : "Sankha"
     }
 ]

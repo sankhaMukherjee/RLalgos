@@ -8,7 +8,7 @@
             "MemoryBuffer" : false,
             "policy"       : false,
             "actors"       : false,
-    		"critics"      : true
+    		"critics"      : false
     	},
     	"openAI_params" : {
     		"checkValidity" : false,

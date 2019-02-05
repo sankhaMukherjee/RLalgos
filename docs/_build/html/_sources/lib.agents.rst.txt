@@ -4,10 +4,10 @@ lib.agents package
 Submodules
 ----------
 
-lib.agents.NNAgent module
--------------------------
+lib.agents.Agent\_DQN module
+----------------------------
 
-.. automodule:: lib.agents.NNAgent
+.. automodule:: lib.agents.Agent_DQN
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,6 +16,14 @@ lib.agents.policy module
 ------------------------
 
 .. automodule:: lib.agents.policy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+lib.agents.qNetwork module
+--------------------------
+
+.. automodule:: lib.agents.qNetwork
     :members:
     :undoc-members:
     :show-inheritance:

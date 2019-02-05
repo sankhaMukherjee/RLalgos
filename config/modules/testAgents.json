@@ -1,0 +1,10 @@
+{
+    "inputs"  : {},
+    "outputs" : {},
+    "params"  : {
+    	"agentParams" :{
+    		"binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+            "randomAction" : "[np.random.randint(0, 4)]"
+    	}
+    }
+}
