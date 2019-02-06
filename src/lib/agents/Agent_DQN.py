@@ -40,8 +40,8 @@ class Agent_DQN:
             The return value is set of random actions
         '''
         r, c = state.shape
-        result = np.random.randint(0, self.numActions, size=r)
-        return result
+        result = np.random.randint(0, self.numActions, size=r).astype(np.float32)
+        return torch.as_tensor(result).to(self.device)
 
     def maxAction(self, state):
         '''returns the action that maximizes the Q function
@@ -64,6 +64,37 @@ class Agent_DQN:
         state  = torch.as_tensor(state).to(self.device)
         qVals  = self.qNetworkSlow( state )
         result = torch.argmax(qVals, dim=1)
+        return result.to(dtype=torch.float32, device=self.device)
+
+    def epsGreedyAction(self, state, eps=0.999):
+        '''epsilon greedy action
+        
+        This is the epsilon greedy action. In general, this is going to
+        select the maximum action ``eps`` percentage of the times, while
+        selecting the random action the rest of the time. It is assumed
+        that this will receive a value of epsilon between 0 and 1.
+        
+        Parameters
+        ----------
+        state : {ndarray}
+            [description]
+        eps : float, optional
+            Determines the fraction of times the max action will be selected
+            in comparison to a random action. (the default is 0.999)
+        
+        Returns
+        -------
+        tensor
+            The 1d tensor that has an action for each state provided. 
+        '''
+
+        ma = self.maxAction(state)
+        ra = self.randomAction(state)
+        p  = np.random.choice([1, 0], size=len(ma), p=[eps, 1-eps]).astype(np.float32)
+        p  = torch.as_tensor( p ).to(self.device)
+
+        result = ma * p + ra * (1-p)
+
         return result
 
     def memoryUpdateEpisode(self, policy, maxSteps=1000):

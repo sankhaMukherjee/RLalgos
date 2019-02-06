@@ -187,8 +187,8 @@
 <span class="sd">            The return value is set of random actions</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numActions</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span></div>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numActions</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Agent_DQN.maxAction"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.maxAction">[docs]</a>    <span class="k">def</span> <span class="nf">maxAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;returns the action that maximizes the Q function</span>
@@ -211,6 +211,37 @@
         <span class="n">state</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="n">qVals</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkSlow</span><span class="p">(</span> <span class="n">state</span> <span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">qVals</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Agent_DQN.epsGreedyAction"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.epsGreedyAction">[docs]</a>    <span class="k">def</span> <span class="nf">epsGreedyAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.999</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;epsilon greedy action</span>
+<span class="sd">        </span>
+<span class="sd">        This is the epsilon greedy action. In general, this is going to</span>
+<span class="sd">        select the maximum action ``eps`` percentage of the times, while</span>
+<span class="sd">        selecting the random action the rest of the time. It is assumed</span>
+<span class="sd">        that this will receive a value of epsilon between 0 and 1.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : {ndarray}</span>
+<span class="sd">            [description]</span>
+<span class="sd">        eps : float, optional</span>
+<span class="sd">            Determines the fraction of times the max action will be selected</span>
+<span class="sd">            in comparison to a random action. (the default is 0.999)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tensor</span>
+<span class="sd">            The 1d tensor that has an action for each state provided. </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">ma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxAction</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">ra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">randomAction</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">p</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">ma</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="n">eps</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">eps</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">p</span>  <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span> <span class="n">p</span> <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">ma</span> <span class="o">*</span> <span class="n">p</span> <span class="o">+</span> <span class="n">ra</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="Agent_DQN.memoryUpdateEpisode"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.memoryUpdateEpisode">[docs]</a>    <span class="k">def</span> <span class="nf">memoryUpdateEpisode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">maxSteps</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>

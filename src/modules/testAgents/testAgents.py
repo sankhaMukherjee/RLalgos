@@ -56,12 +56,18 @@ def testAllAgents(logger):
             print('Sampled some states of size {}'.format(s.shape))
             print('Finding the maxAction ....')
             s = torch.as_tensor(s.astype(np.float32))
-            result = agent.randomAction(s)
-            # result = QNslow( s )
-            print(result)
-
-            del s
-            del result
+            result1 = agent.randomAction(s)
+            print(result1)
+            result2 = agent.maxAction(s)
+            print(result2)
+            result3 = agent.epsGreedyAction(s, 0.5)
+            print(result3)
+            result3 = agent.epsGreedyAction(s, 0.7)
+            print(result3)
+            result3 = agent.epsGreedyAction(s, 0.9)
+            print(result3)
+            result3 = agent.epsGreedyAction(s, 1)
+            print(result3)
             
 
 

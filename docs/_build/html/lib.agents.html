@@ -186,6 +186,35 @@
 <em class="property">class </em><code class="descclassname">lib.agents.Agent_DQN.</code><code class="descname">Agent_DQN</code><span class="sig-paren">(</span><em>env</em>, <em>memory</em>, <em>qNetworkSlow</em>, <em>qNetworkFast</em>, <em>numActions</em>, <em>device='cpu'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
+<dt id="lib.agents.Agent_DQN.Agent_DQN.epsGreedyAction">
+<code class="descname">epsGreedyAction</code><span class="sig-paren">(</span><em>state</em>, <em>eps=0.999</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.epsGreedyAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.epsGreedyAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>epsilon greedy action</p>
+<p>This is the epsilon greedy action. In general, this is going to
+select the maximum action <code class="docutils literal notranslate"><span class="pre">eps</span></code> percentage of the times, while
+selecting the random action the rest of the time. It is assumed
+that this will receive a value of epsilon between 0 and 1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state</strong> (<em>{ndarray}</em>) – [description]</li>
+<li><strong>eps</strong> (<em>float</em><em>, </em><em>optional</em>) – Determines the fraction of times the max action will be selected
+in comparison to a random action. (the default is 0.999)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The 1d tensor that has an action for each state provided.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tensor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.load">
 <code class="descname">load</code><span class="sig-paren">(</span><em>folder</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>

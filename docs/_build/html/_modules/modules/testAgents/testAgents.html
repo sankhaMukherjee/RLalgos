@@ -203,12 +203,18 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sampled some states of size </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finding the maxAction ....&#39;</span><span class="p">)</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">randomAction</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-            <span class="c1"># result = QNslow( s )</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-            <span class="k">del</span> <span class="n">s</span>
-            <span class="k">del</span> <span class="n">result</span>
+            <span class="n">result1</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">randomAction</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result1</span><span class="p">)</span>
+            <span class="n">result2</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">maxAction</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result2</span><span class="p">)</span>
+            <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
+            <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
+            <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
+            <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
             
 
 
