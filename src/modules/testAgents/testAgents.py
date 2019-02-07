@@ -39,7 +39,7 @@ def testAllAgents(logger):
 
         with envUnity.Env(cfg['agentParams']['binaryFile'], showEnv=False) as env:
 
-            agent = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, 4)
+            agent = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, 4, 1)
 
             print('Starting to generate memories ...')
             print('----------------------------------------')
@@ -61,8 +61,11 @@ def testAllAgents(logger):
             result3 = agent.epsGreedyAction(s, 0.5)
 
             print('Doing a soft update')
+            agent.step(nSamples=100)
             agent.softUpdate(0.2)
             print('Finished a soft update')
+
+            agent.step(nSamples = 10)
             
     except Exception as e:
         logger.error(f'Unable to test all agents: {e}')

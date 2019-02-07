@@ -186,7 +186,7 @@
 
         <span class="k">with</span> <span class="n">envUnity</span><span class="o">.</span><span class="n">Env</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;agentParams&#39;</span><span class="p">][</span><span class="s1">&#39;binaryFile&#39;</span><span class="p">],</span> <span class="n">showEnv</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">env</span><span class="p">:</span>
 
-            <span class="n">agent</span> <span class="o">=</span> <span class="n">dqn</span><span class="o">.</span><span class="n">Agent_DQN</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">memoryBuffer</span><span class="p">,</span> <span class="n">QNslow</span><span class="p">,</span> <span class="n">QNfast</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="n">agent</span> <span class="o">=</span> <span class="n">dqn</span><span class="o">.</span><span class="n">Agent_DQN</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">memoryBuffer</span><span class="p">,</span> <span class="n">QNslow</span><span class="p">,</span> <span class="n">QNfast</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting to generate memories ...&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------------------------------&#39;</span><span class="p">)</span>
@@ -208,8 +208,11 @@
             <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Doing a soft update&#39;</span><span class="p">)</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">nSamples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
             <span class="n">agent</span><span class="o">.</span><span class="n">softUpdate</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished a soft update&#39;</span><span class="p">)</span>
+
+            <span class="n">agent</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">nSamples</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
             
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to test all agents: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>

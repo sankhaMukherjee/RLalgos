@@ -3,18 +3,23 @@ import numpy as np
 
 class Agent_DQN:
 
-    def __init__(self, env, memory, qNetworkSlow, qNetworkFast, numActions, device='cpu'):
+    def __init__(self, env, memory, qNetworkSlow, qNetworkFast, numActions, gamma, device='cpu'):
 
-        if not torch.cuda.is_available():
-            self.device = device
-        else:
-            self.device = 'cpu'
+        try:
 
-        self.env            = env
-        self.memory         = memory
-        self.qNetworkSlow   = qNetworkSlow.to(device)
-        self.qNetworkFast   = qNetworkFast.to(device)
-        self.numActions     = numActions
+            if not torch.cuda.is_available():
+                self.device = device
+            else:
+                self.device = 'cpu'
+
+            self.env            = env
+            self.memory         = memory
+            self.qNetworkSlow   = qNetworkSlow.to(self.device)
+            self.qNetworkFast   = qNetworkFast.to(self.device)
+            self.gamma          = torch.as_tensor(gamma).float().to(device)
+            self.numActions     = numActions
+        except Exception as e:
+            print('Unable to initialize the DQN agent ...')
 
         return
 
@@ -119,10 +124,27 @@ class Agent_DQN:
         self.memory.appendAllAgentResults( allResults )
         return
 
-    def step(self):
+    def step(self, nSamples = 100):
 
-        # self.q
+        self.qNetworkFast.train()
+        self.qNetworkSlow.train()
 
+        data = self.memory.sample( nSamples )
+        states, actions, rewards, nextStates, dones = zip(*data)
+        
+        states      = torch.as_tensor(states).float().to(self.device)
+        actions     = torch.as_tensor(actions).float().to(self.device)
+        rewards     = torch.as_tensor(rewards).float().to(self.device)
+        nextStates  = torch.as_tensor(nextStates).float().to(self.device)
+        
+        qVal    = self.qNetworkFast( states ).max(dim=1)[0]
+        qValHat = rewards + self.qNetworkSlow( nextStates ).max( dim=1 )[0]
+        
+        self.qNetworkFast.step(qValHat, qVal)
+        
+        self.qNetworkFast.eval()
+        self.qNetworkSlow.eval()
+        
         return
 
     def softUpdate(self, tau=0.1):
