@@ -268,13 +268,28 @@
 
 <div class="viewcode-block" id="Agent_DQN.step"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="k">return</span></div>
-
-<div class="viewcode-block" id="Agent_DQN.softUpdate"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.softUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">softUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Tau</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="c1"># self.q</span>
 
         <span class="k">return</span></div>
 
-<div class="viewcode-block" id="Agent_DQN.updateBuffer"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.updateBuffer">[docs]</a>    <span class="k">def</span> <span class="nf">updateBuffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="Agent_DQN.softUpdate"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.softUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">softUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;update the slow network slightly</span>
+<span class="sd">        </span>
+<span class="sd">        This is going to update the slow network slightly. The amount</span>
+<span class="sd">        is dictated by ``tau``. This should be a number between 0 and 1.</span>
+<span class="sd">        It will update the ``tau`` fraction of the slow network weights</span>
+<span class="sd">        with the new weights. This is done for providing stability to the</span>
+<span class="sd">        network. </span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tau : {number}, optional</span>
+<span class="sd">            This parameter determines how much of the fast Networks weights</span>
+<span class="sd">            will be updated to the ne parameters weights (the default is 0.1)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">for</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qNetworkFast</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkSlow</span><span class="o">.</span><span class="n">parameters</span><span class="p">()):</span>
+            <span class="n">v2</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span> <span class="n">tau</span><span class="o">*</span><span class="n">v1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">tau</span><span class="p">)</span><span class="o">*</span><span class="n">v2</span> <span class="p">)</span>
 
         <span class="k">return</span></div>
 

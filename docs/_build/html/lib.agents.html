@@ -298,17 +298,27 @@ represent the different parts of the state.</td>
 
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.softUpdate">
-<code class="descname">softUpdate</code><span class="sig-paren">(</span><em>Tau=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.softUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.softUpdate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">softUpdate</code><span class="sig-paren">(</span><em>tau=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.softUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.softUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>update the slow network slightly</p>
+<p>This is going to update the slow network slightly. The amount
+is dictated by <code class="docutils literal notranslate"><span class="pre">tau</span></code>. This should be a number between 0 and 1.
+It will update the <code class="docutils literal notranslate"><span class="pre">tau</span></code> fraction of the slow network weights
+with the new weights. This is done for providing stability to the
+network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the fast Networks weights
+will be updated to the ne parameters weights (the default is 0.1)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.step">
 <code class="descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="lib.agents.Agent_DQN.Agent_DQN.updateBuffer">
-<code class="descname">updateBuffer</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.updateBuffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.updateBuffer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -349,7 +359,7 @@ represent the different parts of the state.</td>
 <span id="lib-agents-qnetwork-module"></span><h2>lib.agents.qNetwork module<a class="headerlink" href="#module-lib.agents.qNetwork" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="lib.agents.qNetwork.qNetworkDiscrete">
-<em class="property">class </em><code class="descclassname">lib.agents.qNetwork.</code><code class="descname">qNetworkDiscrete</code><span class="sig-paren">(</span><em>stateSize, actionSize, layers=[10, 5], activations=[&lt;function tanh&gt;, &lt;function tanh&gt;], batchNormalization=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/qNetwork.html#qNetworkDiscrete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.qNetwork.qNetworkDiscrete" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">lib.agents.qNetwork.</code><code class="descname">qNetworkDiscrete</code><span class="sig-paren">(</span><em>stateSize, actionSize, layers=[10, 5], activations=[&lt;function tanh&gt;, &lt;function tanh&gt;], batchNormalization=True, lr=0.01</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/qNetwork.html#qNetworkDiscrete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.qNetwork.qNetworkDiscrete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
 <dl class="method">
 <dt id="lib.agents.qNetwork.qNetworkDiscrete.forward">

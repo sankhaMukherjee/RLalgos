@@ -57,22 +57,13 @@ def testAllAgents(logger):
             print('Finding the maxAction ....')
             s = torch.as_tensor(s.astype(np.float32))
             result1 = agent.randomAction(s)
-            print(result1)
             result2 = agent.maxAction(s)
-            print(result2)
             result3 = agent.epsGreedyAction(s, 0.5)
-            print(result3)
-            result3 = agent.epsGreedyAction(s, 0.7)
-            print(result3)
-            result3 = agent.epsGreedyAction(s, 0.9)
-            print(result3)
-            result3 = agent.epsGreedyAction(s, 1)
-            print(result3)
+
+            print('Doing a soft update')
+            agent.softUpdate(0.2)
+            print('Finished a soft update')
             
-
-
-        
-
     except Exception as e:
         logger.error(f'Unable to test all agents: {e}')
 

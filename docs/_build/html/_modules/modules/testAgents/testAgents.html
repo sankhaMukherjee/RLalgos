@@ -204,22 +204,13 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finding the maxAction ....&#39;</span><span class="p">)</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
             <span class="n">result1</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">randomAction</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result1</span><span class="p">)</span>
             <span class="n">result2</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">maxAction</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result2</span><span class="p">)</span>
             <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
-            <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
-            <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
-            <span class="n">result3</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">epsGreedyAction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">result3</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Doing a soft update&#39;</span><span class="p">)</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">softUpdate</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished a soft update&#39;</span><span class="p">)</span>
             
-
-
-        
-
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to test all agents: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
 

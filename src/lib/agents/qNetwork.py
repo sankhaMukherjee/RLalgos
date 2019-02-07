@@ -3,10 +3,11 @@ import numpy as np
 import torch
 import torch.nn            as nn
 import torch.nn.functional as F
+import torch.optim         as optim
 
 class qNetworkDiscrete(nn.Module):
 
-	def __init__(self, stateSize, actionSize, layers=[10, 5], activations=[F.tanh, F.tanh], batchNormalization = True ):
+	def __init__(self, stateSize, actionSize, layers=[10, 5], activations=[F.tanh, F.tanh], batchNormalization = True, lr=0.01 ):
 		'''This is a Q network with discrete actions
 		
 		This takes a state and returns a Q function for each action. Hence, the
@@ -53,6 +54,14 @@ class qNetworkDiscrete(nn.Module):
 		# OHE action sequence for most purposes ...
 		# ------------------------------------------------------
 		self.fcFinal = nn.Linear( oldN, actionSize )
+
+		# we shall put this is eval mode and only use 
+		# the trian mode when we need to train the 
+		# mode
+		self.optimizer           = optim.Adam(
+			self.parameters(), lr=lr)
+		
+		self.eval()
 
 		return
 
