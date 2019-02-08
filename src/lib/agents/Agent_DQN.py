@@ -1,4 +1,4 @@
-import torch
+import torch, os
 import numpy as np 
 
 class Agent_DQN:
@@ -137,6 +137,7 @@ class Agent_DQN:
         rewards     = torch.as_tensor(rewards).float().to(self.device)
         nextStates  = torch.as_tensor(nextStates).float().to(self.device)
         
+        # Note that `max` also returns the positions
         qVal    = self.qNetworkFast( states ).max(dim=1)[0]
         qValHat = rewards + self.qNetworkSlow( nextStates ).max( dim=1 )[0]
         
@@ -169,9 +170,75 @@ class Agent_DQN:
         return
 
     def save(self, folder, name):
+        '''save the model
+        
+        This function allows one to save the model, in a folder that is 
+        specified, with the fast and the slow qNetworks, as well as the
+        memory buffer. Sometimes there may be more than a single agent,
+        and under those circumstances, the name will come in handy. If the
+        supplied folder does not exist, it will be generated. 
+        
+        Parameters
+        ----------
+        folder : {str}
+            folder into which the model should be saved.
+        name : {str}
+            A name to associate the current model with. It is
+            absolutelty possible to save a number of models within
+            the same folder.
+        '''
+
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        torch.save(
+            self.qNetworkFast.state_dict(), 
+            os.path.join(folder, f'{name}.qNetworkFast'))
+
+        torch.save(
+            self.qNetworkSlow.state_dict(), 
+            os.path.join(folder, f'{name}.qNetworkSlow'))
+
+        self.memory.save(folder, name)
 
         return
 
-    def load(self, folder, name):
+    def load(self, folder, name, map_location = None):
+        '''load the model
+        
+        An agent saved with the save command can be safely loaded with this command.
+        This will load both the qNetworks, as well as the memory buffer. There is a
+        possibility that one may not want to load the model into the same device. In
+        that case, the user should insert the device that the user wants to load the
+        model into. 
+        
+        Parameters
+        ----------
+        folder : {str}
+            folder into which the model should be saved.
+        name : {str}
+            A name to associate the model to load. It is absolutelty possible to save 
+            a number of models within the same folder, and hence the name can retrieve
+            that model that is important.
+        map_location : {str}, optional
+            The device in which to load the file. This is a string like 'cpu', 'cuad:0'
+            etc. (the default is None, which results in the model being loaded to the 
+            originam device)
+        '''
+
+        if map_location is None:
+            self.qNetworkSlow.load_state_dict(
+                torch.load(os.path.join(folder, f'{name}.qNetworkSlow')))
+            self.qNetworkFast.load_state_dict(
+                torch.load(os.path.join(folder, f'{name}.qNetworkFast')))
+        else:
+            self.qNetworkSlow.load_state_dict(
+                torch.load(os.path.join(folder, f'{name}.qNetworkSlow')),
+                map_location = map_location)
+            self.qNetworkFast.load_state_dict(
+                torch.load(os.path.join(folder, f'{name}.qNetworkFast')),
+                map_location = map_location)
+
+        self.memory.load(folder, name)
 
         return

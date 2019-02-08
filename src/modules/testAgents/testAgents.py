@@ -60,6 +60,9 @@ def testAllAgents(logger):
             result2 = agent.maxAction(s)
             result3 = agent.epsGreedyAction(s, 0.5)
 
+            agent.save('../models', 'someName')
+            agent.load('../models', 'someName')
+            
             print('Doing a soft update')
             agent.step(nSamples=100)
             agent.softUpdate(0.2)
