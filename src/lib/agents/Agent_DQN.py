@@ -19,7 +19,9 @@ class Agent_DQN:
             self.gamma          = torch.as_tensor(gamma).float().to(device)
             self.numActions     = numActions
         except Exception as e:
-            print('Unable to initialize the DQN agent ...')
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.__init__ - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
         return
 
@@ -45,10 +47,15 @@ class Agent_DQN:
             The return value is set of random actions
         '''
 
-        r, c = state.shape
-        result = np.random.randint(0, self.numActions, size=r).astype(np.float32)
-        result = torch.as_tensor(result).to(self.device)
-        return result
+        try:
+            r, c = state.shape
+            result = np.random.randint(0, self.numActions, size=r).astype(np.float32)
+            result = torch.as_tensor(result).to(self.device)
+            return result
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.randomAction - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
     def maxAction(self, state):
         '''returns the action that maximizes the Q function
@@ -69,12 +76,17 @@ class Agent_DQN:
             The return values of actions that maximize the states
         '''
 
+        try:
 
-        state  = torch.as_tensor(state).float().to(self.device)
-        qVals  = self.qNetworkSlow( state )
-        result = torch.argmax(qVals, dim=1)
-        result = result.to(dtype=torch.float32, device=self.device)
-        return result
+            state  = torch.as_tensor(state).float().to(self.device)
+            qVals  = self.qNetworkSlow( state )
+            result = torch.argmax(qVals, dim=1)
+            result = result.to(dtype=torch.float32, device=self.device)
+            return result
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.maxAction - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
     def epsGreedyAction(self, state, eps=0.999):
         '''epsilon greedy action
@@ -98,14 +110,19 @@ class Agent_DQN:
             The 1d tensor that has an action for each state provided. 
         '''
 
-        ma = self.maxAction(state)
-        ra = self.randomAction(state)
-        p  = np.random.choice([1, 0], size=len(ma), p=[eps, 1-eps]).astype(np.float32)
-        p  = torch.as_tensor( p ).to(self.device)
+        try:
+            ma = self.maxAction(state)
+            ra = self.randomAction(state)
+            p  = np.random.choice([1, 0], size=len(ma), p=[eps, 1-eps]).astype(np.float32)
+            p  = torch.as_tensor( p ).to(self.device)
 
-        result = ma * p + ra * (1-p)
+            result = ma * p + ra * (1-p)
 
-        return result
+            return result
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.epsGreedyAction - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
     def memoryUpdateEpisode(self, policy, maxSteps=1000):
         '''update the memory
@@ -125,33 +142,44 @@ class Agent_DQN:
             The maximum number of steps that one shoule have within an episode. 
             (the default is 1000)
         '''
-        allResults = self.env.episode(policy, maxSteps = maxSteps)
-        s, a, r, ns, f = zip(*allResults[0])
-        score = np.sum(r)
-        self.memory.appendAllAgentResults( allResults )
-        return score
+
+        try:
+            allResults = self.env.episode(policy, maxSteps = maxSteps)
+            s, a, r, ns, f = zip(*allResults[0])
+            score = np.sum(r)
+            self.memory.appendAllAgentResults( allResults )
+            return score
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.memoryUpdateEpisode - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
     def step(self, nSamples = 100):
 
-        self.qNetworkFast.train()
-        self.qNetworkSlow.train()
+        try:
+            self.qNetworkFast.train()
+            self.qNetworkSlow.train()
 
-        data = self.memory.sample( nSamples )
-        states, actions, rewards, nextStates, dones = zip(*data)
-        
-        states      = torch.as_tensor(states).float().to(self.device)
-        actions     = torch.as_tensor(actions).float().to(self.device)
-        rewards     = torch.as_tensor(rewards).float().to(self.device)
-        nextStates  = torch.as_tensor(nextStates).float().to(self.device)
-        
-        # Note that `max` also returns the positions
-        qVal    = self.qNetworkFast( states ).max(dim=1)[0]
-        qValHat = rewards + self.qNetworkSlow( nextStates ).max( dim=1 )[0]
-        
-        self.qNetworkFast.step(qValHat, qVal)
-        
-        self.qNetworkFast.eval()
-        self.qNetworkSlow.eval()
+            data = self.memory.sample( nSamples )
+            states, actions, rewards, nextStates, dones = zip(*data)
+            
+            states      = torch.as_tensor(states).float().to(self.device)
+            actions     = torch.as_tensor(actions).float().to(self.device)
+            rewards     = torch.as_tensor(rewards).float().to(self.device)
+            nextStates  = torch.as_tensor(nextStates).float().to(self.device)
+            
+            # Note that `max` also returns the positions
+            qVal    = self.qNetworkFast( states ).max(dim=1)[0]
+            qValHat = rewards + self.qNetworkSlow( nextStates ).max( dim=1 )[0]
+            
+            self.qNetworkFast.step(qValHat, qVal)
+            
+            self.qNetworkFast.eval()
+            self.qNetworkSlow.eval()
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.step - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
         
         return
 
@@ -160,14 +188,28 @@ class Agent_DQN:
         
         [description]
         '''
-        print('qNetworkSlow is in trai mode:', self.qNetworkSlow.training)
-        print('qNetworkFast is in trai mode:', self.qNetworkFast.training)
-        return
+        try:
+            print('qNetworkSlow is in trai mode:', self.qNetworkSlow.training)
+            print('qNetworkFast is in trai mode:', self.qNetworkFast.training)
+            return
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.checkTrainingMode - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
     def eval(self):
-        self.qNetworkFast.eval()
-        self.qNetworkSlow.eval()
-        return
+        '''[summary]
+        
+        [description]
+        '''
+        try:
+            self.qNetworkFast.eval()
+            self.qNetworkSlow.eval()
+            return
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.eval - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
     def softUpdate(self, tau=0.1):
         '''update the slow network slightly
@@ -209,18 +251,23 @@ class Agent_DQN:
             the same folder.
         '''
 
-        if not os.path.exists(folder):
-            os.makedirs(folder)
+        try:
+            if not os.path.exists(folder):
+                os.makedirs(folder)
 
-        torch.save(
-            self.qNetworkFast.state_dict(), 
-            os.path.join(folder, f'{name}.qNetworkFast'))
+            torch.save(
+                self.qNetworkFast.state_dict(), 
+                os.path.join(folder, f'{name}.qNetworkFast'))
 
-        torch.save(
-            self.qNetworkSlow.state_dict(), 
-            os.path.join(folder, f'{name}.qNetworkSlow'))
+            torch.save(
+                self.qNetworkSlow.state_dict(), 
+                os.path.join(folder, f'{name}.qNetworkSlow'))
 
-        self.memory.save(folder, name)
+            self.memory.save(folder, name)
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.save - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
         return
 
@@ -247,19 +294,24 @@ class Agent_DQN:
             originam device)
         '''
 
-        if map_location is None:
-            self.qNetworkSlow.load_state_dict(
-                torch.load(os.path.join(folder, f'{name}.qNetworkSlow')))
-            self.qNetworkFast.load_state_dict(
-                torch.load(os.path.join(folder, f'{name}.qNetworkFast')))
-        else:
-            self.qNetworkSlow.load_state_dict(
-                torch.load(os.path.join(folder, f'{name}.qNetworkSlow')),
-                map_location = map_location)
-            self.qNetworkFast.load_state_dict(
-                torch.load(os.path.join(folder, f'{name}.qNetworkFast')),
-                map_location = map_location)
+        try:
+            if map_location is None:
+                self.qNetworkSlow.load_state_dict(
+                    torch.load(os.path.join(folder, f'{name}.qNetworkSlow')))
+                self.qNetworkFast.load_state_dict(
+                    torch.load(os.path.join(folder, f'{name}.qNetworkFast')))
+            else:
+                self.qNetworkSlow.load_state_dict(
+                    torch.load(os.path.join(folder, f'{name}.qNetworkSlow')),
+                    map_location = map_location)
+                self.qNetworkFast.load_state_dict(
+                    torch.load(os.path.join(folder, f'{name}.qNetworkFast')),
+                    map_location = map_location)
 
-        self.memory.load(folder, name)
+            self.memory.load(folder, name)
+        except Exception as e:
+            raise type(e)( 
+                'lib.agents.Agent_DQN.Agent_DQN.load - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
         return
