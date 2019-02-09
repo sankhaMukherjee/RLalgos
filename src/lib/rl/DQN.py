@@ -1,8 +1,8 @@
 
 
-class DQN():
+class DQN_discrete():
 
-	def __init__(self, env, replayBuffer, agent):
+	def __init__(self):
 
 		return
 

@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    modules.DQNagent
     modules.module1
     modules.testAgents
     modules.tests

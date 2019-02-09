@@ -1,5 +1,6 @@
 import torch, os
 import numpy as np 
+import sys
 
 class Agent_DQN:
 
@@ -124,7 +125,7 @@ class Agent_DQN:
                 'lib.agents.Agent_DQN.Agent_DQN.epsGreedyAction - ERROR - ' + str(e) 
                 ).with_traceback(sys.exc_info()[2])
 
-    def memoryUpdateEpisode(self, policy, maxSteps=1000):
+    def memoryUpdateEpisode(self, policy, maxSteps=1000, minScoreToAdd=None):
         '''update the memory
         
         Given a particular policy, this memory is going to take
@@ -147,7 +148,8 @@ class Agent_DQN:
             allResults = self.env.episode(policy, maxSteps = maxSteps)
             s, a, r, ns, f = zip(*allResults[0])
             score = np.sum(r)
-            self.memory.appendAllAgentResults( allResults )
+            if (minScoreToAdd is not None) and (score >= minScoreToAdd):
+                self.memory.appendAllAgentResults( allResults )
             return score
         except Exception as e:
             raise type(e)( 
@@ -167,10 +169,11 @@ class Agent_DQN:
             actions     = torch.as_tensor(actions).float().to(self.device)
             rewards     = torch.as_tensor(rewards).float().to(self.device)
             nextStates  = torch.as_tensor(nextStates).float().to(self.device)
+            dones       = torch.as_tensor(dones).float().to(self.device)
             
             # Note that `max` also returns the positions
             qVal    = self.qNetworkFast( states ).max(dim=1)[0]
-            qValHat = rewards + self.qNetworkSlow( nextStates ).max( dim=1 )[0]
+            qValHat = rewards + self.qNetworkSlow( nextStates ).max( dim=1 )[0] * (1-dones)
             
             self.qNetworkFast.step(qValHat, qVal)
             
