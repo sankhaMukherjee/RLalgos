@@ -108,6 +108,9 @@ class Env:
                 agent. Even for the case of a single agent, this is going
                 to return a list of states
         '''
+
+        # print('$'*40) 
+        # print(self.states)
         states      = self.states.copy()
         actions     = policy(states)
         env_info    = self.env.step(actions)[self.brain_name]
@@ -127,6 +130,7 @@ class Env:
 
             results.append((state, action, reward, next_state, done))
 
+        # print('$'*40)
         return results
 
     def episode(self, policy, maxSteps=None):
@@ -175,7 +179,7 @@ class Env:
 
         return allResults
 
-    def __exit__(self, *args):
+    def __exit__(self, exc, value, traceback):
         '''Exit the context manager
         
         The exit funciton that will result in exiting the
@@ -186,6 +190,8 @@ class Env:
         Arguments:
             *args {[type]} -- [description]
         '''
-        self.env.close()
-        return True
+
+        if not exec:
+            self.env.close()
+            return True
 

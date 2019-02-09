@@ -44,9 +44,11 @@ class Agent_DQN:
         uarray
             The return value is set of random actions
         '''
+
         r, c = state.shape
         result = np.random.randint(0, self.numActions, size=r).astype(np.float32)
-        return torch.as_tensor(result).to(self.device)
+        result = torch.as_tensor(result).to(self.device)
+        return result
 
     def maxAction(self, state):
         '''returns the action that maximizes the Q function
@@ -66,10 +68,13 @@ class Agent_DQN:
         uarray
             The return values of actions that maximize the states
         '''
-        state  = torch.as_tensor(state).to(self.device)
+
+
+        state  = torch.as_tensor(state).float().to(self.device)
         qVals  = self.qNetworkSlow( state )
         result = torch.argmax(qVals, dim=1)
-        return result.to(dtype=torch.float32, device=self.device)
+        result = result.to(dtype=torch.float32, device=self.device)
+        return result
 
     def epsGreedyAction(self, state, eps=0.999):
         '''epsilon greedy action
@@ -121,8 +126,10 @@ class Agent_DQN:
             (the default is 1000)
         '''
         allResults = self.env.episode(policy, maxSteps = maxSteps)
+        s, a, r, ns, f = zip(*allResults[0])
+        score = np.sum(r)
         self.memory.appendAllAgentResults( allResults )
-        return
+        return score
 
     def step(self, nSamples = 100):
 
@@ -146,6 +153,20 @@ class Agent_DQN:
         self.qNetworkFast.eval()
         self.qNetworkSlow.eval()
         
+        return
+
+    def checkTrainingMode(self):
+        '''[summary]
+        
+        [description]
+        '''
+        print('qNetworkSlow is in trai mode:', self.qNetworkSlow.training)
+        print('qNetworkFast is in trai mode:', self.qNetworkFast.training)
+        return
+
+    def eval(self):
+        self.qNetworkFast.eval()
+        self.qNetworkSlow.eval()
         return
 
     def softUpdate(self, tau=0.1):

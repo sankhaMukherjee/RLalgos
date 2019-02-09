@@ -186,6 +186,13 @@
 <em class="property">class </em><code class="descclassname">lib.agents.Agent_DQN.</code><code class="descname">Agent_DQN</code><span class="sig-paren">(</span><em>env</em>, <em>memory</em>, <em>qNetworkSlow</em>, <em>qNetworkFast</em>, <em>numActions</em>, <em>gamma</em>, <em>device='cpu'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
+<dt id="lib.agents.Agent_DQN.Agent_DQN.checkTrainingMode">
+<code class="descname">checkTrainingMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.checkTrainingMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.checkTrainingMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>[summary]</p>
+<p>[description]</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.epsGreedyAction">
 <code class="descname">epsGreedyAction</code><span class="sig-paren">(</span><em>state</em>, <em>eps=0.999</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.epsGreedyAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.epsGreedyAction" title="Permalink to this definition">¶</a></dt>
 <dd><p>epsilon greedy action</p>
@@ -213,6 +220,11 @@ in comparison to a random action. (the default is 0.999)</li>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DQN.Agent_DQN.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.load">
@@ -429,7 +441,24 @@ associated with that state.</p>
 <dl class="method">
 <dt id="lib.agents.qNetwork.qNetworkDiscrete.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/qNetwork.html#qNetworkDiscrete.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.qNetwork.qNetworkDiscrete.step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>[summary]</p>
+<p>[description]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>v1</strong> (<em>{</em><em>[</em><em>type</em><em>]</em><em>}</em>) – [description]</li>
+<li><strong>v2</strong> (<em>{</em><em>[</em><em>type</em><em>]</em><em>}</em>) – [description]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal notranslate"><span class="pre">type</span></code> – [description]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

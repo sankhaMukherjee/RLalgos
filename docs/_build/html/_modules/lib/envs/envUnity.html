@@ -255,6 +255,9 @@
 <span class="sd">                agent. Even for the case of a single agent, this is going</span>
 <span class="sd">                to return a list of states</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># print(&#39;$&#39;*40) </span>
+        <span class="c1"># print(self.states)</span>
         <span class="n">states</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">actions</span>     <span class="o">=</span> <span class="n">policy</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
         <span class="n">env_info</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">actions</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">brain_name</span><span class="p">]</span>
@@ -274,6 +277,7 @@
 
             <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">done</span><span class="p">))</span>
 
+        <span class="c1"># print(&#39;$&#39;*40)</span>
         <span class="k">return</span> <span class="n">results</span></div>
 
 <div class="viewcode-block" id="Env.episode"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.episode">[docs]</a>    <span class="k">def</span> <span class="nf">episode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">maxSteps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -322,7 +326,7 @@
 
         <span class="k">return</span> <span class="n">allResults</span></div>
 
-<div class="viewcode-block" id="Env.__exit__"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="Env.__exit__"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Exit the context manager</span>
 <span class="sd">        </span>
 <span class="sd">        The exit funciton that will result in exiting the</span>
@@ -333,8 +337,10 @@
 <span class="sd">        Arguments:</span>
 <span class="sd">            *args {[type]} -- [description]</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="k">return</span> <span class="kc">True</span></div></div>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exec</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span></div></div>
 
 </pre></div>
 

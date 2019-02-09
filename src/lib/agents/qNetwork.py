@@ -1,5 +1,6 @@
 
 import numpy as np
+import sys
 import torch
 import torch.nn            as nn
 import torch.nn.functional as F
@@ -45,7 +46,7 @@ class qNetworkDiscrete(nn.Module):
 			oldN = stateSize
 			for i, layer in enumerate(layers):
 				self.fcLayers.append( nn.Linear(oldN, layer) )
-				self.bns.append( nn.BatchNorm1d( num_features = layer ) )
+				self.bns.append( nn.BatchNorm1d( num_features = layer, track_running_stats=True ) )
 				oldN = layer
 
 			# ------------------------------------------------------
@@ -61,11 +62,11 @@ class qNetworkDiscrete(nn.Module):
 			# mode
 			self.optimizer = optim.Adam(
 				self.parameters(), lr=lr)
-
 		
 		except Exception as e:
-			print(f'Unable to generate the Q network ... : {e}')
-
+			raise type(e)( 
+				'lib.agents.qNetwork.qNetworkDiscrete.__init__ - ERROR - ' + str(e) 
+				).with_traceback(sys.exc_info()[2])
 
 		return
 
@@ -88,19 +89,49 @@ class qNetworkDiscrete(nn.Module):
 			This represents the Q value of the function
 		'''
 
-		for i, (bn, fc, a) in enumerate(zip(self.bns, self.fcLayers, self.activations)):
-			x = a(bn(fc(x)))
+		try:
+			for i, (bn, fc, a) in enumerate(zip(self.bns, self.fcLayers, self.activations)):
+				if self.training:
+					bn.train()
+				else:
+					bn.eval()
+				x = a(bn(fc(x)))
 
-		x = self.fcFinal( x )
+			x = self.fcFinal( x )
+		except Exception as e:
+			raise type(e)( 
+				'lib.agents.qNetwork.qNetworkDiscrete.forward - ERROR - ' + str(e) 
+				).with_traceback(sys.exc_info()[2])
 
 		return x
 
 	def step(self, v1, v2):
+		'''[summary]
+		
+		[description]
+		
+		Parameters
+		----------
+		v1 : {[type]}
+			[description]
+		v2 : {[type]}
+			[description]
+		
+		Raises
+		------
+		type
+			[description]
+		'''
 
-		loss = F.mse_loss(v1, v2)
-		self.optimizer.zero_grad()
-		loss.backward()
-		self.optimizer.step()
+		try:
+			loss = F.mse_loss(v1, v2)
+			self.optimizer.zero_grad()
+			loss.backward()
+			self.optimizer.step()
+		except Exception as e:
+			raise type(e)( 
+				'lib.agents.qNetwork.qNetworkDiscrete.forward - ERROR - ' + str(e) 
+				).with_traceback(sys.exc_info()[2])
 
 		return
 		
