@@ -1,5 +1,19 @@
 {
     "inputs"  : {},
     "outputs" : {},
-    "params"  : {}
+    "params"  : {
+        "configAgent" : {
+            "memorySize"           : 100005,
+            "binary"               : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+            "nIterations"          : 20,  
+            "initMemoryIterations" : 20,  
+            "eps0"                 : 1,   
+            "epsDecay"             : 0.99, 
+            "minEps"               : 0.01,
+            "maxSteps"             : 1000,
+            "nSamples"             : 1000,
+            "Tau"                  : 0.001,
+            "lr"                   : 0.001
+        }
+    }
 }

@@ -7,6 +7,12 @@ run:
 runA:
 	../bin/run.sh -a
 
+runMany:
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999
+	python3 RLalgos.py --dqnAgent_epsDecay 0.998
+	python3 RLalgos.py --dqnAgent_epsDecay 0.997
+	python3 RLalgos.py --dqnAgent_epsDecay 0.996
+
 # This is a quick check for timming.
 # For thorough results, use the profile
 # option
