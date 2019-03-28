@@ -1,5 +1,5 @@
 from logs import logDecorator as lD 
-import json, pprint, sys
+import json, csv
 
 from collections import deque
 
@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 import numpy               as np
 import torch
-import torch.nn.functional as F
+from datetime import datetime as dt
 
 from lib.agents import Agent_DQN as dqn
 from lib.agents import qNetwork  as qN
@@ -15,11 +15,9 @@ from lib.agents import qNetwork  as qN
 from lib.envs    import envUnity
 from lib.utils   import ReplayBuffer as RB
 
-import matplotlib.pyplot as plt
 
 config = json.load(open('../config/config.json'))
 logBase = config['logging']['logBase'] + '.modules.DQNagent.runAgent'
-
 
 @lD.log(logBase + '.trainAgent')
 def trainAgent(logger, configAgent):
@@ -47,8 +45,8 @@ def trainAgent(logger, configAgent):
             "slidingScores" : []
         }
 
-        QNslow       = qN.qNetworkDiscrete( 37, 4, [64, 64], activations=[F.tanh, F.tanh], lr=lr)
-        QNfast       = qN.qNetworkDiscrete( 37, 4, [64, 64], activations=[F.tanh, F.tanh], lr=lr)
+        QNslow       = qN.qNetworkDiscrete( 37, 4, [64, 64], activations=[torch.tanh, torch.tanh], lr=lr)
+        QNfast       = qN.qNetworkDiscrete( 37, 4, [64, 64], activations=[torch.tanh, torch.tanh], lr=lr)
         with envUnity.Env(binary, showEnv=False) as env:
             memoryBuffer = RB.SimpleReplayBuffer(memorySize)
             agent        = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, numActions=4, gamma=1, device='cuda:0')
@@ -85,8 +83,6 @@ def trainAgent(logger, configAgent):
 
             # env.env.close()
 
-        del agent
-        del policy
         return allResults
 
     except Exception as e:
@@ -97,11 +93,17 @@ def trainAgent(logger, configAgent):
 @lD.log(logBase + '.runAgent')
 def runAgent(logger, configAgent):
     
+
     allResults = trainAgent(configAgent)
 
-    plt.figure()
-    plt.plot(allResults["slidingScores"])
-    plt.savefig(f'../results/testDQN_{configAgent["epsDecay"]:.4f}.png')
-    plt.close()
+    now = dt.now().strftime('%Y-%m-%d--%H-%M-%S')
+
+    toWrite = [now, json.dumps(configAgent), json.dumps(allResults['scores']), json.dumps(allResults['slidingScores'])]
+    
+    with open('../results/agentDQN.csv', 'a') as f:
+        writer = csv.writer(f)
+        writer.writerow(toWrite)
+
+    print(allResults)
 
     return

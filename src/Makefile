@@ -8,10 +8,107 @@ runA:
 	../bin/run.sh -a
 
 runMany:
-	python3 RLalgos.py --dqnAgent_epsDecay 0.999
-	python3 RLalgos.py --dqnAgent_epsDecay 0.998
-	python3 RLalgos.py --dqnAgent_epsDecay 0.997
-	python3 RLalgos.py --dqnAgent_epsDecay 0.996
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.999 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.988 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.977 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.966 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.955 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9440000000000001 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.933 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.922 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.911 --dqnAgent_lr 0.1
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 1e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 2.782559402207126e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 7.742636826811278e-05
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 0.00021544346900318823
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 0.0005994842503189409
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 0.0016681005372000592
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 0.004641588833612777
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 0.012915496650148827
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 0.03593813663804626
+	python3 RLalgos.py --dqnAgent_epsDecay 0.9 --dqnAgent_lr 0.1
+
 
 # This is a quick check for timming.
 # For thorough results, use the profile

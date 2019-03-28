@@ -50,7 +50,13 @@ def main(logger, resultsDict):
             logger.warning(f' epsDecay not set from the input: {e}')
 
 
-    print(configAgent)
+    print('\n\n+--------------------------------------')
+    print('| Current Configuration')
+    print('+--------------------------------------')
+    for c, v in configAgent.items():
+        print(f'| [{c:30s}] --> {v}')
+    print('+--------------------------------------')
+
     runAgent.runAgent(configAgent)
 
     print('Getting out of DQNagent')

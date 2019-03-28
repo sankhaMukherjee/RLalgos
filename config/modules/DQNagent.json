@@ -5,8 +5,8 @@
         "configAgent" : {
             "memorySize"           : 100005,
             "binary"               : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
-            "nIterations"          : 20,  
-            "initMemoryIterations" : 20,  
+            "nIterations"          : 1000,  
+            "initMemoryIterations" : 1000,  
             "eps0"                 : 1,   
             "epsDecay"             : 0.99, 
             "minEps"               : 0.01,
