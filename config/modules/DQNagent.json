@@ -11,7 +11,7 @@
             "epsDecay"             : 0.99, 
             "minEps"               : 0.01,
             "maxSteps"             : 1000,
-            "nSamples"             : 1000,
+            "nSamples"             : 64,
             "Tau"                  : 0.001,
             "lr"                   : 0.001
         }

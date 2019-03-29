@@ -100,7 +100,7 @@ def runAgent(logger, configAgent):
 
     toWrite = [now, json.dumps(configAgent), json.dumps(allResults['scores']), json.dumps(allResults['slidingScores'])]
     
-    with open('../results/agentDQN.csv', 'a') as f:
+    with open(f'../results/agentDQN.csv', 'a') as f:
         writer = csv.writer(f)
         writer.writerow(toWrite)
 
