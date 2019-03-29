@@ -1,0 +1,9 @@
+{
+    "inputs"  : {},
+    "outputs" : {},
+    "params"  : {
+        "memorySize" : 100005,
+        "binary"     : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+        "maxSteps"   : 1000
+    }
+}

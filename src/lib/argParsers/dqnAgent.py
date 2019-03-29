@@ -134,7 +134,7 @@ def decodeParser(logger, args):
         logger.error(f'Unable to decode the value for args.dqnAgent_Tau: {e}')
 
     try:
-        if args.dqnAgent_Tau is not None:
+        if args.dqnAgent_lr is not None:
             values["lr"] = args.dqnAgent_lr
     except Exception as e:
         logger.error(f'Unable to decode the value for args.dqnAgent_lr: {e}')

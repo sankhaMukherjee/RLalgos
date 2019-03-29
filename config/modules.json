@@ -20,6 +20,12 @@
     },{
         "moduleName" : "DQNagent",
         "path"       : "modules/DQNagent/DQNagent.py",
+        "execute"    : false,
+        "description": "This will do tests using simple agents",
+        "owner"      : "Sankha"
+    },{
+        "moduleName" : "playAgent",
+        "path"       : "modules/playAgent/playAgent.py",
         "execute"    : true,
         "description": "This will do tests using simple agents",
         "owner"      : "Sankha"
