@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lib.envs.envUnity &mdash; src  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> src
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../RLalgos.html">RLalgos module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib.html">lib package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../logs.html">logs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">modules package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">src</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>lib.envs.envUnity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lib.envs.envUnity</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">unityagents</span> <span class="k">import</span> <span class="n">UnityEnvironment</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">deque</span><span class="p">,</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
+
+<div class="viewcode-block" id="Env"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env">[docs]</a><span class="k">class</span> <span class="nc">Env</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;A convinience function for generating episodes and memories</span>
+<span class="sd">    </span>
+<span class="sd">    This convinience class generates a context manager that can be</span>
+<span class="sd">    used for generating a Unity environment. The Unity environment</span>
+<span class="sd">    and the OpenAI Gym environment operates slightly differently</span>
+<span class="sd">    and hence it will be difficult to create a uniform algorithm that</span>
+<span class="sd">    is able to solve everything at the sametime. This environment</span>
+<span class="sd">    tries to solve that problem.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fileName</span><span class="p">,</span> <span class="n">showEnv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">trainMode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Initialize the environment</span>
+<span class="sd">        </span>
+<span class="sd">        This sets up the requirements that will later be used for generating</span>
+<span class="sd">        the Unity Environment. This assumes that you will provide a binary</span>
+<span class="sd">        file for generating the environment. There are different ways in </span>
+<span class="sd">        which the environment can be generated. It can be generated either</span>
+<span class="sd">        in a *headless* mode by using showEnv as False, in which case the </span>
+<span class="sd">        environment will not show a window at startup. This is good for </span>
+<span class="sd">        training, as well as situations when you are running the environment</span>
+<span class="sd">        without the presence of an X server, especially when you are running </span>
+<span class="sd">        this environment remotely. The other thing that you can do is to </span>
+<span class="sd">        specify that this is being run in `trainMode`. In this case, the </span>
+<span class="sd">        environment will be primed for training. That is, each frame will</span>
+<span class="sd">        finish as soon as possible. This is not good for observing what is</span>
+<span class="sd">        happening. However, this significantly increases the speed of </span>
+<span class="sd">        training. </span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            fileName {str} -- Path to the binary file. This file must be</span>
+<span class="sd">                the same as the one for which the `unityagents` package </span>
+<span class="sd">                has been generated. </span>
+<span class="sd">        </span>
+<span class="sd">        Keyword Arguments:</span>
+<span class="sd">            showEnv {bool} -- Set this to ``True`` if you want to view the </span>
+<span class="sd">                environment (default: {False})</span>
+<span class="sd">            trainMode {bool} -- Set this to ``True`` if you want the environment</span>
+<span class="sd">                tobe in training mode (i.e. fast execution) (default: {True})</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">no_graphics</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">showEnv</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trainMode</span>   <span class="o">=</span> <span class="n">trainMode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fileName</span>    <span class="o">=</span> <span class="n">fileName</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span>      <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span> 
+                <span class="s1">&#39;lib.envs.envUnity.Env.__init__ - ERROR - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> 
+                <span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">return</span>
+
+<div class="viewcode-block" id="Env.__enter__"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;generate a context manager</span>
+<span class="sd">        </span>
+<span class="sd">        This will actually generate the context manager and allow you use this </span>
+<span class="sd">        within a ``with`` statement. This is the function that actually </span>
+<span class="sd">        initialized the environment and maintains it, until it is needed. </span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            ``this`` -- Returns an instance of the same class</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env</span>    <span class="o">=</span> <span class="n">UnityEnvironment</span><span class="p">(</span>
+                <span class="n">file_name</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fileName</span><span class="p">,</span> 
+                <span class="n">no_graphics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_graphics</span> <span class="p">)</span>
+
+            <span class="c1"># get the default brain</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">brain_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">brain_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">brain</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">brains</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">brain_name</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">train_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trainMode</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">brain_name</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_agents</span>  <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">agents</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">brain</span><span class="o">.</span><span class="n">vector_action_space_size</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span> 
+                <span class="s1">&#39;lib.envs.envUnity.Env.__enter__ - ERROR - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> 
+                <span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Env.reset"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;reset the environment before starting an episode</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            status -- The current status after the reset</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">train_mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trainMode</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">vector_observations</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span> 
+                <span class="s1">&#39;lib.envs.envUnity.Env.reset - ERROR - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> 
+                <span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span></div>
+
+<div class="viewcode-block" id="Env.step"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;advance one step by taking an action</span>
+<span class="sd">        </span>
+<span class="sd">        This function takes a policy function and generates an action </span>
+<span class="sd">        according to that particular policy. This results in the </span>
+<span class="sd">        advancement of the episode into a one step with the return </span>
+<span class="sd">        of the reward, and the next state along with any done </span>
+<span class="sd">        information. </span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            policy {function} -- This function takes a state vector and </span>
+<span class="sd">                returns an action vector. It is assumed that the policy </span>
+<span class="sd">                is the correct type of policy, and is capable if taking</span>
+<span class="sd">                the right returning the right type of vector corresponding</span>
+<span class="sd">                the the policy for the current environment. It does not </span>
+<span class="sd">                check for the validity of the policy function</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list -- This returns a list of tuples containing the tuple </span>
+<span class="sd">                ``(s_t, a_t, r_{t+1}, s_{t+1}, d)``. One tuple for each</span>
+<span class="sd">                agent. Even for the case of a single agent, this is going</span>
+<span class="sd">                to return a list of states</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">states</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">actions</span>     <span class="o">=</span> <span class="n">policy</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+            <span class="n">env_info</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">actions</span><span class="p">)[</span><span class="bp">self</span><span class="o">.</span><span class="n">brain_name</span><span class="p">]</span>
+            <span class="n">next_states</span> <span class="o">=</span> <span class="n">env_info</span><span class="o">.</span><span class="n">vector_observations</span> 
+            <span class="n">rewards</span>     <span class="o">=</span> <span class="n">env_info</span><span class="o">.</span><span class="n">rewards</span>             
+            <span class="n">dones</span>       <span class="o">=</span> <span class="n">env_info</span><span class="o">.</span><span class="n">local_done</span>          
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">next_states</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_agents</span><span class="p">):</span>
+                <span class="n">state</span>       <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">action</span>      <span class="o">=</span> <span class="n">actions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">reward</span>      <span class="o">=</span> <span class="n">rewards</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">next_state</span>  <span class="o">=</span> <span class="n">next_states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">done</span>        <span class="o">=</span> <span class="n">dones</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">done</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span> 
+                <span class="s1">&#39;lib.envs.envUnity.Env.step - ERROR - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> 
+                <span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="Env.episode"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.episode">[docs]</a>    <span class="k">def</span> <span class="nf">episode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">maxSteps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;generate data for an entire episode</span>
+<span class="sd">        </span>
+<span class="sd">        This function generates an entire episde. It plays the environment</span>
+<span class="sd">        by first resetting it too the beginning, and then playing the game for </span>
+<span class="sd">        a given number of steps (or unless the game is terminated). It generates</span>
+<span class="sd">        a set of list of tuplees, again one for each agent. Rememebr that even</span>
+<span class="sd">        when the number of agents is 1, it will still return a list oof states.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            policy {function} -- The function that takes the current state and </span>
+<span class="sd">                returns the action vector. </span>
+<span class="sd">        </span>
+<span class="sd">        Keyword Arguments:</span>
+<span class="sd">            maxSteps {int or None} -- The maximum number of steps that the agent is</span>
+<span class="sd">                going to play the episode before the episode is terminated. (default: </span>
+<span class="sd">                {None} in which case the episode will continue until it actually </span>
+<span class="sd">                finishes)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            list -- This returns the list of tuples for the entire episode. Again, this</span>
+<span class="sd">                is a lsit of lists, one for each agent.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="n">stepCount</span>     <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">allResults</span>    <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_agents</span><span class="p">)]</span>
+
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+
+                <span class="n">stepCount</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">finished</span>  <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">results</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_agents</span><span class="p">):</span>
+                    <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">agent</span><span class="p">]</span>
+                    <span class="n">allResults</span><span class="p">[</span><span class="n">agent</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">agent</span><span class="p">])</span>
+                    <span class="n">finished</span> <span class="o">=</span> <span class="n">finished</span> <span class="ow">or</span> <span class="n">done</span>
+
+                <span class="k">if</span> <span class="n">finished</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">maxSteps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">stepCount</span> <span class="o">&gt;=</span> <span class="n">maxSteps</span><span class="p">):</span>
+                    <span class="k">break</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)(</span> 
+                <span class="s1">&#39;lib.envs.envUnity.Env.episode - ERROR - &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> 
+                <span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">allResults</span></div>
+
+<div class="viewcode-block" id="Env.__exit__"><a class="viewcode-back" href="../../../lib.envs.html#lib.envs.envUnity.Env.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Exit the context manager</span>
+<span class="sd">        </span>
+<span class="sd">        The exit funciton that will result in exiting the</span>
+<span class="sd">        context manager. Typically one is supposed to check </span>
+<span class="sd">        the error if any at this point. This will be handled </span>
+<span class="sd">        at a higher level</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">            *args {[type]} -- [description]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exec</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Author
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
