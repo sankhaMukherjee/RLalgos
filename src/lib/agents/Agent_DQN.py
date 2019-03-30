@@ -114,7 +114,7 @@ class Agent_DQN:
         try:
             ma = self.maxAction(state)
             ra = self.randomAction(state)
-            p  = np.random.choice([1, 0], size=len(ma), p=[eps, 1-eps]).astype(np.float32)
+            p  = np.random.choice([1, 0], size=len(ma), p=[1-eps, eps]).astype(np.float32)
             p  = torch.as_tensor( p ).to(self.device)
 
             result = ma * p + ra * (1-p)
