@@ -7,6 +7,7 @@ from modules.tests import testMemoryBuffers  as tMB
 from modules.tests import testPolicy         as tP
 from modules.tests import testActors         as tA
 from modules.tests import testCritics        as tC
+from modules.tests import testQnetwork       as tQn
 
 config = json.load(open('../config/config.json'))
 logBase = config['logging']['logBase'] + '.modules.tests.tests'
@@ -52,6 +53,9 @@ def main(logger, resultsDict):
         
         if cfg['TODO']['critics']:
             tC.allTests()
+
+        if cfg['TODO']['qNetwork']:
+            tQn.allTests()
 
     except Exception as e:
         logger.error(f'Unable to complete all the tests: {e}')
