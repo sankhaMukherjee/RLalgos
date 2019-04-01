@@ -1,15 +1,18 @@
-from unityagents import UnityEnvironment
 import sys
 
 class Env:
     '''A convinience function for generating episodes and memories
     
     This convinience class generates a context manager that can be
-    used for generating a Unity environment. The Unity environment
-    and the OpenAI Gym environment operates slightly differently
-    and hence it will be difficult to create a uniform algorithm that
-    is able to solve everything at the sametime. This environment
-    tries to solve that problem.
+    used for generating a simple discrete environment. This is supposed
+    to be a drop-in replacement for the different for any other 
+    environment. This environment is useful for testing whether a
+    an Agent that has too select discrete actions is properly doing
+    its job. This does not take any input parameters, and reeturns
+    only the the single environment. The environment is shown below. 
+
+    
+
     '''
 
     def __init__(self, fileName, showEnv=False, trainMode=True):
@@ -64,22 +67,7 @@ class Env:
             ``this`` -- Returns an instance of the same class
         '''
 
-        try:
-            self.env    = UnityEnvironment(
-                file_name   = self.fileName, 
-                no_graphics = self.no_graphics )
-
-            # get the default brain
-            self.brain_name = self.env.brain_names[0]
-            self.brain      = self.env.brains[self.brain_name]
-            self.env_info   = self.env.reset(train_mode = self.trainMode)[self.brain_name]
-
-            self.num_agents  = len(self.env_info.agents)
-            self.action_size = self.brain.vector_action_space_size
-        except Exception as e:
-            raise type(e)( 
-                'lib.envs.envUnity.Env.__enter__ - ERROR - ' + str(e) 
-                ).with_traceback(sys.exc_info()[2])
+        
 
         return self
 
@@ -89,13 +77,7 @@ class Env:
         Returns:
             status -- The current status after the reset
         '''
-        try:
-            self.env.reset(train_mode=self.trainMode)
-            self.states = self.env_info.vector_observations
-        except Exception as e:
-            raise type(e)( 
-                'lib.envs.envUnity.Env.reset - ERROR - ' + str(e) 
-                ).with_traceback(sys.exc_info()[2])
+        
         return self.states
 
     def step(self, policy):
@@ -123,25 +105,7 @@ class Env:
         '''
 
         try:
-            states      = self.states.copy()
-            actions     = policy(states)
-            env_info    = self.env.step(actions)[self.brain_name]
-            next_states = env_info.vector_observations 
-            rewards     = env_info.rewards             
-            dones       = env_info.local_done          
-
-            self.states = next_states
-
-            results = []
-            for i in range(self.num_agents):
-                state       = states[i]
-                action      = actions[i]
-                reward      = rewards[i]
-                next_state  = next_states[i]
-                done        = dones[i]
-
-                results.append((state, action, reward, next_state, done))
-
+            results = None
         except Exception as e:
             raise type(e)( 
                 'lib.envs.envUnity.Env.step - ERROR - ' + str(e) 
@@ -173,32 +137,18 @@ class Env:
                 is a lsit of lists, one for each agent.
         '''
 
+    
         try:
-            self.reset()
-            stepCount     = 0
-            allResults    = [[] for _ in range(self.num_agents)]
-
-            while True:
-
-                stepCount += 1
-                finished  = False
-                results   = self.step(policy)
-                for agent in range(self.num_agents):
-                    state, action, reward, next_state, done = results[agent]
-                    allResults[agent].append(results[agent])
-                    finished = finished or done
-
-                if finished:
-                    break
-
-                if (maxSteps is not None) and (stepCount >= maxSteps):
-                    break
+            pass
         except Exception as e:
             raise type(e)( 
                 'lib.envs.envUnity.Env.episode - ERROR - ' + str(e) 
                 ).with_traceback(sys.exc_info()[2])
 
         return allResults
+
+
+
 
     def __exit__(self, exc, value, traceback):
         '''Exit the context manager

@@ -1,50 +1,37 @@
-
+import gym
 
 class Env:
     '''A convinience function for generating episodes and memories
     
     This convinience class generates a context manager that can be
-    used for generating a Unity environment. The Unity environment
-    and the OpenAI Gym environment operates slightly differently
-    and hence it will be difficult to create a uniform algorithm that
-    is able to solve everything at the sametime. This environment
-    tries to solve that problem.
+    used for generating a Gym environment. This is supposed to be a
+    drop-in replacement for the Unity environment. This however
+    differs from the Unity environment in that it needs the name of
+    the environment as input. The other difference is that there is
+    no such thing as `trainMode`. 
     '''
 
-    def __init__(self, fileName, showEnv=False, trainMode=True):
+    def __init__(self, envName, showEnv=False):
         '''Initialize the environment
         
         This sets up the requirements that will later be used for generating
-        the Unity Environment. This assumes that you will provide a binary
-        file for generating the environment. There are different ways in 
-        which the environment can be generated. It can be generated either
-        in a *headless* mode by using showEnv as False, in which case the 
-        environment will not show a window at startup. This is good for 
-        training, as well as situations when you are running the environment
-        without the presence of an X server, especially when you are running 
-        this environment remotely. The other thing that you can do is to 
-        specify that this is being run in `trainMode`. In this case, the 
-        environment will be primed for training. That is, each frame will
-        finish as soon as possible. This is not good for observing what is
-        happening. However, this significantly increases the speed of 
-        training. 
+        the gym Environment. The gym environment can be used in a mode that 
+        hides the plotting of the actuual environment. This may result in a
+        significant boost in speed. 
         
         Arguments:
-            fileName {str} -- Path to the binary file. This file must be
-                the same as the one for which the `unityagents` package 
-                has been generated. 
+            envName {str} -- The name of the environment to be generated. This
+                shoould be a valid name. In case the namme provided is not a 
+                valid name, this is going to exis with an error. 
         
         Keyword Arguments:
             showEnv {bool} -- Set this to ``True`` if you want to view the 
                 environment (default: {False})
-            trainMode {bool} -- Set this to ``True`` if you want the environment
-                tobe in training mode (i.e. fast execution) (default: {True})
         '''
 
         try:
             self.no_graphics = not showEnv
-            self.trainMode   = trainMode
-            self.fileName    = fileName
+            self.envName     = envName
             self.states      = None
         except Exception as e:
             raise type(e)( 
@@ -58,12 +45,23 @@ class Env:
         This will actually generate the context manager and allow you use this 
         within a ``with`` statement. This is the function that actually 
         initialized the environment and maintains it, until it is needed. 
+
+        The idea of multiplel agents within the gym enviroonments doesnt exists
+        as it does in the Unity agents. However, we shall incoroporoate this idea
+        within the gym environment so that a signgle action can takke place. 
         
         Returns:
             ``this`` -- Returns an instance of the same class
         '''
 
-        
+        try:
+            self.env   = gym.make(name)
+            self.state = self.env.reset()
+
+        except Exception as e:
+            raise type(e)( 
+                'lib.envs.envUnity.Env.__enter__ - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
 
         return self
 
@@ -73,6 +71,13 @@ class Env:
         Returns:
             status -- The current status after the reset
         '''
+
+        try:
+            self.state = self.env.reset()
+        except Exception as e:
+            raise type(e)( 
+                'lib.envs.envUnity.Env.reset - ERROR - ' + str(e) 
+                ).with_traceback(sys.exc_info()[2])
         
         return self.states
 
@@ -101,7 +106,16 @@ class Env:
         '''
 
         try:
-            results = None
+            results = []
+
+            states  = [self.state]
+            action  = policy(states)[0]
+            nextState, reward, done, info = self.env.step(actions[0])
+
+            results.append((self.state, action, reward, nextState, done))
+
+            self.state = nextState
+            
         except Exception as e:
             raise type(e)( 
                 'lib.envs.envUnity.Env.step - ERROR - ' + str(e) 
@@ -133,41 +147,34 @@ class Env:
                 is a lsit of lists, one for each agent.
         '''
 
-        def episode(self, policy, maxSteps=None):
-        '''generate data for an entire episode
-        
-        This function generates an entire episde. It plays the environment
-        by first resetting it too the beginning, and then playing the game for 
-        a given number of steps (or unless the game is terminated). It generates
-        a set of list of tuplees, again one for each agent. Rememebr that even
-        when the number of agents is 1, it will still return a list oof states.
-
-        Arguments:
-            policy {function} -- The function that takes the current state and 
-                returns the action vector. 
-        
-        Keyword Arguments:
-            maxSteps {int or None} -- The maximum number of steps that the agent is
-                going to play the episode before the episode is terminated. (default: 
-                {None} in which case the episode will continue until it actually 
-                finishes)
-        
-        Returns:
-            list -- This returns the list of tuples for the entire episode. Again, this
-                is a lsit of lists, one for each agent.
-        '''
-
         try:
-            pass
+            self.reset()
+            stepCount  = 0
+            allResults = [[] for _ in range(1)] # One for each agent.
+
+            while True:
+
+                stepCount += 1
+                result    = self.step(policy)[0]
+
+                if not self.no_graphics:
+                    self.env.render()
+
+                state, action, reward, next_state, done = result
+                allResults[0].append(result)
+
+                if done:
+                    break
+
+                if (maxSteps is not None) and (stepCount >= maxSteps):
+                    break
+
         except Exception as e:
             raise type(e)( 
                 'lib.envs.envUnity.Env.episode - ERROR - ' + str(e) 
                 ).with_traceback(sys.exc_info()[2])
 
         return allResults
-
-
-
 
     def __exit__(self, exc, value, traceback):
         '''Exit the context manager

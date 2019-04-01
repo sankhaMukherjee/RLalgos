@@ -9,7 +9,7 @@
             "policy"       : false,
             "actors"       : false,
     		"critics"      : false,
-            "qNetwork"     : true
+            "qNetwork"     : false
     	},
     	"openAI_params" : {
     		"checkValidity" : false,
