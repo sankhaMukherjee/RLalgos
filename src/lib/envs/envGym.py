@@ -1,4 +1,5 @@
-import gym
+import gym, sys
+import numpy as np
 
 class Env:
     '''A convinience function for generating episodes and memories
@@ -55,7 +56,7 @@ class Env:
         '''
 
         try:
-            self.env   = gym.make(name)
+            self.env   = gym.make(self.envName)
             self.state = self.env.reset()
 
         except Exception as e:
@@ -108,12 +109,17 @@ class Env:
         try:
             results = []
 
-            states  = [self.state]
-            action  = policy(states)[0]
-            nextState, reward, done, info = self.env.step(actions[0])
+            states  = np.array([self.state])
+
+            action  = policy(states)[0].cpu().detach().numpy()
+            #print('A'*30, action, self.env.env.action_space.sample(), self.env.env.action_space)
+            if type(self.env.env.action_space.sample()) == int:
+                action  = int(action[0])
+
+            nextState, reward, done, info = self.env.step(action)
 
             results.append((self.state, action, reward, nextState, done))
-
+            
             self.state = nextState
             
         except Exception as e:
@@ -156,7 +162,7 @@ class Env:
 
                 stepCount += 1
                 result    = self.step(policy)[0]
-
+                
                 if not self.no_graphics:
                     self.env.render()
 

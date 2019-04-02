@@ -2,17 +2,47 @@
     "inputs"  : {},
     "outputs" : {},
     "params"  : {
-        "configAgent" : {
+
+        "configAgentUnity" : {
+            
             "memorySize"           : 100005,
+
             "binary"               : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
-            "nIterations"          : 1000,  
-            "initMemoryIterations" : 1000,  
+            
+            "nIterations"          : 100,  
+            "initMemoryIterations" : 100,  
             "eps0"                 : 1,   
             "epsDecay"             : 0.99, 
             "minEps"               : 0.01,
             "maxSteps"             : 1000,
             "nSamples"             : 64,
             "Tau"                  : 0.001,
+
+            "inpSize"              : 37,
+            "outSize"              : 4,
+            "hiddenSizes"          : [64, 64],
+            "hiddenActivations"    : ["tanh", "tanh"],
+            "lr"                   : 0.001
+        },
+        "configAgentGym" : {
+            
+            "memorySize"           : 100005,
+            
+            "envName"              : "MountainCar-v0",
+            
+            "nIterations"          : 1,  
+            "initMemoryIterations" : 100,  
+            "eps0"                 : 1,   
+            "epsDecay"             : 0.99, 
+            "minEps"               : 0.01,
+            "maxSteps"             : 1000,
+            "nSamples"             : 64,
+            "Tau"                  : 0.001,
+            
+            "inpSize"              : 2,
+            "outSize"              : 3,
+            "hiddenSizes"          : [30, 10],
+            "hiddenActivations"    : ["tanh", "tanh"],
             "lr"                   : 0.001
         }
     }

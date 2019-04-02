@@ -159,6 +159,7 @@ class Agent_DQN:
     def step(self, nSamples = 100):
 
         try:
+
             self.qNetworkFast.train()
             self.qNetworkSlow.train()
 
