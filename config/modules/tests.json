@@ -3,7 +3,7 @@
     "outputs" : {},
     "params"  : {
     	"TODO" : {
-            "openAI"       : false,
+            "openAI"       : true,
             "Unity"        : false,
             "MemoryBuffer" : false,
             "policy"       : false,
@@ -16,7 +16,7 @@
     		"renderAll"     : false,
     		"renderTime"    : 1,
     		"renderOne"     : "MountainCar-v0",
-    		"playOne"       : "MountainCar-v0"
+    		"playOne"       : "CartPole-v1"
     	},
     	"UnityParams" : {
     		"binaryFile"   : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",

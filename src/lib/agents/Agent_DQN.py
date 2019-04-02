@@ -148,6 +148,9 @@ class Agent_DQN:
             allResults = self.env.episode(policy, maxSteps = maxSteps)
             s, a, r, ns, f = zip(*allResults[0])
             score = np.sum(r)
+            if (minScoreToAdd is None):
+                self.memory.appendAllAgentResults( allResults )
+
             if (minScoreToAdd is not None) and (score >= minScoreToAdd):
                 self.memory.appendAllAgentResults( allResults )
             return score

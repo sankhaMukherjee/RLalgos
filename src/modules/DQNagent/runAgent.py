@@ -182,7 +182,8 @@ def trainAgentGym(logger, configAgent):
         QNslow       = qN.qNetworkDiscrete( inpSize, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
         QNfast       = qN.qNetworkDiscrete( inpSize, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
         
-        with envGym.Env(envName, showEnv=True) as env:
+        showEnv = False
+        with envGym.Env(envName, showEnv=showEnv) as env:
             memoryBuffer = RB.SimpleReplayBuffer(memorySize)
             agent        = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, numActions=outSize, gamma=1, device='cuda:0')
             agent.eval()
@@ -197,6 +198,13 @@ def trainAgentGym(logger, configAgent):
             eps = eps0
             print('Optimizing model ...')
             for i in tqdm(range(nIterations)):
+
+                # if (not showEnv) and (i % 100 == 0):
+                #     env.no_graphics = False
+
+                # if (not showEnv) and (i % 100 != 0):
+                #     env.no_graphics = True
+
                 
                 eps = max(minEps, epsDecay*eps) # decrease epsilon
 
@@ -215,8 +223,6 @@ def trainAgentGym(logger, configAgent):
 
                 allResults['scores'].append( score )
                 allResults['slidingScores'].append( np.mean(slidingScore) )
-
-            # env.env.close()
 
         return allResults
 
