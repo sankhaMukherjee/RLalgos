@@ -2,25 +2,25 @@
     "inputs"  : {},
     "outputs" : {},
     "params"  : {
-    	"TODO" : {
+        "TODO" : {
             "openAI"       : false,
             "Unity"        : false,
             "MemoryBuffer" : false,
             "policy"       : false,
             "actors"       : false,
-    		"critics"      : false
-    	},
-    	"openAI_params" : {
-    		"checkValidity" : false,
-    		"renderAll"     : false,
-    		"renderTime"    : 1,
-    		"renderOne"     : "MountainCar-v0",
-    		"playOne"       : "MountainCar-v0"
-    	},
-    	"UnityParams" : {
-    		"binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
-    		"randomAction" : "[np.random.randint(0, 4)]"
-    	},
+            "critics"      : false
+        },
+        "openAI_params" : {
+            "checkValidity" : false,
+            "renderAll"     : false,
+            "renderTime"    : 1,
+            "renderOne"     : "MountainCar-v0",
+            "playOne"       : "MountainCar-v0"
+        },
+        "UnityParams" : {
+            "binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+            "randomAction" : "[np.random.randint(0, 4)]"
+        },
         "MemoryBufferParams" : {
             "binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
             "randomAction" : "[np.random.randint(0, 4)]"
