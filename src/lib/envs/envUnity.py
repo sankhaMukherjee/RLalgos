@@ -1,9 +1,5 @@
 from unityagents import UnityEnvironment
-import numpy as np
-import json, sys
-
-from collections import deque, namedtuple
-from tqdm import tqdm
+import sys
 
 class Env:
     '''A convinience function for generating episodes and memories

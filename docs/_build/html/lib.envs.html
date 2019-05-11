@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="lib.resultGraph package" href="lib.resultGraph.html" />
     <link rel="prev" title="lib.databaseIO package" href="lib.databaseIO.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -88,6 +90,8 @@
 <li class="toctree-l3"><a class="reference internal" href="lib.databaseIO.html">lib.databaseIO package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">lib.envs package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.envs.envDiscAction">lib.envs.envDiscAction module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.envs.envGym">lib.envs.envGym module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.envs.envUnity">lib.envs.envUnity module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.envs">Module contents</a></li>
 </ul>
@@ -173,6 +177,262 @@
 <h1>lib.envs package<a class="headerlink" href="#lib-envs-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-lib.envs.envDiscAction">
+<span id="lib-envs-envdiscaction-module"></span><h2>lib.envs.envDiscAction module<a class="headerlink" href="#module-lib.envs.envDiscAction" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.envs.envDiscAction.Env">
+<em class="property">class </em><code class="descclassname">lib.envs.envDiscAction.</code><code class="descname">Env</code><span class="sig-paren">(</span><em>fileName</em>, <em>showEnv=False</em>, <em>trainMode=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envDiscAction.html#Env"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envDiscAction.Env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A convinience function for generating episodes and memories</p>
+<p>This convinience class generates a context manager that can be
+used for generating a simple discrete environment. This is supposed
+to be a drop-in replacement for the different for any other
+environment. This environment is useful for testing whether a
+an Agent that has too select discrete actions is properly doing
+its job. This does not take any input parameters, and reeturns
+only the the single environment. The environment is shown below.</p>
+<dl class="method">
+<dt id="lib.envs.envDiscAction.Env.__enter__">
+<code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envDiscAction.html#Env.__enter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envDiscAction.Env.__enter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a context manager</p>
+<p>This will actually generate the context manager and allow you use this
+within a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. This is the function that actually
+initialized the environment and maintains it, until it is needed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">this</span></code> – Returns an instance of the same class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envDiscAction.Env.__exit__">
+<code class="descname">__exit__</code><span class="sig-paren">(</span><em>exc</em>, <em>value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envDiscAction.html#Env.__exit__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envDiscAction.Env.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit the context manager</p>
+<p>The exit funciton that will result in exiting the
+context manager. Typically one is supposed to check
+the error if any at this point. This will be handled
+at a higher level</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{</strong><strong>[</strong><strong>type</strong><strong>]</strong><strong>} --</strong><strong> [</strong><strong>description</strong><strong>]</strong> (<em>*args</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envDiscAction.Env.episode">
+<code class="descname">episode</code><span class="sig-paren">(</span><em>policy</em>, <em>maxSteps=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envDiscAction.html#Env.episode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envDiscAction.Env.episode" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate data for an entire episode</p>
+<p>This function generates an entire episde. It plays the environment
+by first resetting it too the beginning, and then playing the game for
+a given number of steps (or unless the game is terminated). It generates
+a set of list of tuplees, again one for each agent. Rememebr that even
+when the number of agents is 1, it will still return a list oof states.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{function} -- The function that takes the current state and</strong> (<em>policy</em>) – returns the action vector.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>{int</strong><strong> or </strong><strong>None} -- The maximum number of steps that the agent is</strong> (<em>maxSteps</em>) – going to play the episode before the episode is terminated. (default:
+{None} in which case the episode will continue until it actually
+finishes)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>list – This returns the list of tuples for the entire episode. Again, this</dt>
+<dd>is a lsit of lists, one for each agent.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envDiscAction.Env.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envDiscAction.html#Env.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envDiscAction.Env.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset the environment before starting an episode</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">status – The current status after the reset</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envDiscAction.Env.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>policy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envDiscAction.html#Env.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envDiscAction.Env.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>advance one step by taking an action</p>
+<p>This function takes a policy function and generates an action
+according to that particular policy. This results in the
+advancement of the episode into a one step with the return
+of the reward, and the next state along with any done
+information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{function} -- This function takes a state vector and</strong> (<em>policy</em>) – returns an action vector. It is assumed that the policy
+is the correct type of policy, and is capable if taking
+the right returning the right type of vector corresponding
+the the policy for the current environment. It does not
+check for the validity of the policy function</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>list – This returns a list of tuples containing the tuple</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">(s_t,</span> <span class="pre">a_t,</span> <span class="pre">r_{t+1},</span> <span class="pre">s_{t+1},</span> <span class="pre">d)</span></code>. One tuple for each
+agent. Even for the case of a single agent, this is going
+to return a list of states</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.envs.envGym">
+<span id="lib-envs-envgym-module"></span><h2>lib.envs.envGym module<a class="headerlink" href="#module-lib.envs.envGym" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.envs.envGym.Env">
+<em class="property">class </em><code class="descclassname">lib.envs.envGym.</code><code class="descname">Env</code><span class="sig-paren">(</span><em>envName</em>, <em>showEnv=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A convinience function for generating episodes and memories</p>
+<p>This convinience class generates a context manager that can be
+used for generating a Gym environment. This is supposed to be a
+drop-in replacement for the Unity environment. This however
+differs from the Unity environment in that it needs the name of
+the environment as input. The other difference is that there is
+no such thing as <cite>trainMode</cite>.</p>
+<dl class="method">
+<dt id="lib.envs.envGym.Env.__enter__">
+<code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env.__enter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env.__enter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a context manager</p>
+<p>This will actually generate the context manager and allow you use this
+within a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. This is the function that actually
+initialized the environment and maintains it, until it is needed.</p>
+<p>The idea of multiplel agents within the gym enviroonments doesnt exists
+as it does in the Unity agents. However, we shall incoroporoate this idea
+within the gym environment so that a signgle action can takke place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">this</span></code> – Returns an instance of the same class</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envGym.Env.__exit__">
+<code class="descname">__exit__</code><span class="sig-paren">(</span><em>exc</em>, <em>value</em>, <em>traceback</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env.__exit__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exit the context manager</p>
+<p>The exit funciton that will result in exiting the
+context manager. Typically one is supposed to check
+the error if any at this point. This will be handled
+at a higher level</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{</strong><strong>[</strong><strong>type</strong><strong>]</strong><strong>} --</strong><strong> [</strong><strong>description</strong><strong>]</strong> (<em>*args</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envGym.Env.episode">
+<code class="descname">episode</code><span class="sig-paren">(</span><em>policy</em>, <em>maxSteps=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env.episode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env.episode" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate data for an entire episode</p>
+<p>This function generates an entire episde. It plays the environment
+by first resetting it too the beginning, and then playing the game for
+a given number of steps (or unless the game is terminated). It generates
+a set of list of tuplees, again one for each agent. Rememebr that even
+when the number of agents is 1, it will still return a list oof states.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{function} -- The function that takes the current state and</strong> (<em>policy</em>) – returns the action vector.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>{int</strong><strong> or </strong><strong>None} -- The maximum number of steps that the agent is</strong> (<em>maxSteps</em>) – going to play the episode before the episode is terminated. (default:
+{None} in which case the episode will continue until it actually
+finishes)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>list – This returns the list of tuples for the entire episode. Again, this</dt>
+<dd>is a lsit of lists, one for each agent.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envGym.Env.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset the environment before starting an episode</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">status – The current status after the reset</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.envs.envGym.Env.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>policy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>advance one step by taking an action</p>
+<p>This function takes a policy function and generates an action
+according to that particular policy. This results in the
+advancement of the episode into a one step with the return
+of the reward, and the next state along with any done
+information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{function} -- This function takes a state vector and</strong> (<em>policy</em>) – returns an action vector. It is assumed that the policy
+is the correct type of policy, and is capable if taking
+the right returning the right type of vector corresponding
+the the policy for the current environment. It does not
+check for the validity of the policy function</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>list – This returns a list of tuples containing the tuple</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">(s_t,</span> <span class="pre">a_t,</span> <span class="pre">r_{t+1},</span> <span class="pre">s_{t+1},</span> <span class="pre">d)</span></code>. One tuple for each
+agent. Even for the case of a single agent, this is going
+to return a list of states</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-lib.envs.envUnity">
 <span id="lib-envs-envunity-module"></span><h2>lib.envs.envUnity module<a class="headerlink" href="#module-lib.envs.envUnity" title="Permalink to this headline">¶</a></h2>
@@ -302,8 +562,20 @@ to return a list of states</dd>
 </div>
 <div class="section" id="module-lib.envs">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lib.envs" title="Permalink to this headline">¶</a></h2>
-<p>[summary]</p>
-<p>[description]</p>
+<p>several environments are available for immediate import</p>
+<p>This library contains containerized versions of the different
+environments that can be used for training a number of
+environments. This is essential for being able to checke the
+qualit of the different learning algorithms. Currently the different
+environments available are as foollows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>envUnity: The Unity Environment</li>
+<li>envGym: The gym environment</li>
+</ul>
+</div></blockquote>
+<p>The details of instaling each of these environments will be shown
+below …</p>
 </div>
 </div>
 
@@ -318,7 +590,7 @@ to return a list of states</dd>
         <a href="lib.resultGraph.html" class="btn btn-neutral float-right" title="lib.resultGraph package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="lib.databaseIO.html" class="btn btn-neutral" title="lib.databaseIO package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lib.databaseIO.html" class="btn btn-neutral float-left" title="lib.databaseIO package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -344,26 +616,16 @@ to return a list of states</dd>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

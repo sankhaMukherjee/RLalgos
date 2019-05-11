@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="lib.databaseIO package" href="lib.databaseIO.html" />
     <link rel="prev" title="lib.agents package" href="lib.agents.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -88,6 +90,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.argParsers.addAllParsers">lib.argParsers.addAllParsers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.argParsers.config">lib.argParsers.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.argParsers.dqnAgent">lib.argParsers.dqnAgent module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.argParsers">Module contents</a></li>
 </ul>
 </li>
@@ -329,6 +332,68 @@ meaningful</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-lib.argParsers.dqnAgent">
+<span id="lib-argparsers-dqnagent-module"></span><h2>lib.argParsers.dqnAgent module<a class="headerlink" href="#module-lib.argParsers.dqnAgent" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="lib.argParsers.dqnAgent.addParsers">
+<code class="descclassname">lib.argParsers.dqnAgent.</code><code class="descname">addParsers</code><span class="sig-paren">(</span><em>logger</em>, <em>parser</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/argParsers/dqnAgent.html#addParsers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.argParsers.dqnAgent.addParsers" title="Permalink to this definition">¶</a></dt>
+<dd><p>add argument parsers specific to the <code class="docutils literal notranslate"><span class="pre">config/config.json</span></code> file</p>
+<p>This function is kgoing to add argument parsers specific to the
+<code class="docutils literal notranslate"><span class="pre">config/config.json</span></code> file. This file has several options for
+logging data. This information will be</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>logger</strong> (<em>{logging.Logger}</em>) – The logger used for logging error information</li>
+<li><strong>parser</strong> (<em>{argparse.ArgumentParser instance}</em>) – An instance of <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser()</span></code> that will be
+used for parsing the command line arguments specific to the
+config file</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The same parser argument to which new CLI arguments have been
+appended</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">argparse.ArgumentParser instance</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.argParsers.dqnAgent.decodeParser">
+<code class="descclassname">lib.argParsers.dqnAgent.</code><code class="descname">decodeParser</code><span class="sig-paren">(</span><em>logger</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/argParsers/dqnAgent.html#decodeParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.argParsers.dqnAgent.decodeParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a dictionary from the parsed args</p>
+<p>The parsed args may/may not be present. When they are
+present, they are pretty hard to use. For this reason,
+this function is going to convert the result into
+something meaningful.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>logger</strong> (<em>{logging.Logger}</em>) – The logger used for logging error information</li>
+<li><strong>args</strong> (<em>{args Namespace}</em>) – parsed arguments from the command line</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary that converts the arguments into something
+meaningful</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="module-lib.argParsers">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lib.argParsers" title="Permalink to this headline">¶</a></h2>
 <p>Argument parsers will be located gere</p>
@@ -415,7 +480,7 @@ named <code class="docutils literal notranslate"><span class="pre">--config_logg
         <a href="lib.databaseIO.html" class="btn btn-neutral float-right" title="lib.databaseIO package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="lib.agents.html" class="btn btn-neutral" title="lib.agents package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="lib.agents.html" class="btn btn-neutral float-left" title="lib.agents package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -441,26 +506,16 @@ named <code class="docutils literal notranslate"><span class="pre">--config_logg
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -12,6 +12,14 @@ modules.DQNagent.DQNagent module
     :undoc-members:
     :show-inheritance:
 
+modules.DQNagent.runAgent module
+--------------------------------
+
+.. automodule:: modules.DQNagent.runAgent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

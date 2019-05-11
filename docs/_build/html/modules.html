@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="modules.DQNagent package" href="modules.DQNagent.html" />
     <link rel="prev" title="logs package" href="logs.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -86,7 +88,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">modules package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="modules.DQNagent.html">modules.DQNagent package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.displayResults.html">modules.displayResults package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.module1.html">modules.module1 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.playAgent.html">modules.playAgent package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.testAgents.html">modules.testAgents package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.tests.html">modules.tests package</a></li>
 </ul>
@@ -173,6 +177,7 @@
 <li class="toctree-l1"><a class="reference internal" href="modules.DQNagent.html">modules.DQNagent package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules.DQNagent.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.DQNagent.html#module-modules.DQNagent.DQNagent">modules.DQNagent.DQNagent module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.DQNagent.html#module-modules.DQNagent.runAgent">modules.DQNagent.runAgent module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.DQNagent.html#module-modules.DQNagent">Module contents</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="modules.DQNagent.html#before-you-begin">Before you Begin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.DQNagent.html#details-of-operation">Details of Operation</a></li>
@@ -181,6 +186,23 @@
 <li class="toctree-l4"><a class="reference internal" href="modules.DQNagent.html#specifications-for-the-database">Specifications for the database:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules.DQNagent.html#specifications-for-modules-json">Specifications for <code class="docutils literal notranslate"><span class="pre">modules.json</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules.DQNagent.html#specification-for-any-other-files">Specification for [any other files]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.displayResults.html">modules.displayResults package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.displayResults.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.displayResults.html#module-modules.displayResults.displayResults">modules.displayResults.displayResults module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.displayResults.html#module-modules.displayResults">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.displayResults.html#before-you-begin">Before you Begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.displayResults.html#details-of-operation">Details of Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.displayResults.html#results">Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.displayResults.html#specifications">Specifications:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.displayResults.html#specifications-for-the-database">Specifications for the database:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.displayResults.html#specifications-for-modules-json">Specifications for <code class="docutils literal notranslate"><span class="pre">modules.json</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.displayResults.html#specification-for-any-other-files">Specification for [any other files]</a></li>
 </ul>
 </li>
 </ul>
@@ -198,6 +220,23 @@
 <li class="toctree-l4"><a class="reference internal" href="modules.module1.html#specifications-for-the-database">Specifications for the database:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules.module1.html#specifications-for-modules-json">Specifications for <code class="docutils literal notranslate"><span class="pre">modules.json</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules.module1.html#specification-for-any-other-files">Specification for [any other files]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.playAgent.html">modules.playAgent package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.playAgent.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.playAgent.html#module-modules.playAgent.playAgent">modules.playAgent.playAgent module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.playAgent.html#module-modules.playAgent">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.playAgent.html#before-you-begin">Before you Begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.playAgent.html#details-of-operation">Details of Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.playAgent.html#results">Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.playAgent.html#specifications">Specifications:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.playAgent.html#specifications-for-the-database">Specifications for the database:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.playAgent.html#specifications-for-modules-json">Specifications for <code class="docutils literal notranslate"><span class="pre">modules.json</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.playAgent.html#specification-for-any-other-files">Specification for [any other files]</a></li>
 </ul>
 </li>
 </ul>
@@ -228,6 +267,7 @@
 <li class="toctree-l2"><a class="reference internal" href="modules.tests.html#module-modules.tests.testMemoryBuffers">modules.tests.testMemoryBuffers module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.tests.html#module-modules.tests.testOpenAI">modules.tests.testOpenAI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.tests.html#module-modules.tests.testPolicy">modules.tests.testPolicy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.tests.html#module-modules.tests.testQnetwork">modules.tests.testQnetwork module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.tests.html#module-modules.tests.testUnity">modules.tests.testUnity module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.tests.html#module-modules.tests.tests">modules.tests.tests module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.tests.html#module-modules.tests">Module contents</a><ul>
@@ -297,7 +337,7 @@ a template for other modules.</p>
         <a href="modules.DQNagent.html" class="btn btn-neutral float-right" title="modules.DQNagent package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="logs.html" class="btn btn-neutral" title="logs package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="logs.html" class="btn btn-neutral float-left" title="logs package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -323,26 +363,16 @@ a template for other modules.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

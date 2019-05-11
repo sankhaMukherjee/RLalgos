@@ -1,4 +1,5 @@
 from lib.argParsers import config as cf
+from lib.argParsers import dqnAgent as dA
 
 from logs import logDecorator as lD
 import json, copy
@@ -30,6 +31,7 @@ def parsersAdd(logger, parser):
     '''
 
     parser = cf.addParsers(parser)
+    parser = dA.addParsers(parser)
 
     return parser
 
@@ -109,6 +111,7 @@ def decodeParsers(logger, args):
     configCLA['logging'] = cf.decodeParser(args)
 
     allConfigs['config'] = configCLA
+    allConfigs['dqnAgent'] = dA.decodeParser(args)
 
     return allConfigs
 
