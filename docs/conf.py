@@ -14,7 +14,7 @@
 #
 import os
 import sys
-sys.path.insert(0, '/home/sankha/Documents/programs/RL/RLalgos/src')
+sys.path.insert(0, '/home/sankha/Documents/programs/ML/RLalgos/src')
 
 
 # -- Project information -----------------------------------------------------

@@ -44,6 +44,14 @@ modules.tests.testPolicy module
     :undoc-members:
     :show-inheritance:
 
+modules.tests.testQnetwork module
+---------------------------------
+
+.. automodule:: modules.tests.testQnetwork
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 modules.tests.testUnity module
 ------------------------------
 

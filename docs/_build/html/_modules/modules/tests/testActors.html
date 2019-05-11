@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -157,30 +159,40 @@
 <span class="n">config</span>  <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/config.json&#39;</span><span class="p">))</span>
 <span class="n">logBase</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;logging&#39;</span><span class="p">][</span><span class="s1">&#39;logBase&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.modules.tests.testPolicy&#39;</span>
 
+<div class="viewcode-block" id="testArgMax"><a class="viewcode-back" href="../../../modules.tests.html#modules.tests.testActors.testArgMax">[docs]</a><span class="nd">@lD</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">logBase</span> <span class="o">+</span> <span class="s1">&#39;.testArgMax&#39;</span> <span class="p">)</span>
+<span class="k">def</span> <span class="nf">testArgMax</span><span class="p">(</span><span class="n">logger</span><span class="p">):</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------------&#39;</span><span class="p">)</span>
+
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">sA</span><span class="o">.</span><span class="n">SequentialDiscreteActor</span><span class="p">(</span>
+            <span class="n">stateSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">numActions</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
+            <span class="n">layers</span>                  <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> 
+            <span class="n">activations</span>             <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">],</span> 
+            <span class="n">batchNormalization</span>      <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">inp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="p">)</span>
+
+
+        <span class="nb">print</span><span class="p">(</span> <span class="n">out</span> <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to do the test for argmax: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
 <div class="viewcode-block" id="allTests"><a class="viewcode-back" href="../../../modules.tests.html#modules.tests.testActors.allTests">[docs]</a><span class="nd">@lD</span><span class="o">.</span><span class="n">log</span><span class="p">(</span> <span class="n">logBase</span> <span class="o">+</span> <span class="s1">&#39;.allTests&#39;</span> <span class="p">)</span>
 <span class="k">def</span> <span class="nf">allTests</span><span class="p">(</span><span class="n">logger</span><span class="p">):</span>
 
-	<span class="k">try</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
 
-		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------------&#39;</span><span class="p">)</span>
+        <span class="n">testArgMax</span><span class="p">()</span>
 
-		<span class="n">sequence</span> <span class="o">=</span> <span class="n">sA</span><span class="o">.</span><span class="n">SequentialDiscreteActor</span><span class="p">(</span>
-			<span class="n">stateSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">numActions</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
-			<span class="n">layers</span>                  <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> 
-			<span class="n">activations</span>             <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">],</span> 
-			<span class="n">batchNormalization</span>      <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to finish Memory Buffer tests: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-		<span class="n">inp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
-		<span class="n">out</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span> <span class="p">)</span>
-
-
-		<span class="nb">print</span><span class="p">(</span> <span class="n">out</span> <span class="p">)</span>
-		<span class="nb">print</span><span class="p">(</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
-
-	<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-		<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Unable to finish Memory Buffer tests: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-	<span class="k">return</span></div>
+    <span class="k">return</span></div>
 
 </pre></div>
 
@@ -211,26 +223,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

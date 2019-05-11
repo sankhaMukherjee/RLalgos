@@ -22,6 +22,7 @@ config/db.json
 # All the logs are to be ignored
 # Remember to keep the decorators
 src/logs/*.log
+# docs/_build/
 
 # Dont save results or data (might be a lot of stuff)
 results/*

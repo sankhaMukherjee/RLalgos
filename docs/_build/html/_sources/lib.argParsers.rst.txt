@@ -20,6 +20,14 @@ lib.argParsers.config module
     :undoc-members:
     :show-inheritance:
 
+lib.argParsers.dqnAgent module
+------------------------------
+
+.. automodule:: lib.argParsers.dqnAgent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

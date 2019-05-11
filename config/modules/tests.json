@@ -3,30 +3,31 @@
     "outputs" : {},
     "params"  : {
     	"TODO" : {
-            "openAI"       : false,
+            "openAI"       : true,
             "Unity"        : false,
             "MemoryBuffer" : false,
             "policy"       : false,
             "actors"       : false,
-    		"critics"      : false
+    		"critics"      : false,
+            "qNetwork"     : false
     	},
     	"openAI_params" : {
     		"checkValidity" : false,
     		"renderAll"     : false,
     		"renderTime"    : 1,
     		"renderOne"     : "MountainCar-v0",
-    		"playOne"       : "MountainCar-v0"
+    		"playOne"       : "CartPole-v1"
     	},
     	"UnityParams" : {
-    		"binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+    		"binaryFile"   : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
     		"randomAction" : "[np.random.randint(0, 4)]"
     	},
         "MemoryBufferParams" : {
-            "binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+            "binaryFile"   : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
             "randomAction" : "[np.random.randint(0, 4)]"
         },
         "policyParams" : {
-            "binaryFile"   : "/home/sankha/data/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
+            "binaryFile"   : "/home/sankha/Documents/mnt/hdd01/UnityBinaries/UdacityBinaries/Banana_Linux/Banana.x86_64",
             "randomAction" : "[np.random.randint(0, 4)]"
         }
     }

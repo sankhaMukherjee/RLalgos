@@ -114,7 +114,7 @@ class Agent_DQN:
         try:
             ma = self.maxAction(state)
             ra = self.randomAction(state)
-            p  = np.random.choice([1, 0], size=len(ma), p=[eps, 1-eps]).astype(np.float32)
+            p  = np.random.choice([1, 0], size=len(ma), p=[1-eps, eps]).astype(np.float32)
             p  = torch.as_tensor( p ).to(self.device)
 
             result = ma * p + ra * (1-p)
@@ -148,6 +148,9 @@ class Agent_DQN:
             allResults = self.env.episode(policy, maxSteps = maxSteps)
             s, a, r, ns, f = zip(*allResults[0])
             score = np.sum(r)
+            if (minScoreToAdd is None):
+                self.memory.appendAllAgentResults( allResults )
+
             if (minScoreToAdd is not None) and (score >= minScoreToAdd):
                 self.memory.appendAllAgentResults( allResults )
             return score
@@ -159,6 +162,7 @@ class Agent_DQN:
     def step(self, nSamples = 100):
 
         try:
+
             self.qNetworkFast.train()
             self.qNetworkSlow.train()
 

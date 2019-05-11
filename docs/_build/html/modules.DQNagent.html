@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="modules.module1 package" href="modules.module1.html" />
+    <link rel="next" title="modules.displayResults package" href="modules.displayResults.html" />
     <link rel="prev" title="modules package" href="modules.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -88,10 +90,13 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">modules.DQNagent package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-modules.DQNagent.DQNagent">modules.DQNagent.DQNagent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-modules.DQNagent.runAgent">modules.DQNagent.runAgent module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-modules.DQNagent">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="modules.displayResults.html">modules.displayResults package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.module1.html">modules.module1 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.playAgent.html">modules.playAgent package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.testAgents.html">modules.testAgents package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.tests.html">modules.tests package</a></li>
 </ul>
@@ -196,8 +201,36 @@ overwriting command line arguments as needed.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="modules.DQNagent.DQNagent.trainAgent">
-<code class="descclassname">modules.DQNagent.DQNagent.</code><code class="descname">trainAgent</code><span class="sig-paren">(</span><em>logger</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/DQNagent.html#trainAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.DQNagent.trainAgent" title="Permalink to this definition">¶</a></dt>
+<dt id="modules.DQNagent.DQNagent.playGym">
+<code class="descclassname">modules.DQNagent.DQNagent.</code><code class="descname">playGym</code><span class="sig-paren">(</span><em>logger</em>, <em>resultsDict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/DQNagent.html#playGym"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.DQNagent.playGym" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="modules.DQNagent.DQNagent.playUnity">
+<code class="descclassname">modules.DQNagent.DQNagent.</code><code class="descname">playUnity</code><span class="sig-paren">(</span><em>logger</em>, <em>resultsDict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/DQNagent.html#playUnity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.DQNagent.playUnity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-modules.DQNagent.runAgent">
+<span id="modules-dqnagent-runagent-module"></span><h2>modules.DQNagent.runAgent module<a class="headerlink" href="#module-modules.DQNagent.runAgent" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="modules.DQNagent.runAgent.runAgentGym">
+<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">runAgentGym</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgentGym</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#runAgentGym"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.runAgentGym" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="modules.DQNagent.runAgent.runAgentUnity">
+<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">runAgentUnity</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgentUnity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#runAgentUnity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.runAgentUnity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="modules.DQNagent.runAgent.trainAgentGym">
+<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">trainAgentGym</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#trainAgentGym"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.trainAgentGym" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="modules.DQNagent.runAgent.trainAgentUnity">
+<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">trainAgentUnity</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#trainAgentUnity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.trainAgentUnity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -267,10 +300,10 @@ changed.
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="modules.module1.html" class="btn btn-neutral float-right" title="modules.module1 package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="modules.displayResults.html" class="btn btn-neutral float-right" title="modules.displayResults package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="modules.html" class="btn btn-neutral" title="modules package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="modules package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -296,26 +329,16 @@ changed.
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
