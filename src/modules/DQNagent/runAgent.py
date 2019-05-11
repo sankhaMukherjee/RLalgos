@@ -181,11 +181,10 @@ def trainAgentGym(logger, configAgent):
 
         QNslow       = qN.qNetworkDiscrete( inpSize, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
         QNfast       = qN.qNetworkDiscrete( inpSize, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
+        memoryBuffer = RB.SimpleReplayBuffer(memorySize)
         
-        showEnv = False
-        with envGym.Env(envName, showEnv=showEnv) as env:
-            memoryBuffer = RB.SimpleReplayBuffer(memorySize)
-            agent        = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, numActions=outSize, gamma=1, device='cuda:0')
+        with envGym.Env(envName, showEnv=False) as env:
+            agent  = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, numActions=outSize, gamma=1, device='cuda:0')
             agent.eval()
 
             policy = lambda m: [agent.randomAction(m)]
@@ -199,13 +198,6 @@ def trainAgentGym(logger, configAgent):
             print('Optimizing model ...')
             for i in tqdm(range(nIterations)):
 
-                # if (not showEnv) and (i % 100 == 0):
-                #     env.no_graphics = False
-
-                # if (not showEnv) and (i % 100 != 0):
-                #     env.no_graphics = True
-
-                
                 eps = max(minEps, epsDecay*eps) # decrease epsilon
 
                 policy = lambda m: [agent.epsGreedyAction(m, eps)]
@@ -234,7 +226,6 @@ def trainAgentGym(logger, configAgent):
 @lD.log(logBase + '.runAgentGym')
 def runAgentGym(logger, configAgentGym):
     
-
     allResults = trainAgentGym(configAgentGym)
 
     now = dt.now().strftime('%Y-%m-%d--%H-%M-%S')

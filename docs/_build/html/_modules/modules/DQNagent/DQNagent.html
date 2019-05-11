@@ -155,6 +155,85 @@
 <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/config.json&#39;</span><span class="p">))</span>
 <span class="n">logBase</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;logging&#39;</span><span class="p">][</span><span class="s1">&#39;logBase&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.modules.DQNagent.DQNagent&#39;</span>
 
+<div class="viewcode-block" id="playUnity"><a class="viewcode-back" href="../../../modules.DQNagent.html#modules.DQNagent.DQNagent.playUnity">[docs]</a><span class="nd">@lD</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">logBase</span> <span class="o">+</span> <span class="s1">&#39;.main&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">playUnity</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">resultsDict</span><span class="p">):</span>
+
+
+    <span class="n">cConfig</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/modules/DQNagent.json&#39;</span><span class="p">))[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span>
+    <span class="n">configAgent</span> <span class="o">=</span> <span class="n">cConfig</span><span class="p">[</span><span class="s1">&#39;configAgentUnity&#39;</span><span class="p">]</span> 
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nIterations&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;initMemoryIterations&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;eps0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;epsDecay&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;minEps&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;maxSteps&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;nSamples&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Tau&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;inpSize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;outSize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hiddenSizes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hiddenActivations&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;lr&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">configAgent</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;dqnAgent&#39;</span><span class="p">][</span><span class="n">p</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39; epsDecay not set from the input: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">+--------------------------------------&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;| Current Configuration&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+--------------------------------------&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">configAgent</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;| [</span><span class="si">{c:30s}</span><span class="s1">] --&gt; </span><span class="si">{v}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+--------------------------------------&#39;</span><span class="p">)</span>
+
+    <span class="n">runAgent</span><span class="o">.</span><span class="n">runAgentUnity</span><span class="p">(</span><span class="n">configAgent</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="playGym"><a class="viewcode-back" href="../../../modules.DQNagent.html#modules.DQNagent.DQNagent.playGym">[docs]</a><span class="nd">@lD</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">logBase</span> <span class="o">+</span> <span class="s1">&#39;.main&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">playGym</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">resultsDict</span><span class="p">):</span>
+
+
+    <span class="n">cConfig</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/modules/DQNagent.json&#39;</span><span class="p">))[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span>
+    <span class="n">configAgent</span> <span class="o">=</span> <span class="n">cConfig</span><span class="p">[</span><span class="s1">&#39;configAgentGym&#39;</span><span class="p">]</span> 
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nIterations&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;initMemoryIterations&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;eps0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;epsDecay&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;minEps&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;maxSteps&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;nSamples&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Tau&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;inpSize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;outSize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hiddenSizes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hiddenActivations&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;lr&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">configAgent</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;dqnAgent&#39;</span><span class="p">][</span><span class="n">p</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39; epsDecay not set from the input: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">+--------------------------------------&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;| Current Configuration&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+--------------------------------------&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">configAgent</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;| [</span><span class="si">{c:30s}</span><span class="s1">] --&gt; </span><span class="si">{v}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+--------------------------------------&#39;</span><span class="p">)</span>
+
+    <span class="n">runAgent</span><span class="o">.</span><span class="n">runAgentGym</span><span class="p">(</span><span class="n">configAgent</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../modules.DQNagent.html#modules.DQNagent.DQNagent.main">[docs]</a><span class="nd">@lD</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">logBase</span> <span class="o">+</span> <span class="s1">&#39;.main&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">resultsDict</span><span class="p">):</span>
@@ -177,36 +256,13 @@
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Main function of DQNagent&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+
+
+
+    <span class="c1"># playUnity(resultsDict)</span>
+    <span class="n">playGym</span><span class="p">(</span><span class="n">resultsDict</span><span class="p">)</span>
     
-    <span class="n">cConfig</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/modules/DQNagent.json&#39;</span><span class="p">))[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span>
-    <span class="n">configAgent</span> <span class="o">=</span> <span class="n">cConfig</span><span class="p">[</span><span class="s1">&#39;configAgent&#39;</span><span class="p">]</span> 
-
-
-    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nIterations&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;initMemoryIterations&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;eps0&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;epsDecay&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;minEps&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;maxSteps&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;nSamples&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Tau&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;lr&#39;</span><span class="p">]</span>
-
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">configAgent</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">resultsDict</span><span class="p">[</span><span class="s1">&#39;dqnAgent&#39;</span><span class="p">][</span><span class="n">p</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39; epsDecay not set from the input: </span><span class="si">{e}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">+--------------------------------------&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;| Current Configuration&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+--------------------------------------&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">configAgent</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;| [</span><span class="si">{c:30s}</span><span class="s1">] --&gt; </span><span class="si">{v}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+--------------------------------------&#39;</span><span class="p">)</span>
-
-    <span class="n">runAgent</span><span class="o">.</span><span class="n">runAgent</span><span class="p">(</span><span class="n">configAgent</span><span class="p">)</span>
+    
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting out of DQNagent&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>

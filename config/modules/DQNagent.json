@@ -52,7 +52,7 @@
             "envName"              : "CartPole-v1",
             
             "nIterations"          : 1000,  
-            "initMemoryIterations" : 10000,  
+            "initMemoryIterations" : 1000,  
             "eps0"                 : 1,   
             "epsDecay"             : 0.99, 
             "minEps"               : 0.01,

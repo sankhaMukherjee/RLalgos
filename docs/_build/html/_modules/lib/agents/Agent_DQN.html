@@ -297,6 +297,9 @@
             <span class="n">allResults</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">episode</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">maxSteps</span> <span class="o">=</span> <span class="n">maxSteps</span><span class="p">)</span>
             <span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">allResults</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">minScoreToAdd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">appendAllAgentResults</span><span class="p">(</span> <span class="n">allResults</span> <span class="p">)</span>
+
             <span class="k">if</span> <span class="p">(</span><span class="n">minScoreToAdd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="n">minScoreToAdd</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">appendAllAgentResults</span><span class="p">(</span> <span class="n">allResults</span> <span class="p">)</span>
             <span class="k">return</span> <span class="n">score</span>
@@ -308,6 +311,7 @@
 <div class="viewcode-block" id="Agent_DQN.step"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nSamples</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
 
         <span class="k">try</span><span class="p">:</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkFast</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkSlow</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 
