@@ -174,9 +174,9 @@ doc:
 	@echo '----------------------------'
 	sphinx-build -b html -aE -d ../docs/doctrees -c ../docs ../docs ../docs/_build/html
 	sphinx-build -b markdown -aE -d ../docs/doctrees -c ../docs ../docs ../docs/_build/markdown
-	cp -R ../docs/_build/markdown ../docs1
-	rm -rf ../docs
-	mv ../docs1 ../docs
+	# cp -R ../docs/_build/markdown ../docs1
+	# rm -rf ../docs
+	# mv ../docs1 ../docs
 
 
 
