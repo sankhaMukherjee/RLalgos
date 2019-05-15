@@ -147,7 +147,7 @@ doc:
 	@rm -rf ../docs
 	@mkdir ../docs
 	@sphinx-apidoc -F -o ../docs .
-	@sed "s/^extensions.*/& 'sphinx.ext.napoleon',/"        ../docs/conf.py   > ../docs/conf2.py
+	@sed "s/^extensions.*/& 'sphinx.ext.napoleon','sphinx_markdown_builder',/"        ../docs/conf.py   > ../docs/conf2.py
 	@sed "s/^# import/import/"                              ../docs/conf2.py  > ../docs/conf3.py
 	@sed "s/^# sys.path./sys.path./"                        ../docs/conf3.py  > ../docs/conf4.py
 	@sed "s|^html_theme =|#html_theme =|"  					../docs/conf4.py  > ../docs/conf5.py
@@ -173,7 +173,8 @@ doc:
 	@echo 'Generating the doc tree ....'
 	@echo '----------------------------'
 	sphinx-build -b html -aE -d ../docs/doctrees -c ../docs ../docs ../docs/_build/html
-	cp -R ../docs/_build/html ../docs1
+	sphinx-build -b markdown -aE -d ../docs/doctrees -c ../docs ../docs ../docs/_build/markdown
+	cp -R ../docs/_build/markdown ../docs1
 	rm -rf ../docs
 	mv ../docs1 ../docs
 

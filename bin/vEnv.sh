@@ -30,6 +30,7 @@ else
     pip3 install pytest-cov
     pip3 install sphinx
     pip3 install sphinx_rtd_theme
+    pip3 install sphinx-markdown-builder
 
     # Logging into logstash
     pip3 install python-logstash
