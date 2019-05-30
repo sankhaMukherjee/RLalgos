@@ -2,7 +2,7 @@
     {
         "moduleName" : "module1",
         "path"       : "modules/module1/module1.py",
-        "execute"    : true,
+        "execute"    : false,
         "description": "",
         "owner"      : ""
     },{
@@ -20,7 +20,7 @@
     },{
         "moduleName" : "DQNagent",
         "path"       : "modules/DQNagent/DQNagent.py",
-        "execute"    : false,
+        "execute"    : true,
         "description": "This will do tests using simple agents",
         "owner"      : "Sankha"
     },{

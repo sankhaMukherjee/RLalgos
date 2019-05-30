@@ -169,6 +169,7 @@ def trainAgentGym(logger, configAgent):
         hiddenSizes          = configAgent['hiddenSizes']
         hiddenActivations    = configAgent['hiddenActivations']
         lr                   = configAgent['lr']
+        N                    = configAgent['N']
 
         hiddenActivations    = [functionMaps[m] for m in hiddenActivations]
 
@@ -179,11 +180,11 @@ def trainAgentGym(logger, configAgent):
             "slidingScores" : []
         }
 
-        QNslow       = qN.qNetworkDiscrete( inpSize, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
-        QNfast       = qN.qNetworkDiscrete( inpSize, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
+        QNslow       = qN.qNetworkDiscrete( inpSize*N, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
+        QNfast       = qN.qNetworkDiscrete( inpSize*N, outSize, hiddenSizes, activations=hiddenActivations, lr=lr)
         memoryBuffer = RB.SimpleReplayBuffer(memorySize)
         
-        with envGym.Env(envName, showEnv=False) as env:
+        with envGym.Env1D(envName, N=N, showEnv=False) as env:
             agent  = dqn.Agent_DQN(env, memoryBuffer, QNslow, QNfast, numActions=outSize, gamma=1, device='cuda:0')
             agent.eval()
 
