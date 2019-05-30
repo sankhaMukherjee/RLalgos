@@ -40,8 +40,8 @@ class qNetworkDiscrete(nn.Module):
             self.batchNormalization  = batchNormalization
 
             # Generate the fullly connected layer functions
-            self.fcLayers = []
-            self.bns      = []
+            self.fcLayers = nn.ModuleList([])
+            self.bns = nn.ModuleList([])
 
             oldN = stateSize
             if self.batchNormalization:
