@@ -24,14 +24,14 @@
             "hiddenActivations"    : ["tanh", "tanh"],
             "lr"                   : 0.001
         },
-        "configAgentGym_1" : {
+        "configAgentGym" : {
             
             "memorySize"           : 100005,
             
             "envName"              : "MountainCar-v0",
             
-            "nIterations"          : 10,  
-            "initMemoryIterations" : 10,  
+            "nIterations"          : 1000,  
+            "initMemoryIterations" : 1000,  
             "eps0"                 : 1,   
             "epsDecay"             : 0.99, 
             "minEps"               : 0.01,
@@ -39,13 +39,14 @@
             "nSamples"             : 500,
             "Tau"                  : 0.001,
             
+            "N"                    : 4,
             "inpSize"              : 2,
             "outSize"              : 3,
             "hiddenSizes"          : [30, 10],
             "hiddenActivations"    : ["tanh", "tanh"],
             "lr"                   : 0.01
         },
-        "configAgentGym" : {
+        "configAgentGym_1" : {
             
             "memorySize"           : 100005,
             
@@ -60,6 +61,7 @@
             "nSamples"             : 500,
             "Tau"                  : 0.001,
             
+            "N"                    : 4,
             "inpSize"              : 4,
             "outSize"              : 2,
             "hiddenSizes"          : [10, 5],
