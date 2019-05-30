@@ -24,7 +24,7 @@
             "hiddenActivations"    : ["tanh", "tanh"],
             "lr"                   : 0.001
         },
-        "configAgentGym" : {
+        "configAgentGym_1" : {
             
             "memorySize"           : 100005,
             
@@ -42,11 +42,11 @@
             "N"                    : 4,
             "inpSize"              : 2,
             "outSize"              : 3,
-            "hiddenSizes"          : [30, 10],
-            "hiddenActivations"    : ["tanh", "tanh"],
+            "hiddenSizes"          : [256, 128, 128],
+            "hiddenActivations"    : ["tanh", "tanh", "tanh"],
             "lr"                   : 0.01
         },
-        "configAgentGym_1" : {
+        "configAgentGym" : {
             
             "memorySize"           : 100005,
             
@@ -64,8 +64,8 @@
             "N"                    : 4,
             "inpSize"              : 4,
             "outSize"              : 2,
-            "hiddenSizes"          : [10, 5],
-            "hiddenActivations"    : ["tanh", "tanh"],
+            "hiddenSizes"          : [256, 128, 128],
+            "hiddenActivations"    : ["tanh", "tanh", "tanh"],
             "lr"                   : 0.001
         }
     }
