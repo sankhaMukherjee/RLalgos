@@ -75,7 +75,7 @@ class qNetworkDiscrete(nn.Module):
 
         return
 
-    def forward(self, x):
+    def forward(self, x, sigma=0):
         '''forward function that is called during the forward pass
         
         This is the forward function that will be called during a 
@@ -102,12 +102,24 @@ class qNetworkDiscrete(nn.Module):
                     else:
                         bn.eval()
                     x = a(bn(fc(x)))
+                    # https://discuss.pytorch.org/t/random-number-on-gpu/9649
+                    if x.is_cuda:
+                        normal = torch.cuda.FloatTensor(x.shape).normal_()
+                    else:
+                        normal = torch.FloatTensor(x.shape).normal_()
+                    x = x + normal*sigma
 
                 x = self.fcFinal( x )
 
             else:
                 for i, (fc, a) in enumerate(zip(self.fcLayers, self.activations)):
                     x = a(fc(x))
+                    # https://discuss.pytorch.org/t/random-number-on-gpu/9649
+                    if x.is_cuda:
+                        normal = torch.cuda.FloatTensor(x.shape).normal_()
+                    else:
+                        normal = torch.FloatTensor(x.shape).normal_()
+                    x = x + normal*sigma
 
                 x = self.fcFinal( x )
 
