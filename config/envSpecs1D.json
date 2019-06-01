@@ -1,0 +1,262 @@
+{
+    "CartPole-v0": [
+        4,
+        2
+    ],
+    "MountainCar-v0": [
+        2,
+        3
+    ],
+    "Acrobot-v1": [
+        6,
+        3
+    ],
+    "Adventure-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "AirRaid-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "Alien-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Amidar-ramNoFrameskip-v4": [
+        128,
+        10
+    ],
+    "Assault-ramNoFrameskip-v4": [
+        128,
+        7
+    ],
+    "Asterix-ramNoFrameskip-v4": [
+        128,
+        9
+    ],
+    "Asteroids-ramNoFrameskip-v4": [
+        128,
+        14
+    ],
+    "Atlantis-ramNoFrameskip-v4": [
+        128,
+        4
+    ],
+    "BankHeist-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "BattleZone-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "BeamRider-ramNoFrameskip-v4": [
+        128,
+        9
+    ],
+    "Berzerk-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Bowling-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "Boxing-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Breakout-ramNoFrameskip-v4": [
+        128,
+        4
+    ],
+    "Carnival-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "Centipede-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "ChopperCommand-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "CrazyClimber-ramNoFrameskip-v4": [
+        128,
+        9
+    ],
+    "Defender-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "DemonAttack-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "DoubleDunk-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "ElevatorAction-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Enduro-ramNoFrameskip-v4": [
+        128,
+        9
+    ],
+    "FishingDerby-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Freeway-ramNoFrameskip-v4": [
+        128,
+        3
+    ],
+    "Frostbite-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Gopher-ramNoFrameskip-v4": [
+        128,
+        8
+    ],
+    "Gravitar-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Hero-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "IceHockey-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Jamesbond-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "JourneyEscape-ramNoFrameskip-v4": [
+        128,
+        16
+    ],
+    "Kangaroo-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Krull-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "KungFuMaster-ramNoFrameskip-v4": [
+        128,
+        14
+    ],
+    "MontezumaRevenge-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "MsPacman-ramNoFrameskip-v4": [
+        128,
+        9
+    ],
+    "NameThisGame-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "Phoenix-ramNoFrameskip-v4": [
+        128,
+        8
+    ],
+    "Pitfall-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Pong-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "Pooyan-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "PrivateEye-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Qbert-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "Riverraid-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "RoadRunner-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Robotank-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Seaquest-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Skiing-ramNoFrameskip-v4": [
+        128,
+        3
+    ],
+    "Solaris-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "SpaceInvaders-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "StarGunner-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Tennis-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "TimePilot-ramNoFrameskip-v4": [
+        128,
+        10
+    ],
+    "Tutankham-ramNoFrameskip-v4": [
+        128,
+        8
+    ],
+    "UpNDown-ramNoFrameskip-v4": [
+        128,
+        6
+    ],
+    "Venture-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "VideoPinball-ramNoFrameskip-v4": [
+        128,
+        9
+    ],
+    "WizardOfWor-ramNoFrameskip-v4": [
+        128,
+        10
+    ],
+    "YarsRevenge-ramNoFrameskip-v4": [
+        128,
+        18
+    ],
+    "Zaxxon-ramNoFrameskip-v4": [
+        128,
+        18
+    ]
+}
