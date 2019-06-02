@@ -7,7 +7,7 @@ logBase = config['logging']['logBase'] + '.modules.trainAgents.trainAgents'
 from lib.agents import trainAgents as tA
 
 @lD.log(logBase + '.doSomething')
-def doSomething(logger):
+def doSomething(logger, resultsDict):
     '''print a line
     
     This function simply prints a single line
@@ -47,6 +47,30 @@ def doSomething(logger):
         "saveFolder": None
     }
 
+    
+    configAgentGym['saveFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/{configAgentGym["envName"]}'
+    configAgentGym['loadFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/CartPole-v1/2019-06-02--11-27-13_00024_111'
+
+    parameters = ['nIterations',
+                  'initMemoryIterations',
+                  'eps0',
+                  'epsDecay',
+                  'minEps',
+                  'maxSteps',
+                  'nSamples',
+                  'Tau',
+                  "inpSize",
+                  "outSize",
+                  "hiddenSizes",
+                  "hiddenActivations",
+                  'lr']
+
+    for p in parameters:
+        try:
+            configAgent[p] = resultsDict['dqnAgent'][p]
+        except Exception as e:
+            logger.warning(f' epsDecay not set from the input: {e}')
+
     results = tA.trainAgentGymEpsGreedy(configAgentGym)
     for r in results:
         print(f'-----------[{r.center(40)}]--------------')
@@ -78,7 +102,7 @@ def main(logger, resultsDict):
     print('We get a copy of the result dictionary over here ...')
     pprint.pprint(resultsDict)
 
-    doSomething()
+    doSomething(resultsDict)
 
     print('Getting out of trainAgents')
     print('-'*30)

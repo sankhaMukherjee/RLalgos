@@ -18,10 +18,14 @@ from lib.utils import ReplayBuffer as RB
 
 from torch.nn import functional as F
 
+from datetime import datetime as dt
+
 
 def trainAgentGymEpsGreedy(configAgent):
 
     try:
+
+        now = dt.now().strftime(r'%Y-%m-%d--%H-%M-%S')
 
         functionMaps = {
             'relu': F.relu,
@@ -109,17 +113,19 @@ def trainAgentGymEpsGreedy(configAgent):
                 s, a, r, ns, f = zip(*results)
                 score = sum(r)
                 slidingScore.append(score)
-                tqdm.write('score = {}, max = {}, sliding score = {}, eps = {}'.format(
-                    score, max(r), np.mean(slidingScore), eps))
+
+                if (score > prevBest):
+                    tqdm.write('score = {}, max = {}, sliding score = {}, eps = {}'.format(
+                        score, max(r), np.mean(slidingScore), eps))
 
                 if saveFolder and (score > prevBest):
                     prevBest = score
-                    folder = os.path.join( saveFolder, f'{i:05d}' )
+                    folder = os.path.join( saveFolder, f'{now}_{i:05d}_{int(score)}' )
                     os.makedirs(folder)
                     agent.save(folder, 'agent_0')
                     allResults['saveLocations'].append((score, folder))
 
-                    json.dump( open( os.path.join(folder, 'configAgent.json') , 'w') , configAgent)
+                    json.dump(configAgent, open(os.path.join(folder, 'configAgent.json'), 'w'))
 
                 allResults['scores'].append(score)
                 allResults['slidingScores'].append(np.mean(slidingScore))
