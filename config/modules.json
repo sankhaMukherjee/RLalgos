@@ -32,6 +32,12 @@
     },{
         "moduleName" : "trainAgents",
         "path"       : "modules/trainAgents/trainAgents.py",
+        "execute"    : false,
+        "description": "This will do tests using simple agents",
+        "owner"      : "Sankha"
+    },{
+        "moduleName" : "vizualize",
+        "path"       : "modules/vizualize/vizualize.py",
         "execute"    : true,
         "description": "This will do tests using simple agents",
         "owner"      : "Sankha"
