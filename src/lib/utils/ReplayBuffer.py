@@ -1,6 +1,6 @@
 from collections import deque
 import numpy as np
-import pickle, os
+import pickle, os, sys
 
 class SimpleReplayBuffer:
 
@@ -142,8 +142,13 @@ class SimpleReplayBuffer:
             agent's buffer we are saving. 
         '''
 
-        with open(os.path.join(folder, f'memory_{name}.pickle'), 'wb') as fOut:
-            pickle.dump(self.memory, fOut, pickle.HIGHEST_PROTOCOL)
+        try:
+            with open(os.path.join(folder, f'memory_{name}.pickle'), 'wb') as fOut:
+                pickle.dump(self.memory, fOut, pickle.HIGHEST_PROTOCOL)
+        except Exception as e:
+            raise type(e)(
+                'lib.utils.SimpleReplayBuffer.save - ERROR - ' + str(e)
+            ).with_traceback(sys.exc_info()[2])
 
         return
 

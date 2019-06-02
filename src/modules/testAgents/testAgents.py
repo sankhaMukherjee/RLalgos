@@ -113,7 +113,7 @@ def main(logger, resultsDict):
     print('Main function of testAgents')
     print('='*30)
 
-    testAllAgents()
+    # testAllAgents()
 
     print('Getting out of testAgents')
     print('-'*30)

@@ -48,15 +48,18 @@
         },
         "configAgentGym" : {
             
-            "memorySize"           : 100005,
-            
             "envName"              : "CartPole-v1",
+
+            "memorySize"           : 100005,
+            "initMemoryIterations" : 1000,  
+            "updateMemory"         : [],
             
             "nIterations"          : 1000,  
-            "initMemoryIterations" : 1000,  
+            
             "eps0"                 : 1,   
             "epsDecay"             : 0.99, 
             "minEps"               : 0.01,
+
             "maxSteps"             : 10000,
             "nSamples"             : 500,
             "Tau"                  : 0.001,
@@ -66,7 +69,10 @@
             "outSize"              : 2,
             "hiddenSizes"          : [256, 128, 128],
             "hiddenActivations"    : ["tanh", "tanh", "tanh"],
-            "lr"                   : 0.001
+            "lr"                   : 0.001,
+
+            "loadFolder"           : null,
+            "saveFolder"           : null
         }
     }
 }

@@ -271,6 +271,7 @@ class Agent_DQN:
                 os.path.join(folder, f'{name}.qNetworkSlow'))
 
             self.memory.save(folder, name)
+            
         except Exception as e:
             raise type(e)( 
                 'lib.agents.Agent_DQN.Agent_DQN.save - ERROR - ' + str(e) 
