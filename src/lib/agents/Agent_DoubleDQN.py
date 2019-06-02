@@ -2,7 +2,7 @@ import torch, os
 import numpy as np 
 import sys
 
-class Agent_DQN:
+class Agent_DoubleDQN:
 
     def __init__(self, env, memory, qNetworkSlow, qNetworkFast, numActions, gamma, device='cpu'):
 
@@ -206,9 +206,20 @@ class Agent_DQN:
             nextStates  = torch.as_tensor(nextStates).float().to(self.device)
             dones       = torch.as_tensor(dones).float().to(self.device)
             
+            # We cannot just assume that the best action will be the one
+            # taken from the max of the next network. It is infact the 
+            # one that is chosen by the fast network for the next step.
+            newQVals = self.qNetworkFast(nextStates)
+            newActions = torch.argmax(newQVals, dim=1)
+
+            # print(newActions)
+            # print(self.qNetworkSlow(nextStates)[:10])
+            # print(self.qNetworkSlow(nextStates).shape)
+            # print(self.qNetworkSlow(nextStates)[:, newActions][:, 0].shape)
+
             # Note that `max` also returns the positions
             qVal    = self.qNetworkFast( states, sigma ).max(dim=1)[0]
-            qValHat = rewards + self.qNetworkSlow( nextStates ).max( dim=1 )[0] * (1-dones)
+            qValHat = rewards + self.qNetworkSlow( nextStates )[ :, newActions ][:, 0] * (1-dones)
             
             self.qNetworkFast.step(qValHat, qVal)
             

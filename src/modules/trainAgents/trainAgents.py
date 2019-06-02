@@ -21,12 +21,13 @@ def doSomething(logger, resultsDict):
     configAgentGym = {
 
         "envName": "CartPole-v1",
+        "agentType" : "DoubleDQN",
 
         "memorySize": 100005,
         "initMemoryIterations": 1000,
         "updateMemory": [],
 
-        "nIterations": 1000,
+        "nIterations": 10000,
 
         "eps0": 1,
         "epsDecay": 0.99,
@@ -41,15 +42,15 @@ def doSomething(logger, resultsDict):
         "outSize": 2,
         "hiddenSizes": [256, 128, 128],
         "hiddenActivations": ["tanh", "tanh", "tanh"],
-        "lr": 0.001,
+        "lr": 0.0001,
+        "sigma": 0.01,
 
         "loadFolder": None,
         "saveFolder": None
     }
 
-    
-    configAgentGym['saveFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/{configAgentGym["envName"]}'
-    configAgentGym['loadFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/CartPole-v1/2019-06-02--11-27-13_00024_111'
+    configAgentGym['saveFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/{configAgentGym["envName"]}/{configAgentGym["agentType"]}'
+    # configAgentGym['loadFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/CartPole-v1/2019-06-02--11-27-13_00024_111'
 
     parameters = ['nIterations',
                   'initMemoryIterations',
