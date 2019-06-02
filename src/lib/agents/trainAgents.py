@@ -98,11 +98,15 @@ def trainAgentGymEpsGreedy(configAgent):
 
             if not loadFolder:
                 def policy(m): return [agent.sigmaMaxAction(m, 1)]
-                print('Generating some initial memory ...')
-                for i in tqdm(range(initMemoryIterations)):
-                    score = agent.memoryUpdateEpisode(
-                        policy, maxSteps=maxSteps, minScoreToAdd=None)
-                    tqdm.write(f'score = {score}')
+            else:
+                def policy(m): return [agent.sigmaMaxAction(m, 0.01)]
+                agent.memory.clear()
+
+            print('Generating some initial memory ...')
+            for i in tqdm(range(initMemoryIterations)):
+                score = agent.memoryUpdateEpisode(
+                    policy, maxSteps=maxSteps, minScoreToAdd=None)
+                tqdm.write(f'score = {score}')
 
             eps = eps0
             print('Optimizing model ...')

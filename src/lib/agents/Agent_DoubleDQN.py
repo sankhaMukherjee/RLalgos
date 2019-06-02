@@ -194,8 +194,6 @@ class Agent_DoubleDQN:
 
         try:
 
-            self.qNetworkFast.train()
-            self.qNetworkSlow.train()
 
             data = self.memory.sample( nSamples )
             states, actions, rewards, nextStates, dones = zip(*data)
@@ -211,11 +209,13 @@ class Agent_DoubleDQN:
             # one that is chosen by the fast network for the next step.
             newQVals = self.qNetworkFast(nextStates)
             newActions = torch.argmax(newQVals, dim=1)
-
             # print(newActions)
             # print(self.qNetworkSlow(nextStates)[:10])
             # print(self.qNetworkSlow(nextStates).shape)
             # print(self.qNetworkSlow(nextStates)[:, newActions][:, 0].shape)
+
+            self.qNetworkFast.train()
+            # self.qNetworkSlow.train()
 
             # Note that `max` also returns the positions
             qVal    = self.qNetworkFast( states, sigma ).max(dim=1)[0]
@@ -224,7 +224,7 @@ class Agent_DoubleDQN:
             self.qNetworkFast.step(qValHat, qVal)
             
             self.qNetworkFast.eval()
-            self.qNetworkSlow.eval()
+            # self.qNetworkSlow.eval()
         except Exception as e:
             raise type(e)( 
                 'lib.agents.Agent_DQN.Agent_DQN.step - ERROR - ' + str(e) 
