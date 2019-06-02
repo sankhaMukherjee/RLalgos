@@ -24,7 +24,7 @@ def doSomething(logger, resultsDict):
         "agentType" : "DoubleDQN",
 
         "memorySize": 100005,
-        "initMemoryIterations": 1000,
+        "initMemoryIterations": 10000,
         "updateMemory": [],
 
         "nIterations": 10000,
@@ -50,7 +50,7 @@ def doSomething(logger, resultsDict):
     }
 
     configAgentGym['saveFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/{configAgentGym["envName"]}/{configAgentGym["agentType"]}'
-    # configAgentGym['loadFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/CartPole-v1/2019-06-02--11-27-13_00024_111'
+    configAgentGym['loadFolder'] = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/CartPole-v1/2019-06-02--11-27-13_00024_111'
 
     parameters = ['nIterations',
                   'initMemoryIterations',

@@ -69,6 +69,10 @@ class SimpleReplayBuffer:
             N1 = None
         return N, N1
 
+    def clear(self):
+        self.memory.clear()
+        return
+
     def appendMany(self, results):
         '''append multiple tuples to the memory buffer
         
