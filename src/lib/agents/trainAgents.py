@@ -10,6 +10,7 @@ import torch
 from datetime import datetime as dt
 
 from lib.agents import Agent_DQN as dqn
+from lib.agents import Agent_DoubleDQN as ddqn
 from lib.agents import qNetwork as qN
 
 from lib.envs import envUnity
@@ -60,6 +61,7 @@ def trainAgentGymEpsGreedy(configAgent):
         hiddenActivations    = configAgent['hiddenActivations']
         lr                   = configAgent['lr']
         N                    = configAgent['N']
+        sigma                = configAgent['sigma']
         loadFolder           = configAgent['loadFolder']
         saveFolder           = configAgent['saveFolder']
 
@@ -81,19 +83,26 @@ def trainAgentGymEpsGreedy(configAgent):
         memoryBuffer = RB.SimpleReplayBuffer(memorySize)
 
         with envGym.Env1D(envName, N=N, showEnv=False) as env:
-            agent = dqn.Agent_DQN(
-                env, memoryBuffer, QNslow, QNfast, numActions=outSize, gamma=1, device='cuda:0')
+
+            if configAgent['agentType'] == 'DQN':
+                agent = dqn.Agent_DQN(
+                    env, memoryBuffer, QNslow, QNfast, numActions=outSize, gamma=1, device='cuda:0')
+            if configAgent['agentType'] == 'DoubleDQN':
+                agent = ddqn.Agent_DoubleDQN(
+                    env, memoryBuffer, QNslow, QNfast, numActions=outSize, gamma=1, device='cuda:0')
+
             if loadFolder:
                 agent.load( loadFolder, 'agent_0' )
             agent.eval()
 
-            def policy(m): return [agent.randomAction(m)]
 
-            print('Generating some initial memory ...')
-            for i in tqdm(range(initMemoryIterations)):
-                score = agent.memoryUpdateEpisode(
-                    policy, maxSteps=maxSteps, minScoreToAdd=None)
-                tqdm.write(f'score = {score}')
+            if not loadFolder:
+                def policy(m): return [agent.sigmaMaxAction(m, 1)]
+                print('Generating some initial memory ...')
+                for i in tqdm(range(initMemoryIterations)):
+                    score = agent.memoryUpdateEpisode(
+                        policy, maxSteps=maxSteps, minScoreToAdd=None)
+                    tqdm.write(f'score = {score}')
 
             eps = eps0
             print('Optimizing model ...')
@@ -104,7 +113,7 @@ def trainAgentGymEpsGreedy(configAgent):
                 def policy(m): return [agent.epsGreedyAction(m, eps)]
                 agent.memoryUpdateEpisode(policy, maxSteps=maxSteps)
 
-                agent.step(nSamples=nSamples)
+                agent.step(nSamples=nSamples, sigma=sigma)
                 agent.softUpdate(Tau)
 
                 # Calculate Score

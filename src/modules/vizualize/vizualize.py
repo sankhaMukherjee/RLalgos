@@ -71,7 +71,7 @@ def doSomething(logger, folder):
 
         for i in range(10):
             env.reset()
-            allResults = agent.env.episode(policy, maxSteps=maxSteps)
+            allResults = env.episode(policy, maxSteps=maxSteps)
             s, a, r, ns, f = zip(*allResults[0])
             
             actions = ''.join([str(m) for m in a])
@@ -103,7 +103,7 @@ def main(logger, resultsDict):
     print('We get a copy of the result dictionary over here ...')
     pprint.pprint(resultsDict)
 
-    folder = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/CartPole-v1/2019-06-02--11-27-13_00024_111'
+    folder = f'/home/sankha/Documents/mnt/hdd01/models/RLalgos/CartPole-v1/2019-06-02--17-01-22_00487_500/'
     doSomething(folder)
 
     print('Getting out of vizualize')
