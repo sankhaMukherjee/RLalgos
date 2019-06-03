@@ -102,6 +102,8 @@ def trainAgentGymEpsGreedy(configAgent):
                 def policy(m): return [agent.sigmaMaxAction(m, 0.01)]
                 agent.memory.clear()
 
+            agent.fastUpdate()
+
             print('Generating some initial memory ...')
             for i in tqdm(range(initMemoryIterations)):
                 score = agent.memoryUpdateEpisode(
@@ -114,7 +116,8 @@ def trainAgentGymEpsGreedy(configAgent):
 
                 eps = max(minEps, epsDecay*eps)  # decrease epsilon
 
-                def policy(m): return [agent.epsGreedyAction(m, eps)]
+                # We are changing the policy to adding noise
+                def policy(m): return [agent.sigmaMaxAction(m, eps*3)]
                 agent.memoryUpdateEpisode(policy, maxSteps=maxSteps)
 
                 agent.step(nSamples=nSamples, sigma=sigma)
