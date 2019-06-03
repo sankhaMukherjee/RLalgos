@@ -27,7 +27,7 @@ def doSomething(logger, resultsDict):
         "initMemoryIterations": 10000,
         "updateMemory": [],
 
-        "nIterations": 10000,
+        "nIterations": 5000,
 
         "eps0": 1,
         "epsDecay": 0.99,

@@ -281,6 +281,27 @@ class Agent_DoubleDQN:
 
         return
 
+    def fastUpdate(self, tau=1):
+        '''update the fast network slightly
+        
+        This is going to update the slow network slightly. The amount
+        is dictated by ``tau``. This should be a number between 0 and 1.
+        It will update the ``tau`` fraction of the slow network weights
+        with the new weights. This is done for providing stability to the
+        network. 
+        
+        Parameters
+        ----------
+        tau : {number}, optional
+            This parameter determines how much of the fast Networks weights
+            will be updated to the ne parameters weights (the default is 0.1)
+        '''
+
+        for v1, v2 in zip(self.qNetworkFast.parameters(), self.qNetworkSlow.parameters()):
+            v1.data.copy_(tau*v2 + (1-tau)*v1)
+
+        return
+
     def save(self, folder, name):
         '''save the model
         
