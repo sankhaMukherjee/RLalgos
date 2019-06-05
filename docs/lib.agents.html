@@ -884,17 +884,24 @@ default 0, which does not introduce noise in the learning algorithm.</li>
 <p>This takes a state and returns a Q function for each action. Hence, the
 input is a state and the output is a set of Q values, one for each action
 in the action space. The action is assumed to be discrete. i.e. a <code class="docutils literal notranslate"><span class="pre">1</span></code>
-when the particular action is to be desired.</p>
+when the particular action is to be desired. The input state is assumed to
+be 1D in nature. A different network will have to be chosen if 2D and 3D
+inputs are to be desired.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>stateSize</strong> (<em>{</em><em>[</em><em>type</em><em>]</em><em>}</em>) – [description]</li>
-<li><strong>actionSize</strong> (<em>{</em><em>[</em><em>type</em><em>]</em><em>}</em>) – [description]</li>
-<li><strong>layers</strong> (<em>{list}</em><em>, </em><em>optional</em>) – [description] (the default is [10, 5], which [default_description])</li>
-<li><strong>activations</strong> (<em>{list}</em><em>, </em><em>optional</em>) – [description] (the default is [F.tanh, F.tanh], which [default_description])</li>
-<li><strong>batchNormalization</strong> (<em>{bool}</em><em>, </em><em>optional</em>) – [description] (the default is True, which [default_description])</li>
+<li><strong>stateSize</strong> (<em>{int}</em>) – Size of the state. Since this is a 1D network, this represents the number
+of values will be used to represent the current state.</li>
+<li><strong>actionSize</strong> (<em>{int}</em>) – The number of discrete actions that will be used.</li>
+<li><strong>layers</strong> (<em>{list of int}</em><em>, </em><em>optional</em>) – The number of nodes associated with each layer (the default is <code class="docutils literal notranslate"><span class="pre">[10,</span> <span class="pre">5]</span></code>
+, which will create two hidden layers with and and 5 nodes each)</li>
+<li><strong>activations</strong> (<em>{list of activations}</em><em>, </em><em>optional</em>) – The activation functions to be used for each layer (the default is
+<code class="docutils literal notranslate"><span class="pre">[F.tanh,</span> <span class="pre">F.tanh]</span></code>, which will generate tanh activations for
+each of the hidden layers)</li>
+<li><strong>batchNormalization</strong> (<em>{bool}</em><em>, </em><em>optional</em>) – Whether batchnormalization is to be used (the default is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+for which batch normalization will be neglected)</li>
 </ul>
 </td>
 </tr>
@@ -912,7 +919,7 @@ associated with that state.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>{tensor}</em>) – This is a 2D tensor.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>Tensor</em>) – This is a 2D tensor.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">This represents the Q value of the function</td>
 </tr>
@@ -925,15 +932,19 @@ associated with that state.</p>
 <dl class="method">
 <dt id="lib.agents.qNetwork.qNetworkDiscrete.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/qNetwork.html#qNetworkDiscrete.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.qNetwork.qNetworkDiscrete.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>[summary]</p>
-<p>[description]</p>
+<dd><p>Uses the optimizer to update the weights</p>
+<p>This calculates the MSE loss given two inputs,
+one of which must be calculated with this current
+<code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, and the other one that is expected.</p>
+<p>Note that this allows arbitrary functions to be used
+for calculating the loss.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>v1</strong> (<em>{</em><em>[</em><em>type</em><em>]</em><em>}</em>) – [description]</li>
-<li><strong>v2</strong> (<em>{</em><em>[</em><em>type</em><em>]</em><em>}</em>) – [description]</li>
+<li><strong>v1</strong> (<em>{Tensor}</em>) – Tensor for calculating the loss function</li>
+<li><strong>v2</strong> (<em>{Tensor}</em>) – Tensor for calculating the loss function</li>
 </ul>
 </td>
 </tr>

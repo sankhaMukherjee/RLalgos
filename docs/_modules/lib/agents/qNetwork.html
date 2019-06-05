@@ -163,20 +163,27 @@
 <span class="sd">        This takes a state and returns a Q function for each action. Hence, the</span>
 <span class="sd">        input is a state and the output is a set of Q values, one for each action</span>
 <span class="sd">        in the action space. The action is assumed to be discrete. i.e. a ``1``</span>
-<span class="sd">        when the particular action is to be desired.</span>
+<span class="sd">        when the particular action is to be desired. The input state is assumed to</span>
+<span class="sd">        be 1D in nature. A different network will have to be chosen if 2D and 3D </span>
+<span class="sd">        inputs are to be desired.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        stateSize : {[type]}</span>
-<span class="sd">            [description]</span>
-<span class="sd">        actionSize : {[type]}</span>
-<span class="sd">            [description]</span>
-<span class="sd">        layers : {list}, optional</span>
-<span class="sd">            [description] (the default is [10, 5], which [default_description])</span>
-<span class="sd">        activations : {list}, optional</span>
-<span class="sd">            [description] (the default is [F.tanh, F.tanh], which [default_description])</span>
+<span class="sd">        stateSize : {int}</span>
+<span class="sd">            Size of the state. Since this is a 1D network, this represents the number</span>
+<span class="sd">            of values will be used to represent the current state. </span>
+<span class="sd">        actionSize : {int}</span>
+<span class="sd">            The number of discrete actions that will be used.</span>
+<span class="sd">        layers : {list of int}, optional</span>
+<span class="sd">            The number of nodes associated with each layer (the default is ``[10, 5]``</span>
+<span class="sd">            , which will create two hidden layers with and and 5 nodes each)</span>
+<span class="sd">        activations : {list of activations}, optional</span>
+<span class="sd">            The activation functions to be used for each layer (the default is </span>
+<span class="sd">            ``[F.tanh, F.tanh]``, which will generate tanh activations for </span>
+<span class="sd">            each of the hidden layers)</span>
 <span class="sd">        batchNormalization : {bool}, optional</span>
-<span class="sd">            [description] (the default is True, which [default_description])</span>
+<span class="sd">            Whether batchnormalization is to be used (the default is ``False``,</span>
+<span class="sd">            for which batch normalization will be neglected)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
 
@@ -205,7 +212,7 @@
 
             <span class="c1"># ------------------------------------------------------</span>
             <span class="c1"># The final layer will only need to supply a quality</span>
-            <span class="c1"># function. This is a single value for an action </span>
+            <span class="c1"># function. This is a single value for each action </span>
             <span class="c1"># provided. Ideally, you would want to provide a </span>
             <span class="c1"># OHE action sequence for most purposes ...</span>
             <span class="c1"># ------------------------------------------------------</span>
@@ -234,7 +241,7 @@
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        x : {tensor}</span>
+<span class="sd">        x : Tensor</span>
 <span class="sd">            This is a 2D tensor. </span>
 <span class="sd">        </span>
 <span class="sd">        Returns</span>
@@ -280,16 +287,21 @@
         <span class="k">return</span> <span class="n">x</span></div>
 
 <div class="viewcode-block" id="qNetworkDiscrete.step"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.qNetwork.qNetworkDiscrete.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;[summary]</span>
+        <span class="sd">&#39;&#39;&#39;Uses the optimizer to update the weights</span>
 <span class="sd">        </span>
-<span class="sd">        [description]</span>
+<span class="sd">        This calculates the MSE loss given two inputs,</span>
+<span class="sd">        one of which must be calculated with this current</span>
+<span class="sd">        ``nn.Module``, and the other one that is expected.</span>
+<span class="sd">        </span>
+<span class="sd">        Note that this allows arbitrary functions to be used</span>
+<span class="sd">        for calculating the loss.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        v1 : {[type]}</span>
-<span class="sd">            [description]</span>
-<span class="sd">        v2 : {[type]}</span>
-<span class="sd">            [description]</span>
+<span class="sd">        v1 : {Tensor}</span>
+<span class="sd">            Tensor for calculating the loss function</span>
+<span class="sd">        v2 : {Tensor}</span>
+<span class="sd">            Tensor for calculating the loss function</span>
 <span class="sd">        </span>
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
