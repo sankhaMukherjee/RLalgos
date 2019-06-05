@@ -192,6 +192,38 @@ environment. This environment is useful for testing whether a
 an Agent that has too select discrete actions is properly doing
 its job. This does not take any input parameters, and reeturns
 only the the single environment. The environment is shown below.</p>
+<p>Initialize the environment</p>
+<p>This sets up the requirements that will later be used for generating
+the Unity Environment. This assumes that you will provide a binary
+file for generating the environment. There are different ways in
+which the environment can be generated. It can be generated either
+in a <em>headless</em> mode by using showEnv as False, in which case the
+environment will not show a window at startup. This is good for
+training, as well as situations when you are running the environment
+without the presence of an X server, especially when you are running
+this environment remotely. The other thing that you can do is to
+specify that this is being run in <cite>trainMode</cite>. In this case, the
+environment will be primed for training. That is, each frame will
+finish as soon as possible. This is not good for observing what is
+happening. However, this significantly increases the speed of
+training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>{str} -- Path to the binary file. This file must be</strong> (<em>fileName</em>) – the same as the one for which the <cite>unityagents</cite> package
+has been generated.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>{bool} -- Set this to True if you want to view the</strong> (<em>showEnv</em>) – environment (default: {False})</li>
+<li><strong>{bool} -- Set this to True if you want the environment</strong> (<em>trainMode</em>) – tobe in training mode (i.e. fast execution) (default: {True})</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="lib.envs.envDiscAction.Env.__enter__">
 <code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envDiscAction.html#Env.__enter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envDiscAction.Env.__enter__" title="Permalink to this definition">¶</a></dt>
@@ -318,6 +350,23 @@ drop-in replacement for the Unity environment. This however
 differs from the Unity environment in that it needs the name of
 the environment as input. The other difference is that there is
 no such thing as <cite>trainMode</cite>.</p>
+<p>Initialize the environment</p>
+<p>This sets up the requirements that will later be used for generating
+the gym Environment. The gym environment can be used in a mode that
+hides the plotting of the actuual environment. This may result in a
+significant boost in speed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>{str} -- The name of the environment to be generated. This</strong> (<em>envName</em>) – shoould be a valid name. In case the namme provided is not a
+valid name, this is going to exis with an error.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>{bool} -- Set this to True if you want to view the</strong> (<em>showEnv</em>) – environment (default: {False})</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="lib.envs.envGym.Env.__enter__">
 <code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env.__enter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env.__enter__" title="Permalink to this definition">¶</a></dt>
@@ -451,6 +500,30 @@ you are advised to use this.</p>
 stack together <code class="docutils literal notranslate"><span class="pre">N</span></code> previous states into a single state. Note that
 the first state will be copied <code class="docutils literal notranslate"><span class="pre">N</span></code> times, rather than zero padding
 as this seems a more natural state for the beginning.</p>
+<p>Initialize the environment</p>
+<p>This sets up the requirements that will later be used for generating
+the gym Environment. The gym environment can be used in a mode that
+hides the plotting of the actuual environment. This may result in a
+significant boost in speed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>{str} -- The name of the environment to be generated. This</strong> (<em>envName</em>) – shoould be a valid name. In case the namme provided is not a
+valid name, this is going to exis with an error.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>{integer} -- Set this to the number of states that you wish to</strong> (<em>N</em>) – </li>
+<li><strong>that will be concatenated together.</strong><strong> (</strong><strong>default</strong> (<em>have</em>) – 1). You will not</li>
+<li><strong>able to set a value less than 1.</strong> (<em>be</em>) – </li>
+<li><strong>{bool} -- Set this to True if you want to view the</strong> (<em>showEnv</em>) – environment (default: {False})</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="lib.envs.envGym.Env1D.__enter__">
 <code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envGym.html#Env1D.__enter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envGym.Env1D.__enter__" title="Permalink to this definition">¶</a></dt>
@@ -580,6 +653,38 @@ and the OpenAI Gym environment operates slightly differently
 and hence it will be difficult to create a uniform algorithm that
 is able to solve everything at the sametime. This environment
 tries to solve that problem.</p>
+<p>Initialize the environment</p>
+<p>This sets up the requirements that will later be used for generating
+the Unity Environment. This assumes that you will provide a binary
+file for generating the environment. There are different ways in
+which the environment can be generated. It can be generated either
+in a <em>headless</em> mode by using showEnv as False, in which case the
+environment will not show a window at startup. This is good for
+training, as well as situations when you are running the environment
+without the presence of an X server, especially when you are running
+this environment remotely. The other thing that you can do is to
+specify that this is being run in <cite>trainMode</cite>. In this case, the
+environment will be primed for training. That is, each frame will
+finish as soon as possible. This is not good for observing what is
+happening. However, this significantly increases the speed of
+training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>{str} -- Path to the binary file. This file must be</strong> (<em>fileName</em>) – the same as the one for which the <cite>unityagents</cite> package
+has been generated.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>{bool} -- Set this to True if you want to view the</strong> (<em>showEnv</em>) – environment (default: {False})</li>
+<li><strong>{bool} -- Set this to True if you want the environment</strong> (<em>trainMode</em>) – tobe in training mode (i.e. fast execution) (default: {True})</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="lib.envs.envUnity.Env.__enter__">
 <code class="descname">__enter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/envs/envUnity.html#Env.__enter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.envs.envUnity.Env.__enter__" title="Permalink to this definition">¶</a></dt>

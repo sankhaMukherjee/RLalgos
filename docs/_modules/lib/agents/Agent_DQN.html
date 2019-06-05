@@ -152,55 +152,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <div class="viewcode-block" id="Agent_DQN"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN">[docs]</a><span class="k">class</span> <span class="nc">Agent_DQN</span><span class="p">:</span>
-    <span class="sd">&#39;&#39;&#39;A class allowing the training of the DQN</span>
-
-<span class="sd">        This class is intended to be used by functions within the ``lib.agents.trainAgents``</span>
-<span class="sd">        module.</span>
-<span class="sd">        </span>
-<span class="sd">        The DQN algorithm was first proposed over some years ago and was slated to be used for </span>
-<span class="sd">        improving the state of affairs of traditional reinforcement learning and extending it</span>
-<span class="sd">        to deep reinforcement learning. This class allows you to easily set up a DQN learning</span>
-<span class="sd">        framework. This class does not care about the type of environment. Just that the action</span>
-<span class="sd">        an agent is able to take is one of a finite number of actions, each action at a particular</span>
-<span class="sd">        state has an associated Q-value. This algorithm attempts to find theright Q value for each</span>
-<span class="sd">        action.</span>
-
-<span class="sd">        The class itself does not care about the specifics of the state, and the Qnetworks that </span>
-<span class="sd">        calculate the results. It is up to the user to specify the right environment and the </span>
-<span class="sd">        associated networks that will allow the algorithm to solve the Bellman equation.</span>
-<span class="sd">        </span>
-<span class="sd">        [link to paper](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)</span>
-<span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        env : instance of an Env class</span>
-<span class="sd">            The environment that will be used for generating the result of a particulat action</span>
-<span class="sd">            in the current state</span>
-<span class="sd">        memory : instance of the Memory class</span>
-<span class="sd">            The environment that will allow one to store and retrieve previously held states that</span>
-<span class="sd">            can be used to train upon.</span>
-<span class="sd">        qNetworkSlow : neural network instance</span>
-<span class="sd">            This is a neural network instance that can be used for converting a state into a</span>
-<span class="sd">            set of Q-values. This is the slower version, used for making a prediction, and is </span>
-<span class="sd">            never trained. Its parameters are slowly updated over time to slowly allow it to </span>
-<span class="sd">            converge to the right value</span>
-<span class="sd">        qNetworkFast : neural network instance</span>
-<span class="sd">            This is the instance of the faster network that can be used for training Q-learning</span>
-<span class="sd">            algorithm. This is the main network that implements the Bellman equation.</span>
-<span class="sd">        numActions : int</span>
-<span class="sd">            The number of discrete actions that the current environment can accept.</span>
-<span class="sd">        gamma : float</span>
-<span class="sd">            The discount factor. currently not used</span>
-<span class="sd">        device : str, optional</span>
-<span class="sd">            the device where you want to run your algorithm, by default &#39;cpu&#39;. If you want to run</span>
-<span class="sd">            the optimization of a particular GPU, you may specify that. For example with &#39;cuda:0&#39;</span>
-<span class="sd">        </span>
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        type</span>
-<span class="sd">            [description]</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-
+    
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">qNetworkSlow</span><span class="p">,</span> <span class="n">qNetworkFast</span><span class="p">,</span> <span class="n">numActions</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;A class allowing the training of the DQN</span>
 
