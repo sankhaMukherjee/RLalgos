@@ -3,55 +3,7 @@ import numpy as np
 import sys
 
 class Agent_DQN:
-    '''A class allowing the training of the DQN
-
-        This class is intended to be used by functions within the ``lib.agents.trainAgents``
-        module.
-        
-        The DQN algorithm was first proposed over some years ago and was slated to be used for 
-        improving the state of affairs of traditional reinforcement learning and extending it
-        to deep reinforcement learning. This class allows you to easily set up a DQN learning
-        framework. This class does not care about the type of environment. Just that the action
-        an agent is able to take is one of a finite number of actions, each action at a particular
-        state has an associated Q-value. This algorithm attempts to find theright Q value for each
-        action.
-
-        The class itself does not care about the specifics of the state, and the Qnetworks that 
-        calculate the results. It is up to the user to specify the right environment and the 
-        associated networks that will allow the algorithm to solve the Bellman equation.
-        
-        [link to paper](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)
-        
-        Parameters
-        ----------
-        env : instance of an Env class
-            The environment that will be used for generating the result of a particulat action
-            in the current state
-        memory : instance of the Memory class
-            The environment that will allow one to store and retrieve previously held states that
-            can be used to train upon.
-        qNetworkSlow : neural network instance
-            This is a neural network instance that can be used for converting a state into a
-            set of Q-values. This is the slower version, used for making a prediction, and is 
-            never trained. Its parameters are slowly updated over time to slowly allow it to 
-            converge to the right value
-        qNetworkFast : neural network instance
-            This is the instance of the faster network that can be used for training Q-learning
-            algorithm. This is the main network that implements the Bellman equation.
-        numActions : int
-            The number of discrete actions that the current environment can accept.
-        gamma : float
-            The discount factor. currently not used
-        device : str, optional
-            the device where you want to run your algorithm, by default 'cpu'. If you want to run
-            the optimization of a particular GPU, you may specify that. For example with 'cuda:0'
-        
-        Raises
-        ------
-        type
-            [description]
-    '''
-
+    
     def __init__(self, env, memory, qNetworkSlow, qNetworkFast, numActions, gamma, device='cpu'):
         '''A class allowing the training of the DQN
 
