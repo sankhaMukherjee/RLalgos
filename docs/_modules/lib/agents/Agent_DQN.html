@@ -390,6 +390,37 @@
                 <span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Agent_DQN.step"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nSamples</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;optimize the fast Q network via the bellman equations</span>
+
+<span class="sd">        This function is going to obtain a number of samples form the </span>
+<span class="sd">        replay memory, and train the fast network over this dataset. This</span>
+<span class="sd">        will optimize based upon the idea that</span>
+<span class="sd">        </span>
+<span class="sd">        &gt; Given:</span>
+<span class="sd">        &gt;     Qf = fast network</span>
+<span class="sd">        &gt;     Qs = slow network</span>
+<span class="sd">        &gt;     s  = current state</span>
+<span class="sd">        &gt;     a  = action that maximizes the current state</span>
+<span class="sd">        &gt;     r  = reward</span>
+<span class="sd">        &gt;     s&#39; = next state</span>
+<span class="sd">        &gt; </span>
+<span class="sd">        &gt; Qf(s, a) = r + max(Qs(s&#39;))</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nSamples : int, optional</span>
+<span class="sd">            The number of samples too retrieve from the replay memory for </span>
+<span class="sd">            training, by default 100</span>
+<span class="sd">        sigma : float, optional</span>
+<span class="sd">            The amount by which the fast network should be jittered so that the</span>
+<span class="sd">            network introduces some Gaussian noise in the learning process, by </span>
+<span class="sd">            default 0, which does not introduce noise in the learning algorithm.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        type</span>
+<span class="sd">            [description]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="k">try</span><span class="p">:</span>
 
@@ -421,9 +452,13 @@
         <span class="k">return</span></div>
 
 <div class="viewcode-block" id="Agent_DQN.checkTrainingMode"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.checkTrainingMode">[docs]</a>    <span class="k">def</span> <span class="nf">checkTrainingMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;[summary]</span>
+        <span class="sd">&#39;&#39;&#39;prints whether the networks are in training or eval mode</span>
 <span class="sd">        </span>
-<span class="sd">        [description]</span>
+<span class="sd">        This function allows us to determine whether the function is </span>
+<span class="sd">        in training or evaluation mode. This is important for several</span>
+<span class="sd">        things -  specifically to make sure that the networks are not</span>
+<span class="sd">        going to be randomly evaluated, as well as making sure the </span>
+<span class="sd">        things like batch normalization and dropout are properly evaluated.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;qNetworkSlow is in trai mode:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkSlow</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
@@ -435,9 +470,10 @@
                 <span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Agent_DQN.eval"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;[summary]</span>
+        <span class="sd">&#39;&#39;&#39;put both the networks in eval mode</span>
 <span class="sd">        </span>
-<span class="sd">        [description]</span>
+<span class="sd">        This will allow us to make sure that the networks</span>
+<span class="sd">        do not randomly get evaluated for some reason.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkFast</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
@@ -472,7 +508,7 @@
 <div class="viewcode-block" id="Agent_DQN.fastUpdate"><a class="viewcode-back" href="../../../lib.agents.html#lib.agents.Agent_DQN.Agent_DQN.fastUpdate">[docs]</a>    <span class="k">def</span> <span class="nf">fastUpdate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;update the fast network slightly</span>
 <span class="sd">        </span>
-<span class="sd">        This is going to update the slow network slightly. The amount</span>
+<span class="sd">        This is going to update the fast network slightly. The amount</span>
 <span class="sd">        is dictated by ``tau``. This should be a number between 0 and 1.</span>
 <span class="sd">        It will update the ``tau`` fraction of the slow network weights</span>
 <span class="sd">        with the new weights. This is done for providing stability to the</span>
@@ -481,8 +517,8 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        tau : {number}, optional</span>
-<span class="sd">            This parameter determines how much of the fast Networks weights</span>
-<span class="sd">            will be updated to the ne parameters weights (the default is 0.1)</span>
+<span class="sd">            This parameter determines how much of the slow Networks weights</span>
+<span class="sd">            will be updated to the fast parameters weights (the default is 1)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="k">for</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qNetworkFast</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">qNetworkSlow</span><span class="o">.</span><span class="n">parameters</span><span class="p">()):</span>

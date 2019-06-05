@@ -241,6 +241,37 @@ class Agent_DQN:
                 ).with_traceback(sys.exc_info()[2])
 
     def step(self, nSamples = 100, sigma=0):
+        '''optimize the fast Q network via the bellman equations
+
+        This function is going to obtain a number of samples form the 
+        replay memory, and train the fast network over this dataset. This
+        will optimize based upon the idea that
+        
+        > Given:
+        >     Qf = fast network
+        >     Qs = slow network
+        >     s  = current state
+        >     a  = action that maximizes the current state
+        >     r  = reward
+        >     s' = next state
+        > 
+        > Qf(s, a) = r + max(Qs(s'))
+        
+        Parameters
+        ----------
+        nSamples : int, optional
+            The number of samples too retrieve from the replay memory for 
+            training, by default 100
+        sigma : float, optional
+            The amount by which the fast network should be jittered so that the
+            network introduces some Gaussian noise in the learning process, by 
+            default 0, which does not introduce noise in the learning algorithm.
+        
+        Raises
+        ------
+        type
+            [description]
+        '''
 
         try:
 
@@ -272,9 +303,13 @@ class Agent_DQN:
         return
 
     def checkTrainingMode(self):
-        '''[summary]
+        '''prints whether the networks are in training or eval mode
         
-        [description]
+        This function allows us to determine whether the function is 
+        in training or evaluation mode. This is important for several
+        things -  specifically to make sure that the networks are not
+        going to be randomly evaluated, as well as making sure the 
+        things like batch normalization and dropout are properly evaluated.
         '''
         try:
             print('qNetworkSlow is in trai mode:', self.qNetworkSlow.training)
@@ -286,9 +321,10 @@ class Agent_DQN:
                 ).with_traceback(sys.exc_info()[2])
 
     def eval(self):
-        '''[summary]
+        '''put both the networks in eval mode
         
-        [description]
+        This will allow us to make sure that the networks
+        do not randomly get evaluated for some reason.
         '''
         try:
             self.qNetworkFast.eval()
@@ -323,7 +359,7 @@ class Agent_DQN:
     def fastUpdate(self, tau=1):
         '''update the fast network slightly
         
-        This is going to update the slow network slightly. The amount
+        This is going to update the fast network slightly. The amount
         is dictated by ``tau``. This should be a number between 0 and 1.
         It will update the ``tau`` fraction of the slow network weights
         with the new weights. This is done for providing stability to the
@@ -332,8 +368,8 @@ class Agent_DQN:
         Parameters
         ----------
         tau : {number}, optional
-            This parameter determines how much of the fast Networks weights
-            will be updated to the ne parameters weights (the default is 0.1)
+            This parameter determines how much of the slow Networks weights
+            will be updated to the fast parameters weights (the default is 1)
         '''
 
         for v1, v2 in zip(self.qNetworkFast.parameters(), self.qNetworkSlow.parameters()):

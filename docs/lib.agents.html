@@ -233,8 +233,12 @@ the optimization of a particular GPU, you may specify that. For example with ‘
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.checkTrainingMode">
 <code class="descname">checkTrainingMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.checkTrainingMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.checkTrainingMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>[summary]</p>
-<p>[description]</p>
+<dd><p>prints whether the networks are in training or eval mode</p>
+<p>This function allows us to determine whether the function is
+in training or evaluation mode. This is important for several
+things -  specifically to make sure that the networks are not
+going to be randomly evaluated, as well as making sure the
+things like batch normalization and dropout are properly evaluated.</p>
 </dd></dl>
 
 <dl class="method">
@@ -269,15 +273,16 @@ in comparison to a random action. (the default is 0.999)</li>
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.eval">
 <code class="descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.eval" title="Permalink to this definition">¶</a></dt>
-<dd><p>[summary]</p>
-<p>[description]</p>
+<dd><p>put both the networks in eval mode</p>
+<p>This will allow us to make sure that the networks
+do not randomly get evaluated for some reason.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.fastUpdate">
 <code class="descname">fastUpdate</code><span class="sig-paren">(</span><em>tau=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.fastUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.fastUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>update the fast network slightly</p>
-<p>This is going to update the slow network slightly. The amount
+<p>This is going to update the fast network slightly. The amount
 is dictated by <code class="docutils literal notranslate"><span class="pre">tau</span></code>. This should be a number between 0 and 1.
 It will update the <code class="docutils literal notranslate"><span class="pre">tau</span></code> fraction of the slow network weights
 with the new weights. This is done for providing stability to the
@@ -286,8 +291,8 @@ network.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the fast Networks weights
-will be updated to the ne parameters weights (the default is 0.1)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the slow Networks weights
+will be updated to the fast parameters weights (the default is 1)</td>
 </tr>
 </tbody>
 </table>
@@ -465,7 +470,38 @@ will be updated to the ne parameters weights (the default is 0.1)</td>
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>nSamples=100</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>optimize the fast Q network via the bellman equations</p>
+<p>This function is going to obtain a number of samples form the
+replay memory, and train the fast network over this dataset. This
+will optimize based upon the idea that</p>
+<p>&gt; Given:
+&gt;     Qf = fast network
+&gt;     Qs = slow network
+&gt;     s  = current state
+&gt;     a  = action that maximizes the current state
+&gt;     r  = reward
+&gt;     s’ = next state
+&gt;
+&gt; Qf(s, a) = r + max(Qs(s’))</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nSamples</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of samples too retrieve from the replay memory for
+training, by default 100</li>
+<li><strong>sigma</strong> (<em>float</em><em>, </em><em>optional</em>) – The amount by which the fast network should be jittered so that the
+network introduces some Gaussian noise in the learning process, by
+default 0, which does not introduce noise in the learning algorithm.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal notranslate"><span class="pre">type</span></code> – [description]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -476,11 +512,50 @@ will be updated to the ne parameters weights (the default is 0.1)</td>
 <dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN">
 <em class="property">class </em><code class="descclassname">lib.agents.Agent_DoubleDQN.</code><code class="descname">Agent_DoubleDQN</code><span class="sig-paren">(</span><em>env</em>, <em>memory</em>, <em>qNetworkSlow</em>, <em>qNetworkFast</em>, <em>numActions</em>, <em>gamma</em>, <em>device='cpu'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class allowing the training of the DQN</p>
+<p>This class is intended to be used by functions within the <code class="docutils literal notranslate"><span class="pre">lib.agents.trainAgents</span></code>
+module.</p>
+<p>This is supposed to be an imporvement over DQN. Details of the idea behind Double DQN is
+present in the original paper:</p>
+<p>Deep Reinforcement Learning with Double Q-learning
+<a class="reference external" href="https://arxiv.org/pdf/1509.06461.pdf">https://arxiv.org/pdf/1509.06461.pdf</a></p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">step()</span></code> function for the details of its implementation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>env</strong> (<em>instance of an Env class</em>) – The environment that will be used for generating the result of a particulat action
+in the current state</li>
+<li><strong>memory</strong> (<em>instance of the Memory class</em>) – The environment that will allow one to store and retrieve previously held states that
+can be used to train upon.</li>
+<li><strong>qNetworkSlow</strong> (<em>neural network instance</em>) – This is a neural network instance that can be used for converting a state into a
+set of Q-values. This is the slower version, used for making a prediction, and is
+never trained. Its parameters are slowly updated over time to slowly allow it to
+converge to the right value</li>
+<li><strong>qNetworkFast</strong> (<em>neural network instance</em>) – This is the instance of the faster network that can be used for training Q-learning
+algorithm. This is the main network that implements the Bellman equation.</li>
+<li><strong>numActions</strong> (<em>int</em>) – The number of discrete actions that the current environment can accept.</li>
+<li><strong>gamma</strong> (<em>float</em>) – The discount factor. currently not used</li>
+<li><strong>device</strong> (<em>str</em><em>, </em><em>optional</em>) – the device where you want to run your algorithm, by default ‘cpu’. If you want to run
+the optimization of a particular GPU, you may specify that. For example with ‘cuda:0’</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal notranslate"><span class="pre">type</span></code> – [description]</p>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.checkTrainingMode">
 <code class="descname">checkTrainingMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.checkTrainingMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.checkTrainingMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>[summary]</p>
-<p>[description]</p>
+<dd><p>prints whether the networks are in training or eval mode</p>
+<p>This function allows us to determine whether the function is
+in training or evaluation mode. This is important for several
+things -  specifically to make sure that the networks are not
+going to be randomly evaluated, as well as making sure the
+things like batch normalization and dropout are properly evaluated.</p>
 </dd></dl>
 
 <dl class="method">
@@ -515,15 +590,16 @@ in comparison to a random action. (the default is 0.999)</li>
 <dl class="method">
 <dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.eval">
 <code class="descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.eval" title="Permalink to this definition">¶</a></dt>
-<dd><p>[summary]</p>
-<p>[description]</p>
+<dd><p>put both the networks in eval mode</p>
+<p>This will allow us to make sure that the networks
+do not randomly get evaluated for some reason.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.fastUpdate">
 <code class="descname">fastUpdate</code><span class="sig-paren">(</span><em>tau=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.fastUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.fastUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>update the fast network slightly</p>
-<p>This is going to update the slow network slightly. The amount
+<p>This is going to update the fast network slightly. The amount
 is dictated by <code class="docutils literal notranslate"><span class="pre">tau</span></code>. This should be a number between 0 and 1.
 It will update the <code class="docutils literal notranslate"><span class="pre">tau</span></code> fraction of the slow network weights
 with the new weights. This is done for providing stability to the
@@ -532,8 +608,8 @@ network.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the fast Networks weights
-will be updated to the ne parameters weights (the default is 0.1)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the slow Networks weights
+will be updated to the fast parameters weights (the default is 1)</td>
 </tr>
 </tbody>
 </table>
@@ -667,10 +743,12 @@ the same folder.</li>
 <dl class="method">
 <dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.sigmaMaxAction">
 <code class="descname">sigmaMaxAction</code><span class="sig-paren">(</span><em>state</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.sigmaMaxAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.sigmaMaxAction" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the action that maximizes the Q function</p>
+<dd><p>returns the action that maximizes the noisy Q function</p>
 <p>Given an set of statees, this function is going to return a set
 of actions which will maximize the value of the Q network for each
-of the supplied states.</p>
+of the supplied states, after adding Gaussian noise to the layers.
+This is alternative to using an $epsilon$-greedy policy, and has
+shown to provide better results under most circumstances.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -709,7 +787,44 @@ will be updated to the ne parameters weights (the default is 0.1)</td>
 <dl class="method">
 <dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>nSamples=100</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.step" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>optimize the fast Q network via the bellman equations</p>
+<p>This function is going to obtain a number of samples form the
+replay memory, and train the fast network over this dataset.
+The idea behind this is that the Q network for the next step
+will not automatically pick the next best value. It will possibly
+pick the best value that the Fast network thinks it will pick, and
+so the original DQN will overestimate the possible Q value. This
+should reduce that estimation.</p>
+<p>This will optimize based upon the idea that</p>
+<p>&gt; Given:
+&gt;     Qf = fast network
+&gt;     Qs = slow network
+&gt;     s  = current state
+&gt;     a  = action that maximizes the current state
+&gt;     r  = reward
+&gt;     s’ = next state
+&gt;
+&gt; a’  = argmax Qf(s’)
+&gt; Qf(s, a) = r + Qs(s’, a’)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nSamples</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of samples too retrieve from the replay memory for
+training, by default 100</li>
+<li><strong>sigma</strong> (<em>float</em><em>, </em><em>optional</em>) – The amount by which the fast network should be jittered so that the
+network introduces some Gaussian noise in the learning process, by
+default 0, which does not introduce noise in the learning algorithm.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal notranslate"><span class="pre">type</span></code> – [description]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

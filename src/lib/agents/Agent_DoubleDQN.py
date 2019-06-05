@@ -5,7 +5,49 @@ import sys
 class Agent_DoubleDQN:
 
     def __init__(self, env, memory, qNetworkSlow, qNetworkFast, numActions, gamma, device='cpu'):
+        '''A class allowing the training of the DQN
 
+        This class is intended to be used by functions within the ``lib.agents.trainAgents``
+        module.
+        
+        This is supposed to be an imporvement over DQN. Details of the idea behind Double DQN is
+        present in the original paper: 
+
+        Deep Reinforcement Learning with Double Q-learning
+        https://arxiv.org/pdf/1509.06461.pdf
+
+        See the ``step()`` function for the details of its implementation.
+
+        Parameters
+        ----------
+        env : instance of an Env class
+            The environment that will be used for generating the result of a particulat action
+            in the current state
+        memory : instance of the Memory class
+            The environment that will allow one to store and retrieve previously held states that
+            can be used to train upon.
+        qNetworkSlow : neural network instance
+            This is a neural network instance that can be used for converting a state into a
+            set of Q-values. This is the slower version, used for making a prediction, and is 
+            never trained. Its parameters are slowly updated over time to slowly allow it to 
+            converge to the right value
+        qNetworkFast : neural network instance
+            This is the instance of the faster network that can be used for training Q-learning
+            algorithm. This is the main network that implements the Bellman equation.
+        numActions : int
+            The number of discrete actions that the current environment can accept.
+        gamma : float
+            The discount factor. currently not used
+        device : str, optional
+            the device where you want to run your algorithm, by default 'cpu'. If you want to run
+            the optimization of a particular GPU, you may specify that. For example with 'cuda:0'
+        
+        Raises
+        ------
+        type
+            [description]
+        '''
+        
         try:
 
             if not torch.cuda.is_available():
@@ -59,11 +101,13 @@ class Agent_DoubleDQN:
                 ).with_traceback(sys.exc_info()[2])
 
     def sigmaMaxAction(self, state, sigma=0):
-        '''returns the action that maximizes the Q function
+        '''returns the action that maximizes the noisy Q function 
         
         Given an set of statees, this function is going to return a set
         of actions which will maximize the value of the Q network for each
-        of the supplied states.
+        of the supplied states, after adding Gaussian noise to the layers.
+        This is alternative to using an $\\epsilon$-greedy policy, and has 
+        shown to provide better results under most circumstances.
         
         Parameters
         ----------
@@ -191,6 +235,44 @@ class Agent_DoubleDQN:
                 ).with_traceback(sys.exc_info()[2])
 
     def step(self, nSamples = 100, sigma=0):
+        '''optimize the fast Q network via the bellman equations
+
+        This function is going to obtain a number of samples form the 
+        replay memory, and train the fast network over this dataset. 
+        The idea behind this is that the Q network for the next step 
+        will not automatically pick the next best value. It will possibly
+        pick the best value that the Fast network thinks it will pick, and
+        so the original DQN will overestimate the possible Q value. This 
+        should reduce that estimation.
+        
+        This will optimize based upon the idea that
+        
+        > Given:
+        >     Qf = fast network
+        >     Qs = slow network
+        >     s  = current state
+        >     a  = action that maximizes the current state
+        >     r  = reward
+        >     s' = next state
+        > 
+        > a'  = argmax Qf(s')
+        > Qf(s, a) = r + Qs(s', a')
+        
+        Parameters
+        ----------
+        nSamples : int, optional
+            The number of samples too retrieve from the replay memory for 
+            training, by default 100
+        sigma : float, optional
+            The amount by which the fast network should be jittered so that the
+            network introduces some Gaussian noise in the learning process, by 
+            default 0, which does not introduce noise in the learning algorithm.
+        
+        Raises
+        ------
+        type
+            [description]
+        '''
 
         try:
 
@@ -233,9 +315,13 @@ class Agent_DoubleDQN:
         return
 
     def checkTrainingMode(self):
-        '''[summary]
+        '''prints whether the networks are in training or eval mode
         
-        [description]
+        This function allows us to determine whether the function is 
+        in training or evaluation mode. This is important for several
+        things -  specifically to make sure that the networks are not
+        going to be randomly evaluated, as well as making sure the 
+        things like batch normalization and dropout are properly evaluated.
         '''
         try:
             print('qNetworkSlow is in trai mode:', self.qNetworkSlow.training)
@@ -247,9 +333,10 @@ class Agent_DoubleDQN:
                 ).with_traceback(sys.exc_info()[2])
 
     def eval(self):
-        '''[summary]
+        '''put both the networks in eval mode
         
-        [description]
+        This will allow us to make sure that the networks
+        do not randomly get evaluated for some reason.
         '''
         try:
             self.qNetworkFast.eval()
@@ -284,7 +371,7 @@ class Agent_DoubleDQN:
     def fastUpdate(self, tau=1):
         '''update the fast network slightly
         
-        This is going to update the slow network slightly. The amount
+        This is going to update the fast network slightly. The amount
         is dictated by ``tau``. This should be a number between 0 and 1.
         It will update the ``tau`` fraction of the slow network weights
         with the new weights. This is done for providing stability to the
@@ -293,8 +380,8 @@ class Agent_DoubleDQN:
         Parameters
         ----------
         tau : {number}, optional
-            This parameter determines how much of the fast Networks weights
-            will be updated to the ne parameters weights (the default is 0.1)
+            This parameter determines how much of the slow Networks weights
+            will be updated to the fast parameters weights (the default is 1)
         '''
 
         for v1, v2 in zip(self.qNetworkFast.parameters(), self.qNetworkSlow.parameters()):
