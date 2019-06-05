@@ -1,0 +1,22 @@
+modules.vizualize package
+=========================
+
+Submodules
+----------
+
+modules.vizualize.vizualize module
+----------------------------------
+
+.. automodule:: modules.vizualize.vizualize
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: modules.vizualize
+    :members:
+    :undoc-members:
+    :show-inheritance:

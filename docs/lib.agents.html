@@ -88,11 +88,13 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">lib.agents package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.Agent_DQN">lib.agents.Agent_DQN module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.Agent_DoubleDQN">lib.agents.Agent_DoubleDQN module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.policy">lib.agents.policy module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.qNetwork">lib.agents.qNetwork module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.randomActor">lib.agents.randomActor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.sequentialActor">lib.agents.sequentialActor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.sequentialCritic">lib.agents.sequentialCritic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-lib.agents.trainAgents">lib.agents.trainAgents module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-lib.agents">Module contents</a></li>
 </ul>
 </li>
@@ -231,6 +233,26 @@ in comparison to a random action. (the default is 0.999)</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="lib.agents.Agent_DQN.Agent_DQN.fastUpdate">
+<code class="descname">fastUpdate</code><span class="sig-paren">(</span><em>tau=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.fastUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.fastUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>update the fast network slightly</p>
+<p>This is going to update the slow network slightly. The amount
+is dictated by <code class="docutils literal notranslate"><span class="pre">tau</span></code>. This should be a number between 0 and 1.
+It will update the <code class="docutils literal notranslate"><span class="pre">tau</span></code> fraction of the slow network weights
+with the new weights. This is done for providing stability to the
+network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the fast Networks weights
+will be updated to the ne parameters weights (the default is 0.1)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.load">
 <code class="descname">load</code><span class="sig-paren">(</span><em>folder</em>, <em>name</em>, <em>map_location=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load the model</p>
@@ -356,6 +378,30 @@ the same folder.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="lib.agents.Agent_DQN.Agent_DQN.sigmaMaxAction">
+<code class="descname">sigmaMaxAction</code><span class="sig-paren">(</span><em>state</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.sigmaMaxAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.sigmaMaxAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the action that maximizes the noisy Q function</p>
+<p>Given an set of statees, this function is going to return a set
+of actions which will maximize the value of the Q network for each
+of the supplied states, after adding Gaussian noise to the layers.
+This is alternative to using an $epsilon$-greedy policy, and has
+shown to provide better results under most circumstances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<em>{nd_array</em><em> or </em><em>tensor}</em>) – numpy array or tensor containing the state. The columns
+represent the different parts of the state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The return values of actions that maximize the states</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">uarray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.softUpdate">
 <code class="descname">softUpdate</code><span class="sig-paren">(</span><em>tau=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.softUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.softUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>update the slow network slightly</p>
@@ -377,7 +423,251 @@ will be updated to the ne parameters weights (the default is 0.1)</td>
 
 <dl class="method">
 <dt id="lib.agents.Agent_DQN.Agent_DQN.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>nSamples=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>nSamples=100</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DQN.html#Agent_DQN.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DQN.Agent_DQN.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.agents.Agent_DoubleDQN">
+<span id="lib-agents-agent-doubledqn-module"></span><h2>lib.agents.Agent_DoubleDQN module<a class="headerlink" href="#module-lib.agents.Agent_DoubleDQN" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN">
+<em class="property">class </em><code class="descclassname">lib.agents.Agent_DoubleDQN.</code><code class="descname">Agent_DoubleDQN</code><span class="sig-paren">(</span><em>env</em>, <em>memory</em>, <em>qNetworkSlow</em>, <em>qNetworkFast</em>, <em>numActions</em>, <em>gamma</em>, <em>device='cpu'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.checkTrainingMode">
+<code class="descname">checkTrainingMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.checkTrainingMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.checkTrainingMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>[summary]</p>
+<p>[description]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.epsGreedyAction">
+<code class="descname">epsGreedyAction</code><span class="sig-paren">(</span><em>state</em>, <em>eps=0.999</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.epsGreedyAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.epsGreedyAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>epsilon greedy action</p>
+<p>This is the epsilon greedy action. In general, this is going to
+select the maximum action <code class="docutils literal notranslate"><span class="pre">eps</span></code> percentage of the times, while
+selecting the random action the rest of the time. It is assumed
+that this will receive a value of epsilon between 0 and 1.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state</strong> (<em>{ndarray}</em>) – [description]</li>
+<li><strong>eps</strong> (<em>float</em><em>, </em><em>optional</em>) – Determines the fraction of times the max action will be selected
+in comparison to a random action. (the default is 0.999)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The 1d tensor that has an action for each state provided.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tensor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>[summary]</p>
+<p>[description]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.fastUpdate">
+<code class="descname">fastUpdate</code><span class="sig-paren">(</span><em>tau=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.fastUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.fastUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>update the fast network slightly</p>
+<p>This is going to update the slow network slightly. The amount
+is dictated by <code class="docutils literal notranslate"><span class="pre">tau</span></code>. This should be a number between 0 and 1.
+It will update the <code class="docutils literal notranslate"><span class="pre">tau</span></code> fraction of the slow network weights
+with the new weights. This is done for providing stability to the
+network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the fast Networks weights
+will be updated to the ne parameters weights (the default is 0.1)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>folder</em>, <em>name</em>, <em>map_location=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load the model</p>
+<p>An agent saved with the save command can be safely loaded with this command.
+This will load both the qNetworks, as well as the memory buffer. There is a
+possibility that one may not want to load the model into the same device. In
+that case, the user should insert the device that the user wants to load the
+model into.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>folder</strong> (<em>{str}</em>) – folder into which the model should be saved.</li>
+<li><strong>name</strong> (<em>{str}</em>) – A name to associate the model to load. It is absolutelty possible to save
+a number of models within the same folder, and hence the name can retrieve
+that model that is important.</li>
+<li><strong>map_location</strong> (<em>{str}</em><em>, </em><em>optional</em>) – The device in which to load the file. This is a string like ‘cpu’, ‘cuad:0’
+etc. (the default is None, which results in the model being loaded to the
+originam device)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.maxAction">
+<code class="descname">maxAction</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.maxAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.maxAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the action that maximizes the Q function</p>
+<p>Given an set of statees, this function is going to return a set
+of actions which will maximize the value of the Q network for each
+of the supplied states.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<em>{nd_array</em><em> or </em><em>tensor}</em>) – numpy array or tensor containing the state. The columns
+represent the different parts of the state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The return values of actions that maximize the states</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">uarray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.memoryUpdateEpisode">
+<code class="descname">memoryUpdateEpisode</code><span class="sig-paren">(</span><em>policy</em>, <em>maxSteps=1000</em>, <em>minScoreToAdd=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.memoryUpdateEpisode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.memoryUpdateEpisode" title="Permalink to this definition">¶</a></dt>
+<dd><p>update the memory</p>
+<p>Given a particular policy, this memory is going to take
+the policy and generate a series of memories and update
+thememory buffer. Generating memories is easier to do
+using this function than an external function …</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>policy</strong> (<em>{function}</em>) – This is a function that takes a state and returns an action. This
+defines how the agent will explore the environment by changing the
+exploration/exploitation scale.</li>
+<li><strong>maxSteps</strong> (<em>{number}</em><em>, </em><em>optional</em>) – The maximum number of steps that one shoule have within an episode.
+(the default is 1000)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.randomAction">
+<code class="descname">randomAction</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.randomAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.randomAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a set of random actions for the given states</p>
+<p>given the size of the number of actions, this function is going
+to return a set of actions that has the same number of actions
+as the number of inputs in the shape. For example, if
+<code class="docutils literal notranslate"><span class="pre">state.shape</span> <span class="pre">==</span> <span class="pre">(10,</span> <span class="pre">?)</span></code> then the result will be a vector of
+size 10. This is in accordance with the redduction in the
+dimensionality of the maxAction space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<em>{nd_array</em><em> or </em><em>tensor}</em>) – numpy array or tensor containing the state. The columns
+represent the different parts of the state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The return value is set of random actions</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">uarray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>folder</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save the model</p>
+<p>This function allows one to save the model, in a folder that is
+specified, with the fast and the slow qNetworks, as well as the
+memory buffer. Sometimes there may be more than a single agent,
+and under those circumstances, the name will come in handy. If the
+supplied folder does not exist, it will be generated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>folder</strong> (<em>{str}</em>) – folder into which the model should be saved.</li>
+<li><strong>name</strong> (<em>{str}</em>) – A name to associate the current model with. It is
+absolutelty possible to save a number of models within
+the same folder.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.sigmaMaxAction">
+<code class="descname">sigmaMaxAction</code><span class="sig-paren">(</span><em>state</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.sigmaMaxAction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.sigmaMaxAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the action that maximizes the Q function</p>
+<p>Given an set of statees, this function is going to return a set
+of actions which will maximize the value of the Q network for each
+of the supplied states.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<em>{nd_array</em><em> or </em><em>tensor}</em>) – numpy array or tensor containing the state. The columns
+represent the different parts of the state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The return values of actions that maximize the states</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">uarray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.softUpdate">
+<code class="descname">softUpdate</code><span class="sig-paren">(</span><em>tau=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.softUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.softUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>update the slow network slightly</p>
+<p>This is going to update the slow network slightly. The amount
+is dictated by <code class="docutils literal notranslate"><span class="pre">tau</span></code>. This should be a number between 0 and 1.
+It will update the <code class="docutils literal notranslate"><span class="pre">tau</span></code> fraction of the slow network weights
+with the new weights. This is done for providing stability to the
+network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tau</strong> (<em>{number}</em><em>, </em><em>optional</em>) – This parameter determines how much of the fast Networks weights
+will be updated to the ne parameters weights (the default is 0.1)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>nSamples=100</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/Agent_DoubleDQN.html#Agent_DoubleDQN.step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.Agent_DoubleDQN.Agent_DoubleDQN.step" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -422,7 +712,7 @@ will be updated to the ne parameters weights (the default is 0.1)</td>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
 <dl class="method">
 <dt id="lib.agents.qNetwork.qNetworkDiscrete.forward">
-<code class="descname">forward</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/qNetwork.html#qNetworkDiscrete.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.qNetwork.qNetworkDiscrete.forward" title="Permalink to this definition">¶</a></dt>
+<code class="descname">forward</code><span class="sig-paren">(</span><em>x</em>, <em>sigma=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/qNetwork.html#qNetworkDiscrete.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.qNetwork.qNetworkDiscrete.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>forward function that is called during the forward pass</p>
 <p>This is the forward function that will be called during a
 forward pass. It takes thee states and gives the Q value
@@ -543,6 +833,14 @@ registered hooks while the latter silently ignores them.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-lib.agents.trainAgents">
+<span id="lib-agents-trainagents-module"></span><h2>lib.agents.trainAgents module<a class="headerlink" href="#module-lib.agents.trainAgents" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="lib.agents.trainAgents.trainAgentGymEpsGreedy">
+<code class="descclassname">lib.agents.trainAgents.</code><code class="descname">trainAgentGymEpsGreedy</code><span class="sig-paren">(</span><em>configAgent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lib/agents/trainAgents.html#trainAgentGymEpsGreedy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lib.agents.trainAgents.trainAgentGymEpsGreedy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-lib.agents">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lib.agents" title="Permalink to this headline">¶</a></h2>
 <p>module that contains a plethora of agents and policies</p>
@@ -573,6 +871,7 @@ different types of actions.</p>
 <li><code class="docutils literal notranslate"><span class="pre">restore</span></code> : restore the agent from a state saved earlier</li>
 </ul>
 </div></blockquote>
+<p>Currently the following agents are available:</p>
 </div>
 <div class="section" id="policies">
 <h3>Policies<a class="headerlink" href="#policies" title="Permalink to this headline">¶</a></h3>

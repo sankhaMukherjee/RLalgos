@@ -30,6 +30,9 @@ All agets will definitely have the following methods:
  - ``save``    : save the current state of the agent
  - ``restore`` : restore the agent from a state saved earlier
 
+Currently the following agents are available:
+
+
 Policies
 ---------
 

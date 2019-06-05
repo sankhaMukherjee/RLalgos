@@ -117,7 +117,7 @@ def trainAgentGymEpsGreedy(configAgent):
                 eps = max(minEps, epsDecay*eps)  # decrease epsilon
 
                 # We are changing the policy to adding noise
-                def policy(m): return [agent.sigmaMaxAction(m, eps*3)]
+                def policy(m): return [agent.sigmaMaxAction(m, eps)]
                 agent.memoryUpdateEpisode(policy, maxSteps=maxSteps)
 
                 agent.step(nSamples=nSamples, sigma=sigma)
@@ -129,6 +129,9 @@ def trainAgentGymEpsGreedy(configAgent):
                 s, a, r, ns, f = zip(*results)
                 score = sum(r)
                 slidingScore.append(score)
+
+                if i % 20 == 0:
+                    agent.fastUpdate()
 
                 if (score > prevBest):
                     tqdm.write('score = {}, max = {}, sliding score = {}, eps = {}'.format(

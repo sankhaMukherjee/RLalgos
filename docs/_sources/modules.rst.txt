@@ -12,6 +12,8 @@ Subpackages
     modules.playAgent
     modules.testAgents
     modules.tests
+    modules.trainAgents
+    modules.vizualize
 
 Module contents
 ---------------
