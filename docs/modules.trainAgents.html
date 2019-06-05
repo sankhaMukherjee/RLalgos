@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>modules.DQNagent package &mdash; src  documentation</title>
+  <title>modules.trainAgents package &mdash; src  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="modules.displayResults package" href="modules.displayResults.html" />
-    <link rel="prev" title="modules package" href="modules.html" /> 
+    <link rel="next" title="modules.vizualize package" href="modules.vizualize.html" />
+    <link rel="prev" title="modules.tests package" href="modules.tests.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,19 +87,18 @@
 <li class="toctree-l1"><a class="reference internal" href="logs.html">logs package</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">modules package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="modules.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">modules.DQNagent package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-modules.DQNagent.DQNagent">modules.DQNagent.DQNagent module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-modules.DQNagent.runAgent">modules.DQNagent.runAgent module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-modules.DQNagent">Module contents</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="modules.DQNagent.html">modules.DQNagent package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.displayResults.html">modules.displayResults package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.module1.html">modules.module1 package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.playAgent.html">modules.playAgent package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.testAgents.html">modules.testAgents package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules.tests.html">modules.tests package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules.trainAgents.html">modules.trainAgents package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">modules.trainAgents package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-modules.trainAgents.trainAgents">modules.trainAgents.trainAgents module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-modules.trainAgents">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="modules.vizualize.html">modules.vizualize package</a></li>
 </ul>
 </li>
@@ -153,13 +152,13 @@
         
           <li><a href="modules.html">modules package</a> &raquo;</li>
         
-      <li>modules.DQNagent package</li>
+      <li>modules.trainAgents package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/modules.DQNagent.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/modules.trainAgents.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -172,17 +171,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="modules-dqnagent-package">
-<h1>modules.DQNagent package<a class="headerlink" href="#modules-dqnagent-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="modules-trainagents-package">
+<h1>modules.trainAgents package<a class="headerlink" href="#modules-trainagents-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-modules.DQNagent.DQNagent">
-<span id="modules-dqnagent-dqnagent-module"></span><h2>modules.DQNagent.DQNagent module<a class="headerlink" href="#module-modules.DQNagent.DQNagent" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-modules.trainAgents.trainAgents">
+<span id="modules-trainagents-trainagents-module"></span><h2>modules.trainAgents.trainAgents module<a class="headerlink" href="#module-modules.trainAgents.trainAgents" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="modules.DQNagent.DQNagent.main">
-<code class="descclassname">modules.DQNagent.DQNagent.</code><code class="descname">main</code><span class="sig-paren">(</span><em>logger</em>, <em>resultsDict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/DQNagent.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.DQNagent.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>main function for module1</p>
+<dt id="modules.trainAgents.trainAgents.doSomething">
+<code class="descclassname">modules.trainAgents.trainAgents.</code><code class="descname">doSomething</code><span class="sig-paren">(</span><em>logger</em>, <em>resultsDict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/trainAgents/trainAgents.html#doSomething"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.trainAgents.trainAgents.doSomething" title="Permalink to this definition">¶</a></dt>
+<dd><p>print a line</p>
+<p>This function simply prints a single line</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>logger</strong> (<em>{logging.Logger}</em>) – The logger used for logging error information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="modules.trainAgents.trainAgents.main">
+<code class="descclassname">modules.trainAgents.trainAgents.</code><code class="descname">main</code><span class="sig-paren">(</span><em>logger</em>, <em>resultsDict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/trainAgents/trainAgents.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.trainAgents.trainAgents.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>main function for trainAgents</p>
 <p>This function finishes all the tasks for the
 main function. This is a way in which a
 particular module is going to be executed.</p>
@@ -202,42 +216,9 @@ overwriting command line arguments as needed.</li>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="modules.DQNagent.DQNagent.playGym">
-<code class="descclassname">modules.DQNagent.DQNagent.</code><code class="descname">playGym</code><span class="sig-paren">(</span><em>logger</em>, <em>resultsDict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/DQNagent.html#playGym"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.DQNagent.playGym" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="modules.DQNagent.DQNagent.playUnity">
-<code class="descclassname">modules.DQNagent.DQNagent.</code><code class="descname">playUnity</code><span class="sig-paren">(</span><em>logger</em>, <em>resultsDict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/DQNagent.html#playUnity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.DQNagent.playUnity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
-<div class="section" id="module-modules.DQNagent.runAgent">
-<span id="modules-dqnagent-runagent-module"></span><h2>modules.DQNagent.runAgent module<a class="headerlink" href="#module-modules.DQNagent.runAgent" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="modules.DQNagent.runAgent.runAgentGym">
-<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">runAgentGym</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgentGym</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#runAgentGym"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.runAgentGym" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="modules.DQNagent.runAgent.runAgentUnity">
-<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">runAgentUnity</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgentUnity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#runAgentUnity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.runAgentUnity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="modules.DQNagent.runAgent.trainAgentGym">
-<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">trainAgentGym</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#trainAgentGym"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.trainAgentGym" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="modules.DQNagent.runAgent.trainAgentUnity">
-<code class="descclassname">modules.DQNagent.runAgent.</code><code class="descname">trainAgentUnity</code><span class="sig-paren">(</span><em>logger</em>, <em>configAgent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/DQNagent/runAgent.html#trainAgentUnity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#modules.DQNagent.runAgent.trainAgentUnity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-modules.DQNagent">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-modules.DQNagent" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-modules.trainAgents">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-modules.trainAgents" title="Permalink to this headline">¶</a></h2>
 <p>[one line description of the module]</p>
 <p>[this is a
 multiline description of what the module does.]</p>
@@ -302,10 +283,10 @@ changed.
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="modules.displayResults.html" class="btn btn-neutral float-right" title="modules.displayResults package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="modules.vizualize.html" class="btn btn-neutral float-right" title="modules.vizualize package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="modules.html" class="btn btn-neutral float-left" title="modules package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modules.tests.html" class="btn btn-neutral float-left" title="modules.tests package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

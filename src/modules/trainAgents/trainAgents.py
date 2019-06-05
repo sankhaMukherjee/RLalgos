@@ -30,7 +30,7 @@ def doSomething(logger, resultsDict):
         "nIterations": 5000,
 
         "eps0": 1,
-        "epsDecay": 0.99,
+        "epsDecay": 0.9999,
         "minEps": 0.01,
 
         "maxSteps": 10000,

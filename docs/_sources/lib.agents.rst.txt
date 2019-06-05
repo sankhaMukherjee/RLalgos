@@ -12,6 +12,14 @@ lib.agents.Agent\_DQN module
     :undoc-members:
     :show-inheritance:
 
+lib.agents.Agent\_DoubleDQN module
+----------------------------------
+
+.. automodule:: lib.agents.Agent_DoubleDQN
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 lib.agents.policy module
 ------------------------
 
@@ -48,6 +56,14 @@ lib.agents.sequentialCritic module
 ----------------------------------
 
 .. automodule:: lib.agents.sequentialCritic
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+lib.agents.trainAgents module
+-----------------------------
+
+.. automodule:: lib.agents.trainAgents
     :members:
     :undoc-members:
     :show-inheritance:

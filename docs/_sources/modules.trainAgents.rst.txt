@@ -1,0 +1,22 @@
+modules.trainAgents package
+===========================
+
+Submodules
+----------
+
+modules.trainAgents.trainAgents module
+--------------------------------------
+
+.. automodule:: modules.trainAgents.trainAgents
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: modules.trainAgents
+    :members:
+    :undoc-members:
+    :show-inheritance:
