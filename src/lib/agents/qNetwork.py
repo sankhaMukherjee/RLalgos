@@ -14,20 +14,27 @@ class qNetworkDiscrete(nn.Module):
         This takes a state and returns a Q function for each action. Hence, the
         input is a state and the output is a set of Q values, one for each action
         in the action space. The action is assumed to be discrete. i.e. a ``1``
-        when the particular action is to be desired.
+        when the particular action is to be desired. The input state is assumed to
+        be 1D in nature. A different network will have to be chosen if 2D and 3D 
+        inputs are to be desired.
         
         Parameters
         ----------
-        stateSize : {[type]}
-            [description]
-        actionSize : {[type]}
-            [description]
-        layers : {list}, optional
-            [description] (the default is [10, 5], which [default_description])
-        activations : {list}, optional
-            [description] (the default is [F.tanh, F.tanh], which [default_description])
+        stateSize : {int}
+            Size of the state. Since this is a 1D network, this represents the number
+            of values will be used to represent the current state. 
+        actionSize : {int}
+            The number of discrete actions that will be used.
+        layers : {list of int}, optional
+            The number of nodes associated with each layer (the default is ``[10, 5]``
+            , which will create two hidden layers with and and 5 nodes each)
+        activations : {list of activations}, optional
+            The activation functions to be used for each layer (the default is 
+            ``[F.tanh, F.tanh]``, which will generate tanh activations for 
+            each of the hidden layers)
         batchNormalization : {bool}, optional
-            [description] (the default is True, which [default_description])
+            Whether batchnormalization is to be used (the default is ``False``,
+            for which batch normalization will be neglected)
         '''
 
 
@@ -56,7 +63,7 @@ class qNetworkDiscrete(nn.Module):
 
             # ------------------------------------------------------
             # The final layer will only need to supply a quality
-            # function. This is a single value for an action 
+            # function. This is a single value for each action 
             # provided. Ideally, you would want to provide a 
             # OHE action sequence for most purposes ...
             # ------------------------------------------------------
@@ -85,7 +92,7 @@ class qNetworkDiscrete(nn.Module):
         
         Parameters
         ----------
-        x : {tensor}
+        x : Tensor
             This is a 2D tensor. 
         
         Returns
@@ -131,16 +138,21 @@ class qNetworkDiscrete(nn.Module):
         return x
 
     def step(self, v1, v2):
-        '''[summary]
+        '''Uses the optimizer to update the weights
         
-        [description]
+        This calculates the MSE loss given two inputs,
+        one of which must be calculated with this current
+        ``nn.Module``, and the other one that is expected.
+        
+        Note that this allows arbitrary functions to be used
+        for calculating the loss.
         
         Parameters
         ----------
-        v1 : {[type]}
-            [description]
-        v2 : {[type]}
-            [description]
+        v1 : {Tensor}
+            Tensor for calculating the loss function
+        v2 : {Tensor}
+            Tensor for calculating the loss function
         
         Raises
         ------
